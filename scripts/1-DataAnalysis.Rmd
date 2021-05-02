@@ -1,0 +1,45 @@
+---
+title: "1-DataAnalysis"
+author: "Arlie McCarthy"
+date: "02/05/2021"
+output: html_document
+---
+# Code Setup and Data Import
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vegan)
+library(tidyverse)
+library(readr)
+```
+
+I have one data file with the count data from lab processing. The file needs some wrangling to calculate a density (counts per cm2) for each quadrat sampled.
+
+```{r}
+taxon_count_data <- read_csv("data/taxon_count_data_internal_pipework.csv")
+taxon_density <- taxon_count_data %>% 
+  group_by(sample_id, taxon, taxon_grouping_qualifier) %>% 
+  mutate(density = count*multiply_by/divide_by/area_sampled*100) %>% #counts per m2
+  summarise(avg_density = mean(density))
+```
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
