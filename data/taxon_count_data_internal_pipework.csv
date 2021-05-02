@@ -1,0 +1,759 @@
+﻿sample_id,taxon,taxon_grouping_qualifier,description,sub_sample,count,multiply_by,divide_by,quadrat_grids_number,quadrad_mesh_size_cm2,area_sampled,density,sub_sample_type,sub_sample_number,sample_number,area,stage,quadrat_number
+A17_#_Q1,,,,,,1,1,24,6.25,150,,,,,17,4,1
+A17_#_Q2,,,,,,1,1,18,6.25,112.5,,,,,17,4,2
+A18_#50_Q1,c.f. Jassa,,c.f. Jassa,,37,1,1,19,6.25,118.75,,,,50,18,4,1
+A18_#51_Q2,c.f. Jassa,,c.f. Jassa,,230,1,1,18,6.25,112.5,,,,51,18,4,2
+A19_#52_Q1,encrusting bryozoan,fragment, Tube Bryozoan Fragment,,1,1,1,32,6.25,200,,,,52,19,2,1
+A19_#52_Q1,white tufted bryozoan,colony, White Tufted Bryozoan Colonies,,4,1,1,32,6.25,200,,,,52,19,2,1
+A19_#52_Q1,mussel,>2.5mm, Mussels (>2.5mm),,4,1,1,32,6.25,200,,,,52,19,2,1
+A19_#52_Q1,c.f. Jassa,, Loose Sub-sample #1 cf Jassa,loose_1,83,37,5,32,6.25,200,,loose,1,52,19,2,1
+A19_#52_Q1,mussel,, Loose Sub-sample #1 Mussels,loose_1,2,37,5,32,6.25,200,,loose,1,52,19,2,1
+A19_#52_Q1,c.f. Jassa,, Loose Sub-sample #2 cf Jassa,loose_2,80,37,5,32,6.25,200,,loose,2,52,19,2,1
+A19_#52_Q1,mussel,, Loose Sub-sample #2 Mussels,loose_2,3,37,5,32,6.25,200,,loose,2,52,19,2,1
+A19_#52_Q1,c.f. Jassa,, Loose Sub-sample #3 cf Jassa,,101,37,5,32,6.25,200,,loose,3,52,19,2,1
+A19_#52_Q1,mussel,, Loose Sub-sample #3 Mussels,,2,37,5,32,6.25,200,,loose,3,52,19,2,1
+A19_#52_Q1,c.f. Jassa,, Loose Sub-sample #4 cf Jassa,,92,37,5,32,6.25,200,,loose,4,52,19,2,1
+A19_#52_Q1,mussel,, Loose Sub-sample #4 Mussels,,3,37,5,32,6.25,200,,loose,4,52,19,2,1
+A19_#52_Q1,red-eye amphipod,, Sub-sample #4 Red-eye Amphipod,,1,37,5,32,6.25,200,,loose,4,52,19,2,1
+A19_#52_Q1,c.f. Jassa,, Loose Sub-sample #5 cf Jassa,,69,37,5,32,6.25,200,,loose,5,52,19,2,1
+A19_#52_Q1,mussel,, Loose Sub-sample #5 Mussels,,1,37,5,32,6.25,200,,loose,5,52,19,2,1
+A19_#52_Q1,c.f. Jassa,, Mat Sub-sample #1 cf Jassa,,36,12,4,32,6.25,200,,mat,1,52,19,2,1
+A19_#52_Q1,clam,, Mat Sub-sample #1 Other Bivalves (clam),,1,12,4,32,6.25,200,,mat,1,52,19,2,1
+A19_#52_Q1,c.f. Corophium,, Mat Sub-sample #1 cf Corophium,,1,12,4,32,6.25,200,,mat,1,52,19,2,1
+A19_#52_Q1,pycnogonid,, Mat Sub-sample #1 Egg /jelly/fragment,,1,12,4,32,6.25,200,,mat,1,52,19,2,1
+A19_#52_Q1,c.f. Jassa,, Mat Sub-sample #2 cf Jassa,,19,12,4,32,6.25,200,,mat,2,52,19,2,1
+A19_#52_Q1,mussel,, Mat Sub-sample #2 Mussels,,2,12,4,32,6.25,200,,mat,2,52,19,2,1
+A19_#52_Q1,clam,, Mat Sub-sample #2 Clam,,1,12,4,32,6.25,200,,mat,2,52,19,2,1
+A19_#52_Q1,c.f. Jassa,, Mat Sub-sample #3 cf Jassa,,48,12,4,32,6.25,200,,mat,3,52,19,2,1
+A19_#52_Q1,mussel,, Mat Sub-sample #3 Mussels,,5,12,4,32,6.25,200,,mat,3,52,19,2,1
+A19_#52_Q1,clam,, Mat Sub-sample #3 Clam,,1,12,4,32,6.25,200,,mat,3,52,19,2,1
+A19_#52_Q1,pycnogonid,, Mat Sub-sample #3 Pycnogonid,,1,12,4,32,6.25,200,,mat,3,52,19,2,1
+A19_#52_Q1,c.f. Jassa,, Mat Sub-sample #4 cf Jassa,,28,12,4,32,6.25,200,,mat,4,52,19,2,1
+A19_#52_Q1,mussel,, Mat Sub-sample #4 Mussels,,1,12,4,32,6.25,200,,mat,4,52,19,2,1
+A19_#52_Q1,clam,, Mat Sub-sample #4 Clams,,2,12,4,32,6.25,200,,mat,4,52,19,2,1
+A19_#53_Q2,mussel,>5mm, Mussels >5mm,,1,1,1,32,6.25,200,,,,53,19,2,2
+A19_#53_Q2,white tufted bryozoan,colony, Small White Bryozoan Tufts/colonies,,2,1,1,32,6.25,200,,,,53,19,2,2
+A19_#53_Q2,pycnogonid,, Pycnogonid,,1,1,1,32,6.25,200,,,,53,19,2,2
+A19_#53_Q2,clam,, Clams,,1,1,1,32,6.25,200,,,,53,19,2,2
+A19_#53_Q2,c.f. Jassa,, Loose Sub-sample #1 cf Jassa,,65,37,5,32,6.25,200,,loose,1,53,19,2,2
+A19_#53_Q2,c.f. Jassa,, Loose Sub-sample #2 cf Jassa,,68,37,5,32,6.25,200,,loose,2,53,19,2,2
+A19_#53_Q2,c.f. Jassa,, Loose Sub-sample #3 cf Jassa,,76,37,5,32,6.25,200,,loose,3,53,19,2,2
+A19_#53_Q2,c.f. Jassa,, Loose Sub-sample #4 cf Jassa,,119,37,5,32,6.25,200,,loose,4,53,19,2,2
+A19_#53_Q2,mussel,, Loose Sub-sample #4 Mussels,,3,37,5,32,6.25,200,,loose,4,53,19,2,2
+A19_#53_Q2,c.f. Jassa,, Loose Sub-sample #5 cf Jassa,,125,37,5,32,6.25,200,,loose,5,53,19,2,2
+A19_#53_Q2,mussel,, Loose Sub-sample #5 Mussels,,1,37,5,32,6.25,200,,loose,5,53,19,2,2
+A19_#53_Q2,clam,, Loose Sub-sample #5 Clams,,1,37,5,32,6.25,200,,loose,5,53,19,2,2
+A19_#53_Q2,c.f. Jassa,, Mat Sub-sample #1 cf Jassa,,44,20,4,32,6.25,200,,mat,1,53,19,2,2
+A19_#53_Q2,mussel,, Mat Sub-sample #1 Mussel,,1,20,4,32,6.25,200,,mat,1,53,19,2,2
+A19_#53_Q2,c.f. Jassa,, Mat Sub-sample #2 cf Jassa,,32,20,4,32,6.25,200,,mat,2,53,19,2,2
+A19_#53_Q2,mussel,, Mat Sub-sample #2 Mussels,,5,20,4,32,6.25,200,,mat,2,53,19,2,2
+A19_#53_Q2,c.f. Jassa,, Mat Sub-sample #3 cf Jassa,,69,20,4,32,6.25,200,,mat,3,53,19,2,2
+A19_#53_Q2,mussel,, Mat Sub-sample #3 Mussel,,1,20,4,32,6.25,200,,mat,3,53,19,2,2
+A19_#53_Q2,c.f. Jassa,, Mat Sub-sample #4 cf Jassa,,64,20,4,32,6.25,200,,mat,4,53,19,2,2
+A19_#53_Q2,mussel,, Mat Sub-sample #4 Mussel,,2,20,4,32,6.25,200,,mat,4,53,19,2,2
+A19_#53_Q2,white tufted bryozoan,fragment, Mat Sub-sample #4 White Bryo Fragment,,1,20,4,32,6.25,200,,mat,4,53,19,2,2
+A19_#54_Q3,mussel,>5mm, Mussels Large (>5mm),,2,1,1,32,6.25,200,,,,54,19,2,3
+A19_#54_Q3,white tufted bryozoan,colony, White Bryozoan Colonies,,2,1,1,32,6.25,200,,,,54,19,2,3
+A19_#54_Q3,c.f. Jassa,, Loose #1 cf Jassa,,104,37,5,32,6.25,200,,loose,1,54,19,2,3
+A19_#54_Q3,mussel,, Loose #1 Mussels,,4,37,5,32,6.25,200,,loose,1,54,19,2,3
+A19_#54_Q3,c.f. Jassa,, Loose #2 cf Jassa,,75,37,5,32,6.25,200,,loose,2,54,19,2,3
+A19_#54_Q3,mussel,, Loose #2 Mussels,,1,37,5,32,6.25,200,,loose,2,54,19,2,3
+A19_#54_Q3,c.f. Jassa,, Loose #3 cf Jassa,,62,37,5,32,6.25,200,,loose,3,54,19,2,3
+A19_#54_Q3,c.f. Jassa,, Loose #4 cf Jassa,,91,37,5,32,6.25,200,,loose,4,54,19,2,3
+A19_#54_Q3,mussel,, Loose #4 Mussel,,1,37,5,32,6.25,200,,loose,4,54,19,2,3
+A19_#54_Q3,c.f. Jassa,, Loose #5 cf Jassa,,93,37,5,32,6.25,200,,loose,5,54,19,2,3
+A19_#54_Q3,mussel,, Loose #5 Mussel,,1,37,5,32,6.25,200,,loose,5,54,19,2,3
+A19_#54_Q3,c.f. Jassa,, Mat #1 cf Jassa,,49,25,5,32,6.25,200,,mat,1,54,19,2,3
+A19_#54_Q3,mussel,, Mat #1 Mussels,,3,25,5,32,6.25,200,,mat,1,54,19,2,3
+A19_#54_Q3,c.f. Jassa,, Mat #2 cf Jassa,,92,25,5,32,6.25,200,,mat,2,54,19,2,3
+A19_#54_Q3,mussel,, Mat #2 Mussels,,3,25,5,32,6.25,200,,mat,2,54,19,2,3
+A19_#54_Q3,c.f. Corophium,, Mat #2 cf Corophium,,1,25,5,32,6.25,200,,mat,2,54,19,2,3
+A19_#54_Q3,c.f. Jassa,, Mat #4 cf Jassa,,116,25,5,32,6.25,200,,mat,4,54,19,2,3
+A19_#54_Q3,mussel,, Mat #4 Mussels,,2,25,5,32,6.25,200,,mat,4,54,19,2,3
+A19_#54_Q3,c.f. Jassa,, Mat #3 cf Jassa,,89,25,5,32,6.25,200,,mat,3,54,19,2,3
+A19_#54_Q3,mussel,, Mat #3 Mussels,,3,25,5,32,6.25,200,,mat,3,54,19,2,3
+A19_#54_Q3,white tufted bryozoan,fragment, Mat #3 White Bryo Fragment,,1,25,5,32,6.25,200,,mat,3,54,19,2,3
+A19_#54_Q3,c.f. Jassa,, Mat #5 cf Jassa,,47,25,5,32,6.25,200,,mat,5,54,19,2,3
+A19_#54_Q3,mussel,, Mat #5 mussels,,6,25,5,32,6.25,200,,mat,5,54,19,2,3
+A19_#55_Q4,mussel,, Mussels (>= 5m),,6,1,1,32,6.25,200,,,,55,19,2,4
+A19_#55_Q4,encrusting bryozoan,colony, Tube Bryozoan Fragments,,2,1,1,32,6.25,200,,,,55,19,2,4
+A19_#55_Q4,white tufted bryozoan,, White Tufted Bryozoan Colonies,,6,1,1,32,6.25,200,,,,55,19,2,4
+A19_#55_Q4,acorn barnacle,, Barnacle,,1,1,1,32,6.25,200,,,,55,19,2,4
+A19_#55_Q4,c.f. Jassa,, Loose #1 cf Jassa,,72,37,5,32,6.25,200,,loose,1,55,19,2,4
+A19_#55_Q4,mussel,, Loose #1 Mussel,,1,37,5,32,6.25,200,,loose,1,55,19,2,4
+A19_#55_Q4,c.f. Jassa,, Loose #2 cf Jassa,,56,37,5,32,6.25,200,,loose,2,55,19,2,4
+A19_#55_Q4,gastropod,, Loose#2 Gastropod,,1,37,5,32,6.25,200,,loose,2,55,19,2,4
+A19_#55_Q4,white tufted bryozoan,fragment, Loose #2 White Bryo Fragment,,1,37,5,32,6.25,200,,loose,2,55,19,2,4
+A19_#55_Q4,c.f. Jassa,, Loose #3 cf Jassa,,106,37,5,32,6.25,200,,loose,3,55,19,2,4
+A19_#55_Q4,c.f. Jassa,, Loose #4 cf Jassa,,84,37,5,32,6.25,200,,loose,4,55,19,2,4
+A19_#55_Q4,encrusting bryozoan,fragment, Loose #4 Tube Bryo Fragment,,1,37,5,32,6.25,200,,loose,4,55,19,2,4
+A19_#55_Q4,mussel,, Loose #4 Mussels,,1,37,5,32,6.25,200,,loose,4,55,19,2,4
+A19_#55_Q4,c.f. Jassa,, Loose #5 cf Jassa,,76,37,5,32,6.25,200,,loose,5,55,19,2,4
+A19_#55_Q4,gastropod,, Loose #5 Gastropod,,1,37,5,32,6.25,200,,loose,5,55,19,2,4
+A19_#55_Q4,c.f. Jassa,, Mat #1 cf Jassa,,15,20,4,32,6.25,200,,mat,1,55,19,2,4
+A19_#55_Q4,white tufted bryozoan,, Mat #1 White Tufted Bryo Fragment,,1,20,4,32,6.25,200,,mat,1,55,19,2,4
+A19_#55_Q4,mussel,, Mat #1 Mussels,,5,20,4,32,6.25,200,,mat,1,55,19,2,4
+A19_#55_Q4,colonial tunicate,, Mat #1 Red Splotchy Tissue Fragment,,1,20,4,32,6.25,200,,mat,1,55,19,2,4
+A19_#55_Q4,c.f. Jassa,, Mat #2 cf Jassa,,25,20,4,32,6.25,200,,mat,2,55,19,2,4
+A19_#55_Q4,mussel,, Mat #2 Mussels,,1,20,4,32,6.25,200,,mat,2,55,19,2,4
+A19_#55_Q4,clam,, Mat #2 Other Bivalves/clam,,2,20,4,32,6.25,200,,mat,2,55,19,2,4
+A19_#55_Q4,c.f. Jassa,, Mat #3 cf Jassa,,21,20,4,32,6.25,200,,mat,3,55,19,2,4
+A19_#55_Q4,mussel,, Mat #3 Mussels,,2,20,4,32,6.25,200,,mat,3,55,19,2,4
+A19_#55_Q4,clam,, Mat #3 Clams,,3,20,4,32,6.25,200,,mat,3,55,19,2,4
+A19_#55_Q4,c.f. Jassa,, Mat #4 cf Jassa,,28,20,4,32,6.25,200,,mat,4,55,19,2,4
+A19_#55_Q4,c.f. Corophium,, Mat #4 cf Corophium,,1,20,4,32,6.25,200,,mat,4,55,19,2,4
+A19_#55_Q4,colonial tunicate,, Mat #4 Tunicate Colony?/red Tissue,,1,20,4,32,6.25,200,,mat,4,55,19,2,4
+A19_#55_Q4,mussel,, Mat #4 Mussels,,2,20,4,32,6.25,200,,mat,4,55,19,2,4
+A19_#55_Q4,crab,, Large Crab ,,1,1,1,32,6.25,200,,,,55,19,2,4
+A20_#57_Q1,acorn barnacle,, Barnacles (acorn),,1,1,1,32,6.25,200,,,,57,20,3,1
+A20_#57_Q1,mussel,valves intact, Mussels (both Valves Intact),,6,1,1,32,6.25,200,,,,57,20,3,1
+A20_#57_Q1,encrusting bryozoan,fragment, Encrusting Bryozoan On Shell,,5,1,1,32,6.25,200,,,,57,20,3,1
+A20_#57_Q1,c.f. Jassa,, cf Jassa,,1,1,1,32,6.25,200,,,,57,20,3,1
+A20_#58_Q2,mussel,valves intact, Mussels (shells Intact),,4,1,1,32,6.25,200,,,,58,20,3,2
+A20_#58_Q2,other bivalve,, Other Bivalves (also Not Clam),,1,1,1,32,6.25,200,,,,58,20,3,2
+A20_#58_Q2,acorn barnacle,, Barnacle (acorn),,1,1,1,32,6.25,200,,,,58,20,3,2
+A20_#59_Q3,mussel,large, Mussels,,1,1,1,32,6.25,200,,,,59,20,3,3
+A20_#59_Q3,mussel,, Subsample #1 Mussels,,22,37,5,32,6.25,200,,loose,1,59,20,3,3
+A20_#59_Q3,mussel,, Subsample #2 Mussels,,10,37,5,32,6.25,200,,loose,2,59,20,3,3
+A20_#59_Q3,c.f. Jassa,, Subsample #2 cf Jassa,,1,37,5,32,6.25,200,,loose,2,59,20,3,3
+A20_#59_Q3,mussel,, Subsample #3 Mussels ,,56,37,5,32,6.25,200,,loose,3,59,20,3,3
+A20_#59_Q3,mussel,, Subsample #4 Mussels,,0,37,5,32,6.25,200,,loose,4,59,20,3,3
+A20_#59_Q3,mussel,, Subsample #5 Mussels,,72,37,5,32,6.25,200,,loose,5,59,20,3,3
+A20_#60_Q4,mussel,, Sub-sample #1 Mussls,,61,37,5,32,6.25,200,,loose,1,60,20,3,4
+A20_#60_Q4,mussel,, Sub-sample #2 Mussels,,38,37,5,32,6.25,200,,loose,2,60,20,3,4
+A20_#60_Q4,mussel,, Sub-sample #3 Mussels,,84,37,5,32,6.25,200,,loose,3,60,20,3,4
+A20_#60_Q4,mussel,, Sub-sample #4 Mussels,,62,37,5,32,6.25,200,,loose,4,60,20,3,4
+A20_#60_Q4,mussel,, Sub-sample #5 Mussels,,108,37,5,32,6.25,200,,loose,5,60,20,3,4
+A20_#60_Q4,gastropod,, Sub-sample #5 Gastropods,,2,37,5,32,6.25,200,,loose,5,60,20,3,4
+A20_#60_Q4,encrusting bryozoan,fragment, Hydroid Sorting Bryozoan Tube Fragment,,1,1,1,32,6.25,200,,,,60,20,3,4
+A20_#60_Q4,mussel,, Hydroid Sorting Mussels,,10,1,1,32,6.25,200,,,,60,20,3,4
+A21_#61_Q1,encrusting bryozoan,fragment, Tube Bryozoan Fragments ,,1,1,1,32,6.25,200,,,,61,21,3,1
+A21_#61_Q1,mussel,valves intact, Mussels (intact),,4,1,1,32,6.25,200,,,,61,21,3,1
+A21_#62_Q2,white tufted bryozoan,fragment, White Bryozoan Fragment,,2,1,1,32,6.25,200,,,,62,21,3,2
+A21_#62_Q2,mussel,, Mussels,,9,1,1,32,6.25,200,,,,62,21,3,2
+A21_#62_Q2,encrusting bryozoan,fragment, Bryozoan Tube Fragment,,1,1,1,32,6.25,200,,,,62,21,3,2
+A21_#62_Q2,polychaete tube,fragment, Polychaete Tube Fragment,,1,1,1,32,6.25,200,,,,62,21,3,2
+A22_#63_Q1,white tufted bryozoan,colony,  White Tufted Bryozoan ,,1,1,1,32,6.25,200,,,,63,22,3,1
+A22_#63_Q1,mussel,, Mussels ,,3,1,1,32,6.25,200,,,,63,22,3,1
+A22_#63_Q1,gastropod,, Gastropods,,1,1,1,32,6.25,200,,,,63,22,3,1
+A22_#63_Q1,c.f. Jassa,, Loose Sub-sample #1 cf Jassa,,13,37,5,32,6.25,200,,loose,1,63,22,3,1
+A22_#63_Q1,crustacean larvae,, Loose Sub-Sample #1 Crustacean Larvae,,1,37,5,32,6.25,200,,loose,1,63,22,3,1
+A22_#63_Q1,c.f. Jassa,, Loose Sub-sample #2 cf Jassa,,21,37,5,32,6.25,200,,loose,2,63,22,3,1
+A22_#63_Q1,white tufted bryozoan,fragment, Loose Sub-sample #2 White Bryo Fragment,,1,37,5,32,6.25,200,,loose,2,63,22,3,1
+A22_#63_Q1,c.f. Jassa,, Loose Sub-sample #3 cf Jassa,,30,37,5,32,6.25,200,,loose,3,63,22,3,1
+A22_#63_Q1,mussel,, Sub-sample #3 Mussels,,1,37,5,32,6.25,200,,loose,3,63,22,3,1
+A22_#63_Q1,c.f. Jassa,, Loose Sub-sample #4 cf Jassa,,11,37,5,32,6.25,200,,loose,4,63,22,3,1
+A22_#63_Q1,mussel,, Loose Sub-sample #4 Mussels,,1,37,5,32,6.25,200,,loose,4,63,22,3,1
+A22_#63_Q1,c.f. Jassa,, Loose Sub-sample #5 cf Jassa,,23,37,5,32,6.25,200,,loose,5,63,22,3,1
+A22_#63_Q1,c.f. Jassa,, Mat Sub-sample #1 cf Jassa,,13,18,5,32,6.25,200,,mat,1,63,22,3,1
+A22_#63_Q1,c.f. Jassa,, Mat Sub-sample #2 cf Jassa,,5,18,5,32,6.25,200,,mat,2,63,22,3,1
+A22_#63_Q1,c.f. Jassa,, Mat Sub-sample #3 cf Jassa,,5,18,5,32,6.25,200,,mat,3,63,22,3,1
+A22_#63_Q1,c.f. Jassa,, Mat Sub-sample #4 cf Jassa,,9,18,5,32,6.25,200,,mat,4,63,22,3,1
+A22_#63_Q1,c.f. Jassa,, Mat Sub-sample #5 cf Jassa,,9,18,5,32,6.25,200,,mat,5,63,22,3,1
+A22_#63_Q1,other bivalves,, Mat Sub-sample #5 Other Bivalves,,1,18,5,32,6.25,200,,mat,5,63,22,3,1
+A22_#64_Q2,insect,, Insect (beetle?),,1,1,1,32,6.25,200,,,,64,22,3,2
+A22_#64_Q2,c.f. Jassa,, Loose Sub-sample #1 cf Jassa,,30,37,5,32,6.25,200,,loose,1,64,22,3,2
+A22_#64_Q2,gastropod,, Loose Sub-sample #1 Gastropods ,,1,37,5,32,6.25,200,,loose,1,64,22,3,2
+A22_#64_Q2,c.f. Jassa,, Loose Sub-sample #2 cf Jassa,,25,37,5,32,6.25,200,,loose,2,64,22,3,2
+A22_#64_Q2,c.f. Jassa,, Loose Sub-sample #3 cf Jassa,,21,37,5,32,6.25,200,,loose,3,64,22,3,2
+A22_#64_Q2,mussel,, Loose Sub-sample #3 mussels,,1,37,5,32,6.25,200,,loose,3,64,22,3,2
+A22_#64_Q2,white tufted bryozoan,fragment, Loose Sub -sample #3 White Bryozoan,,1,37,5,32,6.25,200,,loose,3,64,22,3,2
+A22_#64_Q2,c.f. Jassa,, Loose Sub-sample #4 cf Jassa,,22,37,5,32,6.25,200,,loose,4,64,22,3,2
+A22_#64_Q2,red-eye amphipod,, Loose Sub-sample #4 Red-eye Amphipod,,1,37,5,32,6.25,200,,loose,4,64,22,3,2
+A22_#64_Q2,c.f. Jassa,, Loose Sub-sample #5 cf Jassa,,9,37,5,32,6.25,200,,loose,5,64,22,3,2
+A22_#64_Q2,white tufted bryozoan,colony, White Bryozoan Tuft/colony,,1,1,1,32,6.25,200,,,,64,22,3,2
+A22_#64_Q2,c.f. Jassa,, Mat Sub-sample #1 cf Jassa,,19,16,4,32,6.25,200,,mat,1,64,22,3,2
+A22_#64_Q2,red-eye amphipod,, Mat Sub-sample #1 Red-eye Amphipod,,1,16,4,32,6.25,200,,mat,1,64,22,3,2
+A22_#64_Q2,c.f. Jassa,, Mat Sub-sample #2 cf Jassa,,10,16,4,32,6.25,200,,mat,2,64,22,3,2
+A22_#64_Q2,mussel,, Mat Sub-sample #2 Mussel,,1,16,4,32,6.25,200,,mat,2,64,22,3,2
+A22_#64_Q2,c.f. Jassa,, Mat Sub-sample #3 cf Jassa,,15,16,4,32,6.25,200,,mat,3,64,22,3,2
+A22_#64_Q2,c.f. Jassa,, Mat Sub-sample #4 cf Jassa,,11,16,4,32,6.25,200,,mat,4,64,22,3,2
+A22_#64_Q2,other bivalves,, Mat Sub-sample #4 Other Bivalve,,1,16,4,32,6.25,200,,mat,4,64,22,3,2
+A23_#65_Q1,mussel,0.3-3cm with tissue, Mussels 0.5-3cm With Tissue,,10,1,1,32,6.25,200,,,,65,23,2,1
+A23_#65_Q1,acorn barnacle,, Acorn Barnacles,,27,1,1,32,6.25,200,,,,65,23,2,1
+A23_#65_Q1,white tufted bryozoan,colony, White Tufted Bryozoan Colonies,,1,1,1,32,6.25,200,,,,65,23,2,1
+A23_#65_Q1,juvenile barnacle,, Juvenile Barnacle,,6,1,1,32,6.25,200,,,,65,23,2,1
+A23_#65_Q1,encrusting bryozoan,, White Encrusting Bryozoan,,7,1,1,32,6.25,200,,,,65,23,2,1
+A23_#65_Q1,c.f. Jassa,, Loose #1 Jassa,,66,37,5,32,6.25,200,,loose,1,65,23,2,1
+A23_#65_Q1,mussel,, Loose #1 Mussels,,8,37,5,32,6.25,200,,loose,1,65,23,2,1
+A23_#65_Q1,clam,, Loose #1 Clams,,2,37,5,32,6.25,200,,loose,1,65,23,2,1
+A23_#65_Q1,juvenile barnacle,, Loose #1 Gastropod,,1,37,5,32,6.25,200,,loose,1,65,23,2,1
+A23_#65_Q1,c.f. Jassa,, Loose #1 Juvenile Barnacle,,2,37,5,32,6.25,200,,loose,1,65,23,2,1
+A23_#65_Q1,mussel,, Loose #2 Jassa,,92,37,5,32,6.25,200,,loose,2,65,23,2,1
+A23_#65_Q1,mussel,, Loose #2 Mussels,,12,37,5,32,6.25,200,,loose,2,65,23,2,1
+A23_#65_Q1,purple amphipod,, Loose #2 Purple Amphipod,,1,37,5,32,6.25,200,,loose,2,65,23,2,1
+A23_#65_Q1,clam,, Loose #2 Clams,,4,37,5,32,6.25,200,,loose,2,65,23,2,1
+A23_#65_Q1,white tufted bryozoan,fragment, White Tufted Bryo Fragment,,1,1,1,32,6.25,200,,,,65,23,2,1
+A23_#65_Q1,c.f. Jassa,, Loose #3 Jassa,,67,37,5,32,6.25,200,,loose,3,65,23,2,1
+A23_#65_Q1,mussel,, Loose #3 Mussels,,30,37,5,32,6.25,200,,loose,3,65,23,2,1
+A23_#65_Q1,clam,, Loose #3 Clams,,12,37,5,32,6.25,200,,loose,3,65,23,2,1
+A23_#65_Q1,gastropod,, Loose #3 Gastropod,,0,37,5,32,6.25,200,,loose,3,65,23,2,1
+A23_#65_Q1,acorn barnacle,, Loose #3 Barnacle,,0,37,5,32,6.25,200,,loose,3,65,23,2,1
+A23_#65_Q1,c.f. Jassa,, Loose #4 Jassa,,48,37,5,32,6.25,200,,loose,4,65,23,2,1
+A23_#65_Q1,mussel,, Loose #4 Mussels,,14,37,5,32,6.25,200,,loose,4,65,23,2,1
+A23_#65_Q1,clam,, Loose #4 Clams,,4,37,5,32,6.25,200,,loose,4,65,23,2,1
+A23_#65_Q1,c.f. Corophium,, Loose #3 Corophium,,1,37,5,32,6.25,200,,loose,3,65,23,2,1
+A23_#65_Q1,c.f. Corophium,, Loose #4 Corophium,,1,37,5,32,6.25,200,,loose,4,65,23,2,1
+A23_#65_Q1,c.f. Jassa,, Loose #5 Jassa,,58,37,5,32,6.25,200,,loose,5,65,23,2,1
+A23_#65_Q1,mussel,, Loose #5 Mussels,,8,37,5,32,6.25,200,,loose,5,65,23,2,1
+A23_#65_Q1,clam,, Loose #5 Clams,,9,37,5,32,6.25,200,,loose,5,65,23,2,1
+A23_#65_Q1,acorn barnacle,, Loose #5 Barnacles,,1,37,5,32,6.25,200,,loose,5,65,23,2,1
+A23_#65_Q1,gastropod,, Loose #5 Gastropod,,2,37,5,32,6.25,200,,loose,5,65,23,2,1
+A23_#66_Q2,mussel,valves intact, Large Mussels (intact Valves),,4,1,1,32,6.25,200,,,,66,23,2,2
+A23_#66_Q2,acorn barnacle,, Barnacles,,3,1,1,32,6.25,200,,,,66,23,2,2
+A23_#66_Q2,juvenile barnacle,, Juvenile Barnacle,,1,1,1,32,6.25,200,,,,66,23,2,2
+A23_#66_Q2,white tufted bryozoan,colony, White Tufted Bryozoan Colonies,,2,1,1,32,6.25,200,,,,66,23,2,2
+A23_#66_Q2,encrusting bryozoan,colony, Encrusting White Bryozoan Colonies,,3,1,1,32,6.25,200,,,,66,23,2,2
+A23_#66_Q2,caprellid,, Loose #1 Caprellid,,1,37,5,32,6.25,200,,loose,1,66,23,2,2
+A23_#66_Q2,c.f. Jassa,, Loose #1 Jassa,,25,37,5,32,6.25,200,,loose,1,66,23,2,2
+A23_#66_Q2,gastropod,, Loose #1 Gastropod,,1,37,5,32,6.25,200,,loose,1,66,23,2,2
+A23_#66_Q2,mussel,, Loose #1 Mussels,,2,37,5,32,6.25,200,,loose,1,66,23,2,2
+A23_#66_Q2,mussel,, Loose #2 Mussels,,6,37,5,32,6.25,200,,loose,2,66,23,2,2
+A23_#66_Q2,c.f. Jassa,, Loose #2 Jassa,,27,37,5,32,6.25,200,,loose,2,66,23,2,2
+A23_#66_Q2,gastropod,, Loose#2 Gastropod,,1,37,5,32,6.25,200,,loose,2,66,23,2,2
+A23_#66_Q2,other bivalve,, Loose #2 Other Bivalve (clam)?,,1,37,5,32,6.25,200,,loose,2,66,23,2,2
+A23_#66_Q2,c.f. Jassa,, Loose #3 Jassa,,37,37,5,32,6.25,200,,loose,3,66,23,2,2
+A23_#66_Q2,mussel,, Loose #3 Mussels,,4,37,5,32,6.25,200,,loose,3,66,23,2,2
+A23_#66_Q2,c.f. Jassa,, Loose #4 Jassa,,11,37,5,32,6.25,200,,loose,4,66,23,2,2
+A23_#66_Q2,mussel,, Loose #4 Mussels,,4,37,5,32,6.25,200,,loose,4,66,23,2,2
+A23_#66_Q2,c.f. Jassa,, Loose #5 Jassa,,29,37,5,32,6.25,200,,loose,5,66,23,2,2
+A23_#66_Q2,mussel,, Loose #5 Mussels,,2,37,5,32,6.25,200,,loose,5,66,23,2,2
+A23_#67_Q3,caprellid,, Caprellids,,17,1,1,32,6.25,200,,,,67,23,2,3
+A23_#67_Q3,crab,, Crab,,1,1,1,32,6.25,200,,,,67,23,2,3
+A23_#67_Q3,mussel,>0.3cm with tissue, Medium Mussels (0.3+cm),,25,1,1,32,6.25,200,,,,67,23,2,3
+A23_#67_Q3,clam,>0.2cm, Medium Clams (>0.2cm),,15,1,1,32,6.25,200,,,,67,23,2,3
+A23_#67_Q3,juvenile crab,, Juvenile Crab,,1,1,1,32,6.25,200,,,,67,23,2,3
+A23_#67_Q3,acorn barnacle,intact, Barnacle (intact),,18,1,1,32,6.25,200,,,,67,23,2,3
+A23_#67_Q3,juvenile barnacle,, Juvenile Barnacle,,17,1,1,32,6.25,200,,,,67,23,2,3
+A23_#67_Q3,nemertea,, Nemertea,,1,1,1,32,6.25,200,,,,67,23,2,3
+A23_#67_Q3,c.f. Corophium,, cf Corophium,,7,1,1,32,6.25,200,,,,67,23,2,3
+A23_#67_Q3,polychaete,, Polychaetes,,1,1,1,32,6.25,200,,,,67,23,2,3
+A23_#67_Q3,tiny sponges?,, Tiny Sponges?,,20,1,1,32,6.25,200,,,,67,23,2,3
+A23_#67_Q3,mussel,"valves intact, no tissue", Intact Mussels (no Tissue),,22,1,1,32,6.25,200,,,,67,23,2,3
+A23_#67_Q3,tunicate,, Tunicates,,9,1,1,32,6.25,200,,,,67,23,2,3
+A23_#67_Q3,encrusting bryozoan,colony, Encrusting Bryozoan Colonies,,5,1,1,32,6.25,200,,,,67,23,2,3
+A23_#67_Q3,white tufted bryozoan,colony, White Tufted Bryozoan Colonies,,23,1,1,32,6.25,200,,,,67,23,2,3
+A23_#67_Q3,anemone,tiny, Anemones (tiny),,6,1,1,32,6.25,200,,,,67,23,2,3
+A23_#67_Q3,mystery tunicates? large anemone?,, Mystery Tunicates? Large Anemone?,,1,1,1,32,6.25,200,,,,67,23,2,3
+A23_#67_Q3,pycnogonid,, Pycnogonid,,1,1,1,32,6.25,200,,,,67,23,2,3
+A23_#67_Q3,c.f. Jassa,, Loose #1 Jassa,,45,37,6,32,6.25,200,,loose,1,67,23,2,3
+A23_#67_Q3,mussel,, Loose #1 Mussels,,10,37,6,32,6.25,200,,loose,1,67,23,2,3
+A23_#67_Q3,clam,, Loose #1 Clams,,3,37,6,32,6.25,200,,loose,1,67,23,2,3
+A23_#67_Q3,c.f. Corophium,, Loose #1 Corophium,,1,37,6,32,6.25,200,,loose,1,67,23,2,3
+A23_#67_Q3,caprellid,, Loose #1 Caprellid,,0,37,6,32,6.25,200,,loose,1,67,23,2,3
+A23_#67_Q3,white tufted bryozoan,fragment, Loose #1 White Tufted Bryozoan Fragments,,8,37,6,32,6.25,200,,loose,1,67,23,2,3
+A23_#67_Q3,mussel,, Loose #2 Mussels,,14,37,6,32,6.25,200,,loose,2,67,23,2,3
+A23_#67_Q3,c.f. Jassa,, Loose #2 Jassa,,64,37,6,32,6.25,200,,loose,2,67,23,2,3
+A23_#67_Q3,clam,, Loose #2 Clams,,3,37,6,32,6.25,200,,loose,2,67,23,2,3
+A23_#67_Q3,polychaete,, Loose #2 Polychaete,,1,37,6,32,6.25,200,,loose,2,67,23,2,3
+A23_#67_Q3,c.f. Jassa,, Loose #3 Jassa,,35,37,6,32,6.25,200,,loose,3,67,23,2,3
+A23_#67_Q3,mussel,, Loose #3 Mussels,,13,37,6,32,6.25,200,,loose,3,67,23,2,3
+A23_#67_Q3,clam,, Loose #3 Clams,,3,37,6,32,6.25,200,,loose,3,67,23,2,3
+A23_#67_Q3,polychaete,fragment, Loose #3 Polychaete Fragment,,1,37,6,32,6.25,200,,loose,3,67,23,2,3
+A23_#67_Q3,caprellid,, Loose #3 Caprellid,,1,37,6,32,6.25,200,,loose,3,67,23,2,3
+A23_#67_Q3,white tufted bryozoan,fragment, Loose #3 White Tufted Bryozoan Fragments,,7,37,6,32,6.25,200,,loose,3,67,23,2,3
+A23_#67_Q3,c.f. Jassa,, Loose #4 Jassa,,50,37,6,32,6.25,200,,loose,4,67,23,2,3
+A23_#67_Q3,mussel,, Loose #4 Mussels,,6,37,6,32,6.25,200,,loose,4,67,23,2,3
+A23_#67_Q3,caprellid,, Loose #4 Caprellid,,1,37,6,32,6.25,200,,loose,4,67,23,2,3
+A23_#67_Q3,clam,, Loose #4 Clams,,2,37,6,32,6.25,200,,loose,4,67,23,2,3
+A23_#67_Q3,c.f. Corophium,, Loose #4 Corophium,,4,37,6,32,6.25,200,,loose,4,67,23,2,3
+A23_#67_Q3,white tufted bryozoan,fragment, Loose #4 White Tufted Bryo Fragments,,4,37,6,32,6.25,200,,loose,4,67,23,2,3
+A23_#67_Q3,mussel,, Loose #5 Mussels,,12,37,6,32,6.25,200,,loose,5,67,23,2,3
+A23_#67_Q3,c.f. Jassa,, Loose #5 Jassa,,39,37,6,32,6.25,200,,loose,5,67,23,2,3
+A23_#67_Q3,caprellid,, Loose #5 Caprellid,,1,37,6,32,6.25,200,,loose,5,67,23,2,3
+A23_#67_Q3,white tufted bryozoan,fragment, Loose #5 White Tufted Bryozoan Fragments,,2,37,6,32,6.25,200,,loose,5,67,23,2,3
+A23_#67_Q3,mussel,, Loose #6 Mussels,,19,37,6,32,6.25,200,,loose,6,67,23,2,3
+A23_#67_Q3,c.f. Jassa,, Loose #6 Jassa,,42,37,6,32,6.25,200,,loose,6,67,23,2,3
+A23_#67_Q3,clam,, Loose #6 Clams,,2,37,6,32,6.25,200,,loose,6,67,23,2,3
+A23_#67_Q3,c.f. Corophium,, Loose #6 Corophium,,1,37,6,32,6.25,200,,loose,6,67,23,2,3
+A23_#67_Q3,gastropod,, Loose #6 Gastropod,,1,37,6,32,6.25,200,,loose,6,67,23,2,3
+A23_#67_Q3,c.f. Jassa,, Mat #1 Jassa,,24,29,6,32,6.25,200,,mat,1,67,23,2,3
+A23_#67_Q3,c.f. Corophium,, Mat #1 Corophium,,1,29,6,32,6.25,200,,mat,1,67,23,2,3
+A23_#67_Q3,mussel,, Mat #1 Mussels,,7,29,6,32,6.25,200,,mat,1,67,23,2,3
+A23_#67_Q3,clam,, Mat #1 Clam,,1,29,6,32,6.25,200,,mat,1,67,23,2,3
+A23_#67_Q3,white tufted bryozoan,fragment, Mat #1 White Bryo Tuft Fragments,,3,29,6,32,6.25,200,,mat,1,67,23,2,3
+A23_#67_Q3,caprellid,, Mat #2 Caprellid,,4,29,6,32,6.25,200,,mat,2,67,23,2,3
+A23_#67_Q3,c.f. Jassa,, Mat #2 Jassa,,25,29,6,32,6.25,200,,mat,2,67,23,2,3
+A23_#67_Q3,mussel,, Mat #2 Mussels,,3,29,6,32,6.25,200,,mat,2,67,23,2,3
+A23_#67_Q3,white tufted bryozoan,fragment, Mat #2 White Tufty Bryo Fragments,,3,29,6,32,6.25,200,,mat,2,67,23,2,3
+A23_#67_Q3,c.f. Jassa,, Mat #3 Jassa,,19,29,6,32,6.25,200,,mat,3,67,23,2,3
+A23_#67_Q3,mussel,, Mat #3 Mussels,,8,29,6,32,6.25,200,,mat,3,67,23,2,3
+A23_#67_Q3,c.f. Corophium,, Mat #3 Corophium,,2,29,6,32,6.25,200,,mat,3,67,23,2,3
+A23_#67_Q3,clam,, Mat #3 Clams,,2,29,6,32,6.25,200,,mat,3,67,23,2,3
+A23_#67_Q3,white tufted bryozoan,fragment, Mat #3 White Tufted Bryo Fragments,,2,29,6,32,6.25,200,,mat,3,67,23,2,3
+A23_#67_Q3,c.f. Jassa,, Mat #4 Jassa ,,19,29,6,32,6.25,200,,mat,4,67,23,2,3
+A23_#67_Q3,mussel,, Mat #4 Mussels,,2,29,6,32,6.25,200,,mat,4,67,23,2,3
+A23_#67_Q3,white tufted bryozoan,fragment, Mat #4 Tufted Bryo Fragments,,4,29,6,32,6.25,200,,mat,4,67,23,2,3
+A23_#67_Q3,c.f. Jassa,, Mat #5 Jassa,,12,29,6,32,6.25,200,,mat,5,67,23,2,3
+A23_#67_Q3,mussel,, Mat #5 Mussels,,2,29,6,32,6.25,200,,mat,5,67,23,2,3
+A23_#67_Q3,clam,, Mat #5 Clam,,1,29,6,32,6.25,200,,mat,5,67,23,2,3
+A23_#67_Q3,white tufted bryozoan,fragment, Mat #5 Tufty Bryo Frag,,4,29,6,32,6.25,200,,mat,5,67,23,2,3
+A23_#67_Q3,c.f. Jassa,, Mat #6 Jassa,,14,29,6,32,6.25,200,,mat,6,67,23,2,3
+A23_#67_Q3,mussel,, Mat #6 Mussels,,2,29,6,32,6.25,200,,mat,6,67,23,2,3
+A23_#67_Q3,white tufted bryozoan,fragment, Mat #6 Tufted Bryo Fragments,,3,29,6,32,6.25,200,,mat,6,67,23,2,3
+A23_#68_Q4,acorn barnacle,, Acorn Barnacles,,17,1,1,32,6.25,200,,,,68,23,2,4
+A23_#68_Q4,mussel,intact shells >2cm, Intact Mussel Shells >2cm,,13,1,1,32,6.25,200,,,,68,23,2,4
+A23_#68_Q4,encrusting bryozoan,colony, White Encrusting Bryozoan Colonies,,3,1,1,32,6.25,200,,,,68,23,2,4
+A23_#68_Q4,mussel,with tissue >0.5cm, Mussels With Tissue >0.5cm,,8,1,1,32,6.25,200,,,,68,23,2,4
+A23_#68_Q4,tunicate,, Tunicate?,,2,1,1,32,6.25,200,,,,68,23,2,4
+A23_#68_Q4,white tufted bryozoan,colony, White Tufted Bryozoans,,3,1,1,32,6.25,200,,,,68,23,2,4
+A23_#68_Q4,c.f. Corophium,, C.f. Corophium ,,3,1,1,32,6.25,200,,,,68,23,2,4
+A23_#68_Q4,gastropod,, Gastropod,,5,1,1,32,6.25,200,,,,68,23,2,4
+A23_#68_Q4,sponge,, Tiny Sponge,,2,1,1,32,6.25,200,,,,68,23,2,4
+A23_#68_Q4,mussel,<0.5cm, Mussels <0.5cm (from Hydroid Colony),,203,1,1,32,6.25,200,,,,68,23,2,4
+A23_#68_Q4,clam,, Clams (from Hydroid Colony),,10,1,1,32,6.25,200,,,,68,23,2,4
+A23_#68_Q4,c.f. Jassa,, Jassa From Hydroid Colony,,109,1,1,32,6.25,200,,,,68,23,2,4
+A23_#68_Q4,white tufted bryozoan,colony, White Tufted Bryozoan Colony On Hydroid,,1,1,1,32,6.25,200,,,,68,23,2,4
+A23_#68_Q4,caprellid,, Caprellid,,22,1,1,32,6.25,200,,,,68,23,2,4
+A23_#68_Q4,c.f. Jassa,, Loose #1 C.f. Jassa,,70,37,5,32,6.25,200,,loose,1,68,23,2,4
+A23_#68_Q4,clam,, Loose #1 Clam,,1,37,5,32,6.25,200,,loose,1,68,23,2,4
+A23_#68_Q4,white tufted bryozoan,fragment, Loose #1 White Tuft Bryo Fragment,,1,37,5,32,6.25,200,,loose,1,68,23,2,4
+A23_#68_Q4,mussel,, Loose #1 Mussel,,3,37,5,32,6.25,200,,loose,1,68,23,2,4
+A23_#68_Q4,c.f. Jassa,, Loose #2 C.f. Jassa,,55,37,5,32,6.25,200,,loose,2,68,23,2,4
+A23_#68_Q4,mussel,, Loose #2 Mussel,,21,37,5,32,6.25,200,,loose,2,68,23,2,4
+A23_#68_Q4,clam,, Loose #2 Clam,,2,37,5,32,6.25,200,,loose,2,68,23,2,4
+A23_#68_Q4,c.f. Jassa,, Loose #3 C.f. Jassa,,95,37,5,32,6.25,200,,loose,3,68,23,2,4
+A23_#68_Q4,mussel,, Loose #3 Mussel,,9,37,5,32,6.25,200,,loose,3,68,23,2,4
+A23_#68_Q4,c.f. Jassa,, Loose #4 C.f.Jassa,,97,37,5,32,6.25,200,,loose,4,68,23,2,4
+A23_#68_Q4,mussel,, Loose #4 Mussel,,12,37,5,32,6.25,200,,loose,4,68,23,2,4
+A23_#68_Q4,gastropod,, Loose #4 Gastropod,,1,37,5,32,6.25,200,,loose,4,68,23,2,4
+A23_#68_Q4,clam,, Loose #4 Clam,,1,37,5,32,6.25,200,,loose,4,68,23,2,4
+A23_#68_Q4,caprellid,, Loose #4 Caprellid ,,1,37,5,32,6.25,200,,loose,4,68,23,2,4
+A23_#68_Q4,c.f. Jassa,, Loose #5 C.f. Jassa,,71,37,5,32,6.25,200,,loose,5,68,23,2,4
+A23_#68_Q4,mussel,, Loose #5 Mussel,,8,37,5,32,6.25,200,,loose,5,68,23,2,4
+A23_#68_Q4,gastropod,, Loose #5 Gastropod,,1,37,5,32,6.25,200,,loose,5,68,23,2,4
+A23_#68_Q4,clam,, Loose #5 Clam,,2,37,5,32,6.25,200,,loose,5,68,23,2,4
+A23_#68_Q4,c.f. Corophium,, Loose #5 C.f. Corophium,,1,37,5,32,6.25,200,,loose,5,68,23,2,4
+A23_#68_Q4,c.f. Jassa,, Mat #1 C.f Jassa,,69,25,5,32,6.25,200,,mat,1,68,23,2,4
+A23_#68_Q4,mussel,, Mat #1 Mussel,,10,25,5,32,6.25,200,,mat,1,68,23,2,4
+A23_#68_Q4,caprellid,, Mat #1 Caprelid,,2,25,5,32,6.25,200,,mat,1,68,23,2,4
+A23_#68_Q4,clam,, Mat #1 Clam,,1,25,5,32,6.25,200,,mat,1,68,23,2,4
+A23_#68_Q4,gastropod,, Mat #1q Gastropod,,4,25,5,32,6.25,200,,mat,1,68,23,2,4
+A23_#68_Q4,c.f. Jassa,, Mat #2 C.f. Jassa,,44,25,5,32,6.25,200,,mat,2,68,23,2,4
+A23_#68_Q4,mussel,, Mat #2 Mussel,,8,25,5,32,6.25,200,,mat,2,68,23,2,4
+A23_#68_Q4,c.f. Jassa,, Mat #3 C.f. Jassa,,39,25,5,32,6.25,200,,mat,3,68,23,2,4
+A23_#68_Q4,mussel,, Mat #3 Mussel,,1,25,5,32,6.25,200,,mat,3,68,23,2,4
+A23_#68_Q4,clam,, Mat#3 Clam,,1,25,5,32,6.25,200,,mat,3,68,23,2,4
+A23_#68_Q4,white tufted bryozoan,fragment, Mat#3 White Tuft Bryo Frag,,1,25,5,32,6.25,200,,mat,3,68,23,2,4
+A23_#68_Q4,c.f. Jassa,, Mat #4 C.f. Jassa,,44,25,5,32,6.25,200,,mat,4,68,23,2,4
+A23_#68_Q4,mussel,, Mat #4 Mussel,,5,25,5,32,6.25,200,,mat,4,68,23,2,4
+A23_#68_Q4,clam,, Mat#4 Clam,,1,25,5,32,6.25,200,,mat,4,68,23,2,4
+A23_#68_Q4,c.f. Jassa,, Mat #5 C.f. Jassa,,28,25,5,32,6.25,200,,mat,5,68,23,2,4
+A23_#68_Q4,mussel,, Mat #5 Mussel,,3,25,5,32,6.25,200,,mat,5,68,23,2,4
+A23_#68_Q4,clam,, Mat #5 Clam,,1,25,5,32,6.25,200,,mat,5,68,23,2,4
+A23_#69_Q5_lid,acorn barnacle,, Barnacles (intact),,23,1,1,32,6.25,200,,,,69,23,2,5
+A23_#69_Q5_lid,mussel,, Mussels,,169,1,1,32,6.25,200,,,,69,23,2,5
+A23_#69_Q5_lid,c.f. Jassa,, C.f. Jassa,,116,1,1,32,6.25,200,,,,69,23,2,5
+A23_#69_Q5_lid,clam,, Clam,,5,1,1,32,6.25,200,,,,69,23,2,5
+A23_#69_Q5_lid,c.f. Corophium,, C.f. Corophium,,4,1,1,32,6.25,200,,,,69,23,2,5
+A23_#70_extras,polychaete,, Polychaetes,,2,1,1,,,,,,,70,23,2,6
+A23_#70_extras,crab,, Crab,,0,1,1,,,,,,,70,23,2,6
+A23_#70_extras,mussel,>0.5cm, Mussels >0.5cm,,5,1,1,,,,,,,70,23,2,6
+A23_#70_extras,hydroid,colony, Hydroid Colonies,,2,1,1,,,,,,,70,23,2,6
+A23_#70_extras,caprellid,, Caprellids,,41,1,1,,,,,,,70,23,2,6
+A23_#70_extras,encrusting bryozoan,colony, Encrusting Bryozoan Colonies ,,2,1,1,,,,,,,70,23,2,6
+A23_#70_extras,white tufted bryozoan,colony, White Tufted Bryo Colony,,2,1,1,,,,,,,70,23,2,6
+A23_#70_extras,c.f. Jassa,, Loose #1 C.f. Jassa,,70,37,5,,,,,loose,1,70,23,2,6
+A23_#70_extras,mussel,, Loose #1 Mussel,,1,37,5,,,,,loose,1,70,23,2,6
+A23_#70_extras,caprellid,, Loose #1 Caprellid,,1,37,5,,,,,loose,1,70,23,2,6
+A23_#70_extras,c.f. Jassa,, Loose #2 Jassa,,41,37,5,,,,,loose,2,70,23,2,6
+A23_#70_extras,mussel,, Loose #2 Mussel,,2,37,5,,,,,loose,2,70,23,2,6
+A23_#70_extras,c.f. Jassa,, Loose #3 Cf Jassa,,73,37,5,,,,,loose,3,70,23,2,6
+A23_#70_extras,mussel,, Loose #3 Mussel,,10,37,5,,,,,loose,3,70,23,2,6
+A23_#70_extras,clam,, Loose #3 Clam ,,3,37,5,,,,,loose,3,70,23,2,6
+A23_#70_extras,c.f. Jassa,, Loose #4 Jassa,,100,37,5,,,,,loose,4,70,23,2,6
+A23_#70_extras,mussel,, Loose #4 Mussel,,8,37,5,,,,,loose,4,70,23,2,6
+A23_#70_extras,round amphipod,, Loose #4 Round Amphipod,,1,37,5,,,,,loose,4,70,23,2,6
+A23_#70_extras,caprellid,, Loose #4 Caprellid,,2,37,5,,,,,loose,4,70,23,2,6
+A23_#70_extras,c.f. Jassa,, Loose #5 Jassa,,61,37,5,,,,,loose,5,70,23,2,6
+A23_#70_extras,mussel,, Loose #5 Mussel,,2,37,5,,,,,loose,5,70,23,2,6
+A23_#70_extras,clam,, Loose #5 Clam,,1,37,5,,,,,loose,5,70,23,2,6
+A23_#70_extras,caprellid,, Loose #5 Caprellid,,1,37,5,,,,,loose,5,70,23,2,6
+A24_#71_Q1,c.f. Jassa,, c.f. Jassa,,2,1,1,32,6.25,200,,,,71,24,2,1
+A24_#72_Q2,,,,,,1,1,32,6.25,200,,,,72,24,2,2
+A24_#73_Q3,,,,,,1,1,32,6.25,200,,,,73,24,2,3
+A24_#73_Q4,white tufted bryozoan,colony, White Tufted Bryozoan Colony,,1,1,1,32,6.25,200,,,,74,24,2,4
+A25_#75_Q1,mussel,, Mussels,,29,1,1,31.25,6.25,195.3125,,,,75,25,4,1
+A25_#75_Q1,c.f. Jassa,, Jassa,,6,1,1,31.25,6.25,195.3125,,,,75,25,4,1
+A25_#75_Q1,other bivalve,, Other Bivalve,,2,1,1,31.25,6.25,195.3125,,,,75,25,4,1
+A25_#75_Q1,white tufted bryozoan,colony, Bryozoan Colonies,,2,1,1,31.25,6.25,195.3125,,,,75,25,4,1
+A25_#75_Q1,hydroid,colony, Hydroids,,1,1,1,31.25,6.25,195.3125,,,,75,25,4,1
+A25_#75_Q1,gastropod,, Gastropods,,5,1,1,31.25,6.25,195.3125,,,,75,25,4,1
+A25_#75_Q1,green eye amphipod,, Green Eye Amphipod,,3,1,1,31.25,6.25,195.3125,,,,75,25,4,1
+A25_#76_Q2,mussel,, Mussels,,59,1,1,32,6.25,200,,,,76,25,4,2
+A25_#76_Q2,white tufted bryozoan,colony, Bryozoan Colonies (white)- Tufted,,18,1,1,32,6.25,200,,,,76,25,4,2
+A25_#76_Q2,c.f. Jassa,, c.f. Jassa sp,,0,1,1,32,6.25,200,,,,76,25,4,2
+A25_#76_Q2,encrusting bryozoan,colony, Bryozoan - On Mussel Shells,,6,1,1,32,6.25,200,,,,76,25,4,2
+A25_#76_Q2,crab,, Crab ,,1,1,1,32,6.25,200,,,,76,25,4,2
+A25_#76_Q2,caprellid,, Caprellid,,13,1,1,32,6.25,200,,,,76,25,4,2
+A25_#76_Q2,pycnogonid,, Pycnogonids,,2,1,1,32,6.25,200,,,,76,25,4,2
+A25_#76_Q2,acorn barnacle,, Barnacle - Intact Shells,,4,1,1,32,6.25,200,,,,76,25,4,2
+A25_#76_Q2,gastropod,, Gastropods,,1,1,1,32,6.25,200,,,,76,25,4,2
+A25_#76_Q2,brown bryozoan,fragment, Brown Bryozoan,,2,1,1,32,6.25,200,,,,76,25,4,2
+A25_#76_Q2,white tufted bryozoan,fragment, Bryozoan Tufted (white) ,,12,1,1,32,6.25,200,,,,76,25,4,2
+A25_#76_Q2,type 2 white tufted bryozoan,fragment, Bryozoan Tufted (white)- Second,,2,1,1,32,6.25,200,,,,76,25,4,2
+A25_#76_Q2,c.f. Jassa,, Hydroid Sub sample #1 Jassa cf.,,46,9,4,32,6.25,200,,hydroid,1,76,25,4,2
+A25_#76_Q2,mussel,, Hydroid Sub sample #1 Mussels,,11,9,4,32,6.25,200,,hydroid,1,76,25,4,2
+A25_#76_Q2,encrusting bryozoan,, Hydroid Sub Sample #1 Bryozoan Tube/encrusting Type,,3,9,4,32,6.25,200,,hydroid,1,76,25,4,2
+A25_#76_Q2,c.f. Jassa,, Hydroid Sub Sample #2 Jassa Cf,,13,9,4,32,6.25,200,,hydroid,2,76,25,4,2
+A25_#76_Q2,mussel,, Hydroid Sub Sample #2 Mussels,,16,9,4,32,6.25,200,,hydroid,2,76,25,4,2
+A25_#76_Q2,c.f. Corophium,, Hydroid Sub Sample #2 cf Corophium,,1,9,4,32,6.25,200,,hydroid,2,76,25,4,2
+A25_#76_Q2,c.f. Corophium,, Hydroid Sub Sample #1 cf Corophium,,1,9,4,32,6.25,200,,hydroid,1,76,25,4,2
+A25_#76_Q2,encrusting bryozoan,, Hydroid Sub Sample #2 Bryozoan Tube,,1,9,4,32,6.25,200,,hydroid,2,76,25,4,2
+A25_#76_Q2,c.f. Jassa,, Hydroid Sub Sample #3 Jassa,,17,9,4,32,6.25,200,,hydroid,3,76,25,4,2
+A25_#76_Q2,mussel,, Hydroid Sub Sample #3 Mussels,,3,9,4,32,6.25,200,,hydroid,3,76,25,4,2
+A25_#76_Q2,encrusting bryozoan,, Hydroid Sub Sample #3 Tube Bryozoan,,1,9,4,32,6.25,200,,hydroid,3,76,25,4,2
+A25_#76_Q2,white tufted bryozoan,, Hydroid Sub Sample #3 White Tufted Bryo,,1,9,4,32,6.25,200,,hydroid,3,76,25,4,2
+A25_#76_Q2,caprellid,, Hydroid Sub sample #3 Caprellid,,1,9,4,32,6.25,200,,hydroid,3,76,25,4,2
+A25_#76_Q2,c.f. Jassa,, Hydroid Sub Sample #4 Jassa,,29,9,4,32,6.25,200,,hydroid,4,76,25,4,2
+A25_#76_Q2,mussel,, Hydroid Sub Sample #4 Mussels,,7,9,4,32,6.25,200,,hydroid,4,76,25,4,2
+A25_#76_Q2,c.f. Corophium,, Hydroid Sub Sample #4 cf Corophium,,1,9,4,32,6.25,200,,hydroid,4,76,25,4,2
+A25_#76_Q2,encrusting bryozoan,, Hydroid Sub Sample #4 Bryozoan Tube,,1,9,4,32,6.25,200,,hydroid,4,76,25,4,2
+A25_#76_Q2,c.f. Jassa,, Loose Sub-sample #1 cf Jassa,,70,28,6,32,6.25,200,,loose,1,76,25,4,2
+A25_#76_Q2,mussel,, Loose Sub-sample #1 mussels,,2,28,6,32,6.25,200,,loose,1,76,25,4,2
+A25_#76_Q2,other bivalve,, Loose Sub-sample #1 Other Bivalves,,1,28,6,32,6.25,200,,loose,1,76,25,4,2
+A25_#76_Q2,caprellid,, Loose Sub-sample #1 Caprellids,,1,28,6,32,6.25,200,,loose,1,76,25,4,2
+A25_#76_Q2,round amphipod,, Loose Sub-sample #1 Round Amphipod,,1,28,6,32,6.25,200,,loose,1,76,25,4,2
+A25_#76_Q2,crustacean larvae,, Loose Sub-sample #1 Crustacean Larvae,,2,28,6,32,6.25,200,,loose,1,76,25,4,2
+A25_#76_Q2,c.f. Jassa,, Loose Sub-sample #2 cf Jassa,,31,28,6,32,6.25,200,,loose,2,76,25,4,2
+A25_#76_Q2,c.f. Corophium,, Loose Sub-sample #2 cf Corophium,,1,28,6,32,6.25,200,,loose,2,76,25,4,2
+A25_#76_Q2,mussel,, Loose Sub-sample #2 Mussels,,9,28,6,32,6.25,200,,loose,2,76,25,4,2
+A25_#76_Q2,crustacean larvae,, Loose Sub-sample #2 Crustacean Larvae,,5,28,6,32,6.25,200,,loose,2,76,25,4,2
+A25_#76_Q2,gastropod,, Loose Sub-sample #2 Gastropods,,5,28,6,32,6.25,200,,loose,2,76,25,4,2
+A25_#76_Q2,white tufted bryozoan,, Loose Sub-sample #2 White Bryozoan Fragments,,5,28,6,32,6.25,200,,loose,2,76,25,4,2
+A25_#76_Q2,c.f. Jassa,, Loose Sub-sample #3 cf Jassa,,59,28,6,32,6.25,200,,loose,3,76,25,4,2
+A25_#76_Q2,caprellid,, Loose Sub-sample #3 Caprellid,,2,28,6,32,6.25,200,,loose,3,76,25,4,2
+A25_#76_Q2,mussel,, Loose Sub-sample #3 Mussels,,4,28,6,32,6.25,200,,loose,3,76,25,4,2
+A25_#76_Q2,other bivalve,, Loose Sub-sample #3 Other Bivalves,,1,28,6,32,6.25,200,,loose,3,76,25,4,2
+A25_#76_Q2,crustacean larvae,, Loose Sub-sample #3 Crab Larve,,1,28,6,32,6.25,200,,loose,3,76,25,4,2
+A25_#76_Q2,white tufted bryozoan,, Loose Sub-sampl #3 White Bryozoan Fragments,,3,28,6,32,6.25,200,,loose,3,76,25,4,2
+A25_#76_Q2,c.f. Jassa,, Loose Sub-sample #4 cf Jassa,,48,28,6,32,6.25,200,,loose,4,76,25,4,2
+A25_#76_Q2,mussel,, Loose Sub-sample #4 Mussels,,10,28,6,32,6.25,200,,loose,4,76,25,4,2
+A25_#76_Q2,other bivalve,, Loose Sub-sample #4 Other Bivalves,,1,28,6,32,6.25,200,,loose,4,76,25,4,2
+A25_#76_Q2,gastropods,, Loose Sub-sample #4 Gastropods,,8,28,6,32,6.25,200,,loose,4,76,25,4,2
+A25_#76_Q2,c.f. Jassa,, Loose Sub-sample #5 cf Jassa,,45,28,6,32,6.25,200,,loose,5,76,25,4,2
+A25_#76_Q2,mussel,, Loose Sub-sample #5 Mussels,,3,28,6,32,6.25,200,,loose,5,76,25,4,2
+A25_#76_Q2,polychaete tube,, Loose Sub-sample #5 Polychaete Tube ,,1,28,6,32,6.25,200,,loose,5,76,25,4,2
+A25_#76_Q2,gastropod,, Loose Sub-sample #5 Gastropods,,3,28,6,32,6.25,200,,loose,5,76,25,4,2
+A25_#76_Q2,c.f. Jassa,, Loose Sub-sample #6 cf Jassa,,134,28,6,32,6.25,200,,loose,6,76,25,4,2
+A25_#76_Q2,c.f. Corophium,, Loose Sub-sample #6 cf Corophium,,2,28,6,32,6.25,200,,loose,6,76,25,4,2
+A25_#76_Q2,caprellid,, Loose Sub-sample #6 Caprellid,,2,28,6,32,6.25,200,,loose,6,76,25,4,2
+A25_#76_Q2,mussel,, Loose Sub-sample #6 Mussels,,9,28,6,32,6.25,200,,loose,6,76,25,4,2
+A25_#76_Q2,other bivalve,, Loose Sub-sample #6 Other Bivalves,,1,28,6,32,6.25,200,,loose,6,76,25,4,2
+A25_#76_Q2,crustacean larvae,, Loose Sub-sample #6 Crustacean Larvae,,1,28,6,32,6.25,200,,loose,6,76,25,4,2
+A25_#76_Q2,c.f. Jassa,, Bryo Sub-sample #1 cf Jassa,,120,18,6,32,6.25,200,,bryozoan,1,76,25,4,2
+A25_#76_Q2,mussel,, Bryo Sub Sample #1 Mussels,,28,18,6,32,6.25,200,,bryozoan,1,76,25,4,2
+A25_#76_Q2,encrusting bryozoan,fragment, Bryo Sub Sample #1 Tube/encrusting Bryozoan,,2,18,6,32,6.25,200,,bryozoan,1,76,25,4,2
+A25_#76_Q2,c.f. Corophium,, Bryo Sub-sample #1 cf Corophium,,1,18,6,32,6.25,200,,bryozoan,1,76,25,4,2
+A25_#76_Q2,gastropod,, Bryozoan Sub-sample #1 Gastropods,,8,18,6,32,6.25,200,,bryozoan,1,76,25,4,2
+A25_#76_Q2,c.f. Jassa,, Bryo Sub-sample #2 cf Jassa,,112,18,6,32,6.25,200,,bryozoan,2,76,25,4,2
+A25_#76_Q2,caprellid,, Bryo Sub-sample #2 Caprellids,,3,18,6,32,6.25,200,,bryozoan,2,76,25,4,2
+A25_#76_Q2,mussel,, Bryo Sub-sample #2 Mussels,,55,18,6,32,6.25,200,,bryozoan,2,76,25,4,2
+A25_#76_Q2,c.f. Corophium,, Bryo Sub-sample #2 cf Corophium,,13,18,6,32,6.25,200,,bryozoan,2,76,25,4,2
+A25_#76_Q2,gastropod,, Bryo Sub-sample #2 Gastropods,,3,18,6,32,6.25,200,,bryozoan,2,76,25,4,2
+A25_#76_Q2,c.f. Jassa,, Bryo Sub-sample #3 cf Jassa,,33,18,6,32,6.25,200,,bryozoan,3,76,25,4,2
+A25_#76_Q2,mussel,, Bryo Sub-sample #3 Mussels,,12,18,6,32,6.25,200,,bryozoan,3,76,25,4,2
+A25_#76_Q2,c.f. Jassa,, Bryo Sub-sample #4 cf Jassa,,9,18,6,32,6.25,200,,bryozoan,4,76,25,4,2
+A25_#76_Q2,mussel,, Bryo sub-sample #4 Mussels,,10,18,6,32,6.25,200,,bryozoan,4,76,25,4,2
+A25_#76_Q2,other bivalve,, Bryo Sub-sample #4 Other Bivalves,,1,18,6,32,6.25,200,,bryozoan,4,76,25,4,2
+A25_#76_Q2,gastropod,, Bryo Sub-sample #4 Gastropods,,1,18,6,32,6.25,200,,bryozoan,4,76,25,4,2
+A25_#76_Q2,polychaete tube,fragment, Bryo Sub-sample #4 Polychaete Tube Fragment,,1,18,6,32,6.25,200,,bryozoan,4,76,25,4,2
+A25_#76_Q2,c.f. Jassa,, Bryo Sub-sample #5 cf Jassa,,17,18,6,32,6.25,200,,bryozoan,5,76,25,4,2
+A25_#76_Q2,mussel,, Bryo Sub-sample #5 Mussels,,12,18,6,32,6.25,200,,bryozoan,5,76,25,4,2
+A25_#76_Q2,c.f. Corophium,, Bryo Sub-sample #5 cf Corophium,,7,18,6,32,6.25,200,,bryozoan,5,76,25,4,2
+A25_#76_Q2,other bivalve,, Bryo Sub-sample #5 Other Bivalves,,1,18,6,32,6.25,200,,bryozoan,5,76,25,4,2
+A25_#76_Q2,gastropod,, Bryo Sub-sample #5 Gastropods,,4,18,6,32,6.25,200,,bryozoan,5,76,25,4,2
+A25_#76_Q2,c.f. Jassa,, Bryo Sub-sample #6 cf Jassa,,36,18,6,32,6.25,200,,bryozoan,6,76,25,4,2
+A25_#76_Q2,mussel,, Bryo Sub-sample #6 Mussels,,21,18,6,32,6.25,200,,bryozoan,6,76,25,4,2
+A25_#76_Q2,c.f. Corophium,, Bryo Sub-sample #6 cf Corophium,,4,18,6,32,6.25,200,,bryozoan,6,76,25,4,2
+A25_#76_Q2,gastropod,, Bryo Sub-sample #6 Gastropods,,2,18,6,32,6.25,200,,bryozoan,6,76,25,4,2
+A25_#76_Q2,other bivalve,, Bryo Sub-sample #6 Other Bivalves,,1,18,6,32,6.25,200,,bryozoan,6,76,25,4,2
+A25_#76_Q2,encrusting bryozoan,fragment, Bryo Sub-sample #6 BBryo tube Fragments,,2,18,6,32,6.25,200,,bryozoan,6,76,25,4,2
+A25_#77_Q3,acorn barnacle,, Acorn Barnacle (whole),,10,1,1,32,6.25,200,,,,77,25,4,3
+A25_#77_Q3,barnacle type 2,, Barnacle Type 2,,1,1,1,32,6.25,200,,,,77,25,4,3
+A25_#77_Q3,white tufted bryozoan,colony, Bryozoan,,9,1,1,32,6.25,200,,,,77,25,4,3
+A25_#77_Q3,hydroid,colony, Hydroid,,2,1,1,32,6.25,200,,,,77,25,4,3
+A25_#77_Q3,mussel,, Mussels,,7,1,1,32,6.25,200,,,,77,25,4,3
+A25_#77_Q3,c.f. Jassa,, Jassa,,5,1,1,32,6.25,200,,,,77,25,4,3
+A25_#77_Q3,clam,, Clam,,1,1,1,32,6.25,200,,,,77,25,4,3
+A26_#78_Q1,other bivalve,, Bivalves,,214,1,1,31,6.25,193.75,,,,78,26,4,1
+A26_#78_Q1,c.f. Jassa,large, Amphipod Large,,82,1,1,31,6.25,193.75,,,,78,26,4,1
+A26_#78_Q1,c.f. Jassa,medium, Amphipod Medium,,430,1,1,31,6.25,193.75,,,,78,26,4,1
+A26_#78_Q1,c.f. Jassa,small, Amphipod Small,,609,1,1,31,6.25,193.75,,,,78,26,4,1
+A26_#78_Q1,white tufted bryozoan,colony, Bryozoan Colony,,1,1,1,31,6.25,193.75,,,,78,26,4,1
+A26_#78_Q1,c.f. Jassa,heads, Amphipod Heads,,61,1,1,31,6.25,193.75,,,,78,26,4,1
+A26_#78_Q1,crustacean larvae,, Crab Larvae,,2,1,1,31,6.25,193.75,,,,78,26,4,1
+A26_#78_Q1,pycnogonid,, Pyconogonid,,2,1,1,31,6.25,193.75,,,,78,26,4,1
+A26_#79_Q2,other bivalve,, Bivalves,,292,1,1,31.5,6.25,196.875,,,,79,26,4,2
+A26_#79_Q2,white tufted bryozoan,colony, Bryozoan,,2,1,1,31.5,6.25,196.875,,,,79,26,4,2
+A26_#79_Q2,c.f. Jassa,large, Large Amphipods,,118,1,1,31.5,6.25,196.875,,,,79,26,4,2
+A26_#79_Q2,c.f. Jassa,medium, Medium amphipods,,465,1,1,31.5,6.25,196.875,,,,79,26,4,2
+A26_#79_Q2,c.f. Jassa,small, Small Amphipods,,539,1,1,31.5,6.25,196.875,,,,79,26,4,2
+A26_#79_Q2,c.f. Jassa,heads, Amphipod Heads,,80,1,1,31.5,6.25,196.875,,,,79,26,4,2
+A26_#79_Q2,pycnogonid,, Pycnogonid,,2,1,1,31.5,6.25,196.875,,,,79,26,4,2
+A26_#80_Q3,mussel,, Mussels,,57,1,1,32,6.25,200,,,,80,26,4,3
+A26_#80_Q3,clam,, Clams,,4,1,1,32,6.25,200,,,,80,26,4,3
+A26_#80_Q3,c.f. Jassa,, Amphipods Loose Sq1,,30,46,5,32,6.25,200,,loose,1,80,26,4,3
+A26_#80_Q3,white tufted bryozoan,colony, Bryozoan Colonies,,0,1,1,32,6.25,200,,,,80,26,4,3
+A26_#80_Q3,c.f. Jassa,, Amphipods Loose Sq2,,24,46,5,32,6.25,200,,loose,2,80,26,4,3
+A26_#80_Q3,c.f. Jassa,, Amphipods Loose Sq3,,38,46,5,32,6.25,200,,loose,3,80,26,4,3
+A26_#80_Q3,c.f. Jassa,, Amphipods Loose Sq4,,24,46,5,32,6.25,200,,loose,4,80,26,4,3
+A26_#80_Q3,c.f. Jassa,, Amphipod Loose Sq5,,34,46,5,32,6.25,200,,loose,5,80,26,4,3
+A26_#80_Q3,c.f. Jassa,, Amphipod Mats Sq1,,128,7,3,32,6.25,200,,mat,1,80,26,4,3
+A26_#80_Q3,c.f. Jassa,, Amphipod Mat Sq2,,89,7,3,32,6.25,200,,mat,2,80,26,4,3
+A26_#80_Q3,c.f. Jassa,, Amphipod Mats Sq3,,98,7,3,32,6.25,200,,mat,3,80,26,4,3
+A26_#80_Q3,acorn barnacle,, Acorn Barnacle,,1,1,1,32,6.25,200,,,,80,26,4,3
+A27_#81_Q1,white tufted bryozoan,colony, White Tufted Bryozoan,,8,1,1,16,6.25,100,,,,81,27,3,1
+A1_#1_Q1,c.f. Conchoderma,, C.f. Conchoderma,,1,1,1,50,6.25,312.5,,,,1,1,1,1
+A1_#1_Q1,acorn barnacle,, Acorn Barnacles ,,9,1,1,50,6.25,312.5,,,,1,1,1,1
+A1_#1_Q1,mussel,, Mussel,,7,1,1,50,6.25,312.5,,,,1,1,1,1
+A1_#1_Q1,caprellid,, Caprellids,,28,1,1,50,6.25,312.5,,,,1,1,1,1
+A1_#1_Q1,c.f. Jassa,, C.f. Jasa,,26,1,1,50,6.25,312.5,,,,1,1,1,1
+A1_#1_Q1,c.f. Corophium,, C.f. Corophium,,4,1,1,50,6.25,312.5,,,,1,1,1,1
+A1_#1_Q1,clam,, Clam,,1,1,1,50,6.25,312.5,,,,1,1,1,1
+A1_#2_Q2,c.f. Jassa,, c.f. Jassa,,308,1,1,50,6.25,312.5,,,,2,1,1,2
+A1_#2_Q2,c.f. Corophium,, c.f. Corophium,,36,1,1,50,6.25,312.5,,,,2,1,1,2
+A1_#2_Q2,mussel,, Mussel,,106,1,1,50,6.25,312.5,,,,2,1,1,2
+A1_#2_Q2,clam,, Clam,,63,1,1,50,6.25,312.5,,,,2,1,1,2
+A1_#2_Q2,encrusting bryozoan,colony, Encrusting Bryozoan Colonies,,32,1,1,50,6.25,312.5,,,,2,1,1,2
+A1_#2_Q2,hydroid,colony, Hydroid Colonies,,12,1,1,50,6.25,312.5,,,,2,1,1,2
+A1_#2_Q2,crab,, Juvenile Crab,,2,1,1,50,6.25,312.5,,,,2,1,1,2
+A1_#3_Q3,acorn barnacle,, Acorn Barnacles,,31,1,1,50,6.25,312.5,,,,3,1,1,3
+A1_#3_Q3,caprellid,, Caprellids,,15,1,1,50,6.25,312.5,,,,3,1,1,3
+A1_#3_Q3,c.f. Jassa,, C.f. Jassa,,42,1,1,50,6.25,312.5,,,,3,1,1,3
+A1_#3_Q3,c.f. Corophium,, c.f. Corophium,,4,1,1,50,6.25,312.5,,,,3,1,1,3
+A1_#3_Q3,mussel,, Mussel,,2,1,1,50,6.25,312.5,,,,3,1,1,3
+A1_#4_Q4,c.f. Conchoderma,, C.f. Conchoderma,,5,1,1,50,6.25,312.5,,,,4,1,1,4
+A1_#4_Q4,c.f. Jassa,, C.f. Jassa,,136,1,1,50,6.25,312.5,,,,4,1,1,4
+A1_#4_Q4,c.f. Corophium,, C.f. Corophium,,13,1,1,50,6.25,312.5,,,,4,1,1,4
+A1_#4_Q4,hydroid,colony, Hydroid Colonies,,7,1,1,50,6.25,312.5,,,,4,1,1,4
+A1_#4_Q4,mussel,, Mussel,,24,1,1,50,6.25,312.5,,,,4,1,1,4
+A1_#4_Q4,clam,, Clam,,4,1,1,50,6.25,312.5,,,,4,1,1,4
+A1_#4_Q4,encrusting bryozoan,colony, Encrusting Bryozoan Colony,,11,1,1,50,6.25,312.5,,,,4,1,1,4
+A1_#4_Q4,tunicate,, Tunicate,,6,1,1,50,6.25,312.5,,,,4,1,1,4
+A4_#13_Q1,c.f. Jassa,, c.f. Jassa,,400,1,1,50,6.25,312.5,,,,13,4,1,1
+A4_#13_Q1,c.f. Corophium,, c.f. Corophium,,2,1,1,50,6.25,312.5,,,,13,4,1,1
+A4_#13_Q1,caprellid,, Caprellid,,43,1,1,50,6.25,312.5,,,,13,4,1,1
+A4_#13_Q1,mussel,, Mussel,,4,1,1,50,6.25,312.5,,,,13,4,1,1
+A4_#13_Q1,acorn barnacle,, Acorn Barnacle,,2,1,1,50,6.25,312.5,,,,13,4,1,1
+A4_#13_Q1,gastropod,, Gastropod,,2,1,1,50,6.25,312.5,,,,13,4,1,1
+A4_#14_Q1,c.f. Jassa,, c.f. Jassa,,264,1,1,50,6.25,312.5,,,,14,4,1,1
+A4_#14_Q1,caprellid,, Caprellid,,1306,1,1,50,6.25,312.5,,,,14,4,1,1
+A4_#14_Q1,c.f. Conchoderma,, c.f. Conchoderma,,1,1,1,50,6.25,312.5,,,,14,4,1,1
+A4_#14_Q1,acorn barnacle,, Acorn Barnacle,,13,1,1,50,6.25,312.5,,,,14,4,1,1
+A4_#14_Q1,mussel,, Mussel,,3,1,1,50,6.25,312.5,,,,14,4,1,1
+A4_#14_Q1,encrusting bryozoan,colony, Encrusting Bryozoan Colony,,2,1,1,50,6.25,312.5,,,,14,4,1,1
+A4_#14_Q1,clam,, Clam,,1,1,1,50,6.25,312.5,,,,14,4,1,1
+A4_#14_Q1,caprellid,, Loose #1 Caprellid,,24,37,5,50,6.25,312.5,,loose,1,14,4,1,1
+A4_#14_Q1,c.f. Jassa,, Loose #1 Jassa,,22,37,5,50,6.25,312.5,,loose,1,14,4,1,1
+A4_#14_Q1,c.f. Jassa,, Loose #2 Jassa,,31,37,5,50,6.25,312.5,,loose,2,14,4,1,1
+A4_#14_Q1,caprellid,, Loose #2 Caprellid,,27,37,5,50,6.25,312.5,,loose,2,14,4,1,1
+A4_#14_Q1,mussel,, Loose #2 Mussel,,1,37,5,50,6.25,312.5,,loose,2,14,4,1,1
+A4_#14_Q1,white tufted bryozoan,fragment, Loose #2 White Bruno Fragment,,2,37,5,50,6.25,312.5,,loose,2,14,4,1,1
+A4_#14_Q1,c.f. Jassa,, Loose #3 Jassa,,18,37,5,50,6.25,312.5,,loose,3,14,4,1,1
+A4_#14_Q1,caprellid,, Loose #3 Caprellid,,22,37,5,50,6.25,312.5,,loose,3,14,4,1,1
+A4_#14_Q1,caprellid,, Loose #4 Caprellid,,22,37,5,50,6.25,312.5,,loose,4,14,4,1,1
+A4_#14_Q1,c.f. Jassa,, Loose #4 Jassa,,11,37,5,50,6.25,312.5,,loose,4,14,4,1,1
+A4_#14_Q1,gastropod,, Loose #4 Gastropod,,1,37,5,50,6.25,312.5,,loose,4,14,4,1,1
+A4_#14_Q1,c.f. Jassa,, Loose #5 Jassa,,27,37,5,50,6.25,312.5,,loose,5,14,4,1,1
+A4_#14_Q1,caprellid,, Loose #5 Caprellid,,38,37,5,50,6.25,312.5,,loose,5,14,4,1,1
+A4_#14_Q1,acorn barnacle,, Loose #5 Acorn Barnacle,,1,37,5,50,6.25,312.5,,loose,5,14,4,1,1
+A4_#15_Q2,acorn barnacle,, Loose #1 Acorn Barnacle,,5,25,5,50,6.25,312.5,,loose,1,15,4,1,2
+A4_#15_Q2,c.f. Jassa,, Loose #1 Jassa,,66,25,5,50,6.25,312.5,,loose,1,15,4,1,2
+A4_#15_Q2,caprellid,, Loose #1 Caprellid,,20,25,5,50,6.25,312.5,,loose,1,15,4,1,2
+A4_#15_Q2,mussel,, Loose #1 Mussel,,6,25,5,50,6.25,312.5,,loose,1,15,4,1,2
+A4_#15_Q2,gastropod,, Loose #1 Gastropod,,2,25,5,50,6.25,312.5,,loose,1,15,4,1,2
+A4_#15_Q2,acorn barnacle,, Loose #2 Acorn Barnacle,,1,25,5,50,6.25,312.5,,loose,2,15,4,1,2
+A4_#15_Q2,c.f. Jassa,, Loose #2 Jassa,,37,25,5,50,6.25,312.5,,loose,2,15,4,1,2
+A4_#15_Q2,caprellid,, Loose #2 Caprellid,,18,25,5,50,6.25,312.5,,loose,2,15,4,1,2
+A4_#15_Q2,mussel,, Loose #2 Mussel,,5,25,5,50,6.25,312.5,,loose,2,15,4,1,2
+A4_#15_Q2,c.f. Corophium,, Loose #2 C.f. Corophium,,1,25,5,50,6.25,312.5,,loose,2,15,4,1,2
+A4_#15_Q2,c.f. Jassa,, Loose #3 Jassa,,38,25,5,50,6.25,312.5,,loose,3,15,4,1,2
+A4_#15_Q2,caprellid,, Loose #3 Caprellid,,17,25,5,50,6.25,312.5,,loose,3,15,4,1,2
+A4_#15_Q2,c.f. Corophium,, Loose #3 Corophium,,1,25,5,50,6.25,312.5,,loose,3,15,4,1,2
+A4_#15_Q2,mussel,, Loose #3 Mussel,,12,25,5,50,6.25,312.5,,loose,3,15,4,1,2
+A4_#15_Q2,acorn barnacle,, Loose #3 Acorn Barnacle,,2,25,5,50,6.25,312.5,,loose,3,15,4,1,2
+A4_#15_Q2,gastropod,, Loose #3 Gastropod,,1,25,5,50,6.25,312.5,,loose,3,15,4,1,2
+A4_#15_Q2,c.f. Jassa,, Loose #4 Jassa,,53,25,5,50,6.25,312.5,,loose,4,15,4,1,2
+A4_#15_Q2,acorn barnacle,, Loose #4 Acorn Barnacles,,1,25,5,50,6.25,312.5,,loose,4,15,4,1,2
+A4_#15_Q2,caprellid,, Loose #4 Caprellid,,14,25,5,50,6.25,312.5,,loose,4,15,4,1,2
+A4_#15_Q2,mussel,, Loose #4 Mussel,,11,25,5,50,6.25,312.5,,loose,4,15,4,1,2
+A4_#15_Q2,c.f. Jassa,, Loose #5 Jassa,,64,25,5,50,6.25,312.5,,loose,5,15,4,1,2
+A4_#15_Q2,caprellid,, Loose #5 Caprellid,,27,25,5,50,6.25,312.5,,loose,5,15,4,1,2
+A4_#15_Q2,acorn barnacle,, Loose #5 Acorn Barnacle,,3,25,5,50,6.25,312.5,,loose,5,15,4,1,2
+A4_#15_Q2,mussel,, Loose #5 Mussel,,6,25,5,50,6.25,312.5,,loose,5,15,4,1,2
+A4_#16_Q2,c.f. Jassa,, Algae #1 Jassa,,40,20,5,50,6.25,312.5,,algae,1,16,4,1,2
+A4_#16_Q2,caprellid,, Algae #1 Caprellid,,22,20,5,50,6.25,312.5,,algae,1,16,4,1,2
+A4_#16_Q2,mussel,, Algae #1 Mussel,,1,20,5,50,6.25,312.5,,algae,1,16,4,1,2
+A4_#16_Q2,c.f. Jassa,, Algae #2 Jassa,,70,20,5,50,6.25,312.5,,algae,2,16,4,1,2
+A4_#16_Q2,caprellid,, Algae #2 Caprellid,,17,20,5,50,6.25,312.5,,algae,2,16,4,1,2
+A4_#16_Q2,mussel,, Algae #2 Mussel,,2,20,5,50,6.25,312.5,,algae,2,16,4,1,2
+A4_#16_Q2,c.f. Jassa,, Algae #3 Jassa,,66,20,5,50,6.25,312.5,,algae,3,16,4,1,2
+A4_#16_Q2,caprellid,, Algae #3 Caprellid,,33,20,5,50,6.25,312.5,,algae,3,16,4,1,2
+A4_#16_Q2,mussel,, Algae #3 Mussel,,1,20,5,50,6.25,312.5,,algae,3,16,4,1,2
+A4_#16_Q2,c.f. Jassa,, Algae #4 Jassa,,41,20,5,50,6.25,312.5,,algae,4,16,4,1,2
+A4_#16_Q2,caprellid,, Algae #4 Caprellid,,25,20,5,50,6.25,312.5,,algae,4,16,4,1,2
+A4_#16_Q2,mussel,, Algae #4 Mussel,,1,20,5,50,6.25,312.5,,algae,4,16,4,1,2
+A4_#16_Q2,acorn barnacle,, Algae #4 Acorn Barnacle,,1,20,5,50,6.25,312.5,,algae,4,16,4,1,2
+A4_#16_Q2,c.f. Jassa,, Algae #5 Jassa,,44,20,5,50,6.25,312.5,,algae,5,16,4,1,2
+A4_#16_Q2,caprellid,, Algae #5 Caprellid,,24,20,5,50,6.25,312.5,,algae,5,16,4,1,2
+A4_#16_Q2,clam,, Algae #5 Clam,,5,20,5,50,6.25,312.5,,algae,5,16,4,1,2
+A4_#16_Q2,mussel,, Algae #5 Mussel,,1,20,5,50,6.25,312.5,,algae,5,16,4,1,2
+A4_#17_Q3,c.f. Conchoderma,, c.f. Conchoderma,,2,1,1,50,6.25,312.5,,,,17,4,1,3
+A4_#17_Q3,acorn barnacle,, Acorn Barnacle Smooth/round,,46,1,1,50,6.25,312.5,,,,17,4,1,3
+A4_#17_Q3,acorn barnacle ribbed,, Acorn Barnacle Ribbed,,21,1,1,50,6.25,312.5,,,,17,4,1,3
+A4_#17_Q3,white tufted bryozoan,small colony, White Tufted Bryozoan Small Colonies,,4,1,1,50,6.25,312.5,,,,17,4,1,3
+A4_#17_Q3,white tufted bryozoan,large colony, White Tufted Bryozoan Large Colonies,,5,1,1,50,6.25,312.5,,,,17,4,1,3
+A4_#17_Q3,c.f. Jassa,, Loose #1 C.f Jassa,,88,37,5,50,6.25,312.5,,loose,1,17,4,1,3
+A4_#17_Q3,caprellid,, Loose #1 Caprellid,,4,37,5,50,6.25,312.5,,loose,1,17,4,1,3
+A4_#17_Q3,mussel,, Loose #1 Mussels,,5,37,5,50,6.25,312.5,,loose,1,17,4,1,3
+A4_#17_Q3,c.f. Corophium,, Loose #1 Corophium,,1,37,5,50,6.25,312.5,,loose,1,17,4,1,3
+A4_#17_Q3,clam,, Loose #1 Clam,,3,37,5,50,6.25,312.5,,loose,1,17,4,1,3
+A4_#17_Q3,c.f. Jassa,, Loose #2 Jassa,,45,37,5,50,6.25,312.5,,loose,2,17,4,1,3
+A4_#17_Q3,caprellid,, Loose #2 Caprellid,,5,37,5,50,6.25,312.5,,loose,2,17,4,1,3
+A4_#17_Q3,clam,, Loose #2 Clam,,1,37,5,50,6.25,312.5,,loose,2,17,4,1,3
+A4_#17_Q3,white tufted bryozoan,small colony, Loose #2 White Tufted Bryozoan Small Colony,,1,37,5,50,6.25,312.5,,loose,2,17,4,1,3
+A4_#17_Q3,c.f. Jassa,, Loose #3 Jassa,,44,37,5,50,6.25,312.5,,loose,3,17,4,1,3
+A4_#17_Q3,caprellid,, Loose #3 Caprellid,,10,37,5,50,6.25,312.5,,loose,3,17,4,1,3
+A4_#17_Q3,mussel,, Loose #3 Mussel,,2,37,5,50,6.25,312.5,,loose,3,17,4,1,3
+A4_#17_Q3,tunicate,, Loose #4 Tunicate,,1,37,5,50,6.25,312.5,,loose,4,17,4,1,3
+A4_#17_Q3,gastropod,, Loose #4 Gastropod,,1,37,5,50,6.25,312.5,,loose,4,17,4,1,3
+A4_#17_Q3,c.f. Jassa,, Loose #4 Jassa,,58,37,5,50,6.25,312.5,,loose,4,17,4,1,3
+A4_#17_Q3,caprellid,, Loose #4 Caprellid,,5,37,5,50,6.25,312.5,,loose,4,17,4,1,3
+A4_#17_Q3,mussel,, Loose #4 Mussel,,2,37,5,50,6.25,312.5,,loose,4,17,4,1,3
+A4_#17_Q3,clam,, Loose #4 Clam,,1,37,5,50,6.25,312.5,,loose,4,17,4,1,3
+A4_#17_Q3,c.f. Jassa,, Loose #5 Jassa,,30,37,5,50,6.25,312.5,,loose,5,17,4,1,3
+A4_#17_Q3,caprellid,, Loose #5 Caprellid,,6,37,5,50,6.25,312.5,,loose,5,17,4,1,3
+A4_#17_Q3,mussel,, Loose #5 Mussel,,6,37,5,50,6.25,312.5,,loose,5,17,4,1,3
+A4_#17_Q3,clam,, Loose #5 Clam,,1,37,5,50,6.25,312.5,,loose,5,17,4,1,3
+A4_#18_Q4,white tufted bryozoan,large colony, White Tufted Bryozoan Colony Large,,1,1,1,50,6.25,312.5,,,,18,4,1,4
+A4_#18_Q4,crab,, Crabs ,,2,1,1,50,6.25,312.5,,,,18,4,1,4
+A4_#18_Q4,acorn barnacle ribbed,, Acorn Barnacle (ribbed),,3,1,1,50,6.25,312.5,,,,18,4,1,4
+A4_#18_Q4,c.f. Jassa,, Loose #1 Cf Jassa,,110,25,5,50,6.25,312.5,,loose,1,18,4,1,4
+A4_#18_Q4,caprellid,, Loose #1 Caprellids,,33,25,5,50,6.25,312.5,,loose,1,18,4,1,4
+A4_#18_Q4,mussel,, Loose #1 Mussel,,8,25,5,50,6.25,312.5,,loose,1,18,4,1,4
+A4_#18_Q4,acorn barnacle ribbed,, Loose #1 Acorn Barnacle Ribbed,,3,25,5,50,6.25,312.5,,loose,1,18,4,1,4
+A4_#18_Q4,clam,, Loose #1 Clam,,8,25,5,50,6.25,312.5,,loose,1,18,4,1,4
+A4_#18_Q4,c.f. Corophium,, Loose #1 Corophium,,2,25,5,50,6.25,312.5,,loose,1,18,4,1,4
+A4_#18_Q4,white tufted bryozoan,fragment, Loose #1 White Tufted Bryozoan Fragment,,4,25,5,50,6.25,312.5,,loose,1,18,4,1,4
+A4_#18_Q4,c.f. Jassa,, Loose #2 Jassa,,126,25,5,50,6.25,312.5,,loose,2,18,4,1,4
+A4_#18_Q4,caprellid,, Loose #2 Caprellid,,57,25,5,50,6.25,312.5,,loose,2,18,4,1,4
+A4_#18_Q4,mussel,, Loose #2 Mussel,,19,25,5,50,6.25,312.5,,loose,2,18,4,1,4
+A4_#18_Q4,clam,, Loose #2 Clam,,14,25,5,50,6.25,312.5,,loose,2,18,4,1,4
+A4_#18_Q4,acorn barnacle ribbed,, Loose #2 Barnacle Ribbed,,9,25,5,50,6.25,312.5,,loose,2,18,4,1,4
+A4_#18_Q4,c.f. Corophium,, Loose #2 Corophium,,2,25,5,50,6.25,312.5,,loose,2,18,4,1,4
+A4_#18_Q4,white tufted bryozoan,fragment, Loose #2 White Tufted Bryozoan Fragment,,1,25,5,50,6.25,312.5,,loose,2,18,4,1,4
+A4_#18_Q4,c.f. Jassa,, Loose #3 Jassa,,121,25,5,50,6.25,312.5,,loose,3,18,4,1,4
+A4_#18_Q4,mussel,, Loose #3 Mussel,,14,25,5,50,6.25,312.5,,loose,3,18,4,1,4
+A4_#18_Q4,caprellid,, Loose #3 Caprellid,,26,25,5,50,6.25,312.5,,loose,3,18,4,1,4
+A4_#18_Q4,c.f. Corophium,, Loose #3 Corophium,,1,25,5,50,6.25,312.5,,loose,3,18,4,1,4
+A4_#18_Q4,clam,, Loose #3 Clam,,8,25,5,50,6.25,312.5,,loose,3,18,4,1,4
+A4_#18_Q4,acorn barnacle,, Loose #3 Barnacle,,4,25,5,50,6.25,312.5,,loose,3,18,4,1,4
+A4_#18_Q4,white tufted bryozoan,fragment, Loose #3 White Tufted Bryozoan Fragments,,9,25,5,50,6.25,312.5,,loose,3,18,4,1,4
+A4_#18_Q4,caprellid,, Loose #4 Caprellid,,53,25,5,50,6.25,312.5,,loose,4,18,4,1,4
+A4_#18_Q4,c.f. Jassa,, Loose #4 Jassa,,144,25,5,50,6.25,312.5,,loose,4,18,4,1,4
+A4_#18_Q4,c.f. Corophium,, Loose #4 Corophium,,3,25,5,50,6.25,312.5,,loose,4,18,4,1,4
+A4_#18_Q4,mussel,, Loose #4 Mussel,,17,25,5,50,6.25,312.5,,loose,4,18,4,1,4
+A4_#18_Q4,clam,, Loose #4 Clam,,9,25,5,50,6.25,312.5,,loose,4,18,4,1,4
+A4_#18_Q4,acorn barnacle,, Loose #4 Barnacle ,,4,25,5,50,6.25,312.5,,loose,4,18,4,1,4
+A4_#18_Q4,white tufted bryozoan,fragment, Loose #4 White Tufted Bryozoan Fragment,,3,25,5,50,6.25,312.5,,loose,4,18,4,1,4
+A4_#18_Q4,white tufted bryozoan,colony, Loose #4 White Encrusting Bryozoan Colony,,2,25,5,50,6.25,312.5,,loose,4,18,4,1,4
+A4_#18_Q4,sponge,, Loose #4 Sponge,,1,25,5,50,6.25,312.5,,loose,4,18,4,1,4
+A4_#18_Q4,caprellid,, Loose #5 Caprellid,,54,25,5,50,6.25,312.5,,loose,5,18,4,1,4
+A4_#18_Q4,mussel,, Loose #5 Mussel,,17,25,5,50,6.25,312.5,,loose,5,18,4,1,4
+A4_#18_Q4,c.f. Jassa,, Loose #5 Jassa,,112,25,5,50,6.25,312.5,,loose,5,18,4,1,4
+A4_#18_Q4,c.f. Corophium,, Loose #5 Corophium,,3,25,5,50,6.25,312.5,,loose,5,18,4,1,4
+A4_#18_Q4,clam,, Loose #5 Clam,,11,25,5,50,6.25,312.5,,loose,5,18,4,1,4
+A4_#18_Q4,acorn barnacle,, Loose #5 Barnacle,,4,25,5,50,6.25,312.5,,loose,5,18,4,1,4
+A4_#18_Q4,white tufted bryozoan,colony, Loose #5 White Tufted Bryozoan Colony,,1,25,5,50,6.25,312.5,,loose,5,18,4,1,4
+A13_#43_Q1,caprellid,, Caprellid,,1,1,1,32,6.25,200,,,,43,13,1,1
+A13_#43_Q1,c.f. Jassa,, Jassa,,2,1,1,32,6.25,200,,,,43,13,1,1
+A13_#43_Q1,mussel,, Mussel,,7,1,1,32,6.25,200,,,,43,13,1,1
+A13_#43_Q1,c.f. Conchoderma,, Corophium,,25,1,1,32,6.25,200,,,,43,13,1,1
+A13_#43_Q1,polychaete,fragment, Polychaete Fragment,,3,1,1,32,6.25,200,,,,43,13,1,1
+A13_#43_Q1,clam,, Clam,,3,1,1,32,6.25,200,,,,43,13,1,1
+A13_#43_Q1,crab,, Crab,,3,1,1,32,6.25,200,,,,43,13,1,1
+A13_#43_Q1,hydroid,squares, Hydroid Squares,,16,1,1,32,6.25,200,,,,43,13,1,1
+A13_#44_Q2,c.f. Conchoderma,, c.f. Conchoderma,,4,1,1,32,6.25,200,,,,44,13,1,2
+A13_#44_Q2,mussel,, Mussel,,16,1,1,32,6.25,200,,,,44,13,1,2
+A13_#44_Q2,caprellid,, Caprellid,,0,1,1,32,6.25,200,,,,44,13,1,2
+A13_#44_Q2,clam,, Clam,,34,1,1,32,6.25,200,,,,44,13,1,2
+A13_#44_Q2,c.f. Jassa,, c.f. Jassa,,29,1,1,32,6.25,200,,,,44,13,1,2
+A13_#44_Q2,c.f. Corophium,, c.f. Corophium ,,11,1,1,32,6.25,200,,,,44,13,1,2
+A13_#44_Q2,hydroid,squares, Hydroid Squares On Conchoderma,,8,1,1,32,6.25,200,,,,44,13,1,2
+A15_#47_Q1,c.f. Corophium,, Corophium,,18,1,1,50,6.25,312.5,,,,47,15,1,1
+A15_#47_Q1,c.f. Jassa,, Jassa,,1,1,1,50,6.25,312.5,,,,47,15,1,1
+A15_#47_Q1,clam,, Clam,,1,1,1,50,6.25,312.5,,,,47,15,1,1
+A15_#47_Q1,acorn barnacle,, Acorn Barnacles (smooth),,16,1,1,50,6.25,312.5,,,,47,15,1,1
+A15_#47_Q1,mussel,, Mussel,,1,1,1,50,6.25,312.5,,,,47,15,1,1
+A15_#47_Q1,hydroid,squares, Hydroid Squares,,12,1,1,50,6.25,312.5,,,,47,15,1,1
+A13_#45_Q3,c.f. Jassa,, Loose #1 c.f. Jassa,,201,37,5,32,6.25,200,,loose,1,45,13,1,3
+A13_#45_Q3,encrusting bryozoan,squares, Bryozoan Squares,,2,1,1,32,6.25,200,,,,45,13,1,3
+A13_#45_Q3,acorn barnacle,, Loose #1 Acorn Barnacle,,13,37,5,32,6.25,200,,loose,1,45,13,1,3
+A13_#45_Q3,encrusting bryozoan,fragment, Loose #1 Encrusting Bryozoan Fragments,,12,37,5,32,6.25,200,,loose,1,45,13,1,3
+A13_#45_Q3,white tufted bryozoan,fragment, Loose #1 White Tufted Bryozoan,,4,37,5,32,6.25,200,,loose,1,45,13,1,3
+A13_#45_Q3,c.f. Jassa,, Loose #2 Jassa,,110,37,5,32,6.25,200,,loose,2,45,13,1,3
+A13_#45_Q3,encrusting bryozoan,fragment, Loose #2 Encrusting Bryozoan Fragments,,6,37,5,32,6.25,200,,loose,2,45,13,1,3
+A13_#45_Q3,white tufted bryozoan,fragment, Loose #2 Tufted Bryo Fragment,,2,37,5,32,6.25,200,,loose,2,45,13,1,3
+A13_#45_Q3,c.f. Corophium,, Loose #2 Corophium,,1,37,5,32,6.25,200,,loose,2,45,13,1,3
+A13_#45_Q3,acorn barnacle,, Loose #2 Acorn Barnacle,,5,37,5,32,6.25,200,,loose,2,45,13,1,3
+A13_#45_Q3,c.f. Jassa,, Loose #3 Jassa,,104,37,5,32,6.25,200,,loose,3,45,13,1,3
+A13_#45_Q3,encrusting bryozoan,, Loose #3 Encrusting Bryozoan,,12,37,5,32,6.25,200,,loose,3,45,13,1,3
+A13_#45_Q3,c.f. Schizoporella,, Loose #3 C.f. Schizoporella,,8,37,5,32,6.25,200,,loose,3,45,13,1,3
+A13_#45_Q3,c.f. Schizoporella,, Loose #1 Schizoporella,,5,37,5,32,6.25,200,,loose,1,45,13,1,3
+A13_#45_Q3,c.f. Schizoporella,, Loose #2 Schizoporella,,3,37,5,32,6.25,200,,loose,2,45,13,1,3
+A13_#45_Q3,white tufted bryozoan,fragment, Loose #3 White Tufted Bryo,,1,37,5,32,6.25,200,,loose,3,45,13,1,3
+A13_#45_Q3,acorn barnacle,, Loose #3 Acorn Barnacles,,6,37,5,32,6.25,200,,loose,3,45,13,1,3
+A13_#45_Q3,mussel,, Loose #3 Mussel,,1,37,5,32,6.25,200,,loose,3,45,13,1,3
+A13_#45_Q3,clam,, Loose #3 Clam,,1,37,5,32,6.25,200,,loose,3,45,13,1,3
+A13_#45_Q3,c.f. Jassa,, Loose # Jassa,,122,37,5,32,6.25,200,,loose,4,45,13,1,3
+A13_#45_Q3,acorn barnacle,, Loose #4 Acorn Barnacle,,14,37,5,32,6.25,200,,loose,4,45,13,1,3
+A13_#45_Q3,encrusting bryozoan,, Loose #4 Encrusting Bryozoan,,22,37,5,32,6.25,200,,loose,4,45,13,1,3
+A13_#45_Q3,c.f. Schizoporella,, Loose #4 Schizoporella,,3,37,5,32,6.25,200,,loose,4,45,13,1,3
+A13_#45_Q3,white tufted bryozoan,fragment, Loose #4 White Tufted Bryo,,1,37,5,32,6.25,200,,loose,4,45,13,1,3
+A13_#45_Q3,c.f. Jassa,, Loose #5 Jassa,,109,37,5,32,6.25,200,,loose,5,45,13,1,3
+A13_#45_Q3,c.f. Schizoporella,, Loose #5 Schizoporella ,,7,37,5,32,6.25,200,,loose,5,45,13,1,3
+A13_#45_Q3,white tufted bryozoan,fragment, Loose #5 White Tufted Bryozoan,,3,37,5,32,6.25,200,,loose,5,45,13,1,3
+A13_#45_Q3,acorn barnacle,, Loose #5 Acorn Barnacles,,7,37,5,32,6.25,200,,loose,5,45,13,1,3
+A13_#45_Q3,encrusting bryozoan,fragment, Loose #5 Encrusting Bryozoan,,16,37,5,32,6.25,200,,loose,5,45,13,1,3
+A13_#45_Q3,mussel,, Loose #5 Mussel,,3,37,5,32,6.25,200,,loose,5,45,13,1,3
+A13_#45_Q3,c.f. Schizoporella,squares, Schizoporella Encrusting Bryo Squares,,14,1,1,32,6.25,200,,,,45,13,1,3
+A13_#46_Q4,c.f. Conchoderma,, C.f. Conchoderma,,1,1,1,32,6.25,200,,,,46,13,1,4
+A13_#46_Q4,spiked encrusting bryo,colony, Spiked Encrusting Bryo Colony,,1,1,1,32,6.25,200,,,,46,13,1,4
+A13_#46_Q4,acorn barnacle,, Acorn Barnacle,,25,1,1,32,6.25,200,,,,46,13,1,4
+A13_#46_Q4,juvenile barnacle,, Juvenile Acorn Barnacle,,2,1,1,32,6.25,200,,,,46,13,1,4
+A13_#46_Q4,mussel,>0.5cm, Mussel > 0.5cm,,1,1,1,32,6.25,200,,,,46,13,1,4
+A13_#46_Q4,caprellid,, Caprellid,,1,1,1,32,6.25,200,,,,46,13,1,4
+A13_#46_Q4,c.f. Schizoporella,, C.f. Schizoporella,,1,1,1,32,6.25,200,,,,46,13,1,4
+A13_#46_Q4,encrusting bryozoan,colony, Encrusting Bryozoan Colony,,6,1,1,32,6.25,200,,,,46,13,1,4
+A13_#46_Q4,mystery thing,, Mystery Thing Maybe Post Settlement Conchoderma ,,3,1,1,32,6.25,200,,,,46,13,1,4
+A13_#46_Q4,white tufted bryozoan,colony, White Tufted Bryozoan Colony,,3,1,1,32,6.25,200,,,,46,13,1,4
+A13_#46_Q4,acorn barnacle,, Acorn Barnacle Ribbed,,7,1,1,32,6.25,200,,,,46,13,1,4
+A13_#46_Q4,c.f. Jassa,, Loose #1 Jassa,,89,37,5,32,6.25,200,,loose,1,46,13,1,4
+A13_#46_Q4,c.f. Corophium,, Loose #1 Corophium,,4,37,5,32,6.25,200,,loose,1,46,13,1,4
+A13_#46_Q4,mussel,, Loose #1 Mussel,,3,37,5,32,6.25,200,,loose,1,46,13,1,4
+A13_#46_Q4,gastropod,, Loose #1 Gastropod,,1,37,5,32,6.25,200,,loose,1,46,13,1,4
+A13_#46_Q4,encrusting bryozoan,fragment, Loose #1 Encrusting Bryo Fragments,,5,37,5,32,6.25,200,,loose,1,46,13,1,4
+A13_#46_Q4,c.f. Jassa,, Loose #2 Jassa,,87,37,5,32,6.25,200,,loose,2,46,13,1,4
+A13_#46_Q4,mussel,, Loose #2 Mussel,,3,37,5,32,6.25,200,,loose,2,46,13,1,4
+A13_#46_Q4,clam,, Loose #2 Clam,,2,37,5,32,6.25,200,,loose,2,46,13,1,4
+A13_#46_Q4,c.f. Corophium,, Loose #2 Corophium,,1,37,5,32,6.25,200,,loose,2,46,13,1,4
+A13_#46_Q4,white tufted bryozoan,fragment, Loose #2 White Tufted Bryozoan Fragment,,2,37,5,32,6.25,200,,loose,2,46,13,1,4
+A13_#46_Q4,acorn barnacle,, Loose #2 Acorn Barnacle,,1,37,5,32,6.25,200,,loose,2,46,13,1,4
+A13_#46_Q4,encrusting bryozoan,, Loose #2 Encrusting Bryo,,1,37,5,32,6.25,200,,loose,2,46,13,1,4
+A13_#46_Q4,c.f. Jassa,, Loose #3 Jassa,,84,37,5,32,6.25,200,,loose,3,46,13,1,4
+A13_#46_Q4,mussel,, Loose #3 Mussel,,2,37,5,32,6.25,200,,loose,3,46,13,1,4
+A13_#46_Q4,clam,, Loose #3 Clam,,4,37,5,32,6.25,200,,loose,3,46,13,1,4
+A13_#46_Q4,c.f. Corophium,, Loose #3 Corophium,,2,37,5,32,6.25,200,,loose,3,46,13,1,4
+A13_#46_Q4,encrusting bryozoan,fragment, Loose #3 Encrusting Bryo Fragment,,2,37,5,32,6.25,200,,loose,3,46,13,1,4
+A13_#46_Q4,white tufted bryozoan,fragment, Loose #3 Tufted Bryo Fragment,,1,37,5,32,6.25,200,,loose,3,46,13,1,4
+A13_#46_Q4,c.f. Jassa,, Loose #4 Jassa,,66,37,5,32,6.25,200,,loose,4,46,13,1,4
+A13_#46_Q4,mussel,, Loose #4 Mussel,,2,37,5,32,6.25,200,,loose,4,46,13,1,4
+A13_#46_Q4,clam,, Loose #4 Clam,,3,37,5,32,6.25,200,,loose,4,46,13,1,4
+A13_#46_Q4,c.f. Corophium,, Loose #4 Corophium,,2,37,5,32,6.25,200,,loose,4,46,13,1,4
+A13_#46_Q4,c.f. Jassa,, Loose #5 Jassa,,104,37,5,32,6.25,200,,loose,5,46,13,1,4
+A13_#46_Q4,mussel,, Loose #5 Mussel,,3,37,5,32,6.25,200,,loose,5,46,13,1,4
+A13_#46_Q4,clam,, Loose #t Clam,,2,37,5,32,6.25,200,,loose,5,46,13,1,4
+A13_#46_Q4,white tufted bryozoan,fragment, Loose #5 White Tufted Bryozoan,,3,37,5,32,6.25,200,,loose,5,46,13,1,4
+A13_#46_Q4,acorn barnacle,, Loose #5 Acorn Barnacle,,1,37,5,32,6.25,200,,loose,5,46,13,1,4
+A13_#46_Q4,encrusting bryozoan,fragment, Loose #5 Encrusting Bryo Fragment,,4,37,5,32,6.25,200,,loose,5,46,13,1,4
