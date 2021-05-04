@@ -11,17 +11,23 @@ knitr::opts_chunk$set(echo = TRUE)
 library(vegan)
 library(tidyverse)
 library(readr)
+library(here)
 ```
 
 I have one data file with the count data from lab processing. The file needs some wrangling to calculate a density (counts per cm2) for each quadrat sampled.
 
 ```{r calculating density}
-taxon_count_data <- read_csv("data/taxon_count_data_internal_pipework.csv")
+taxon_count_data <- read_csv(here("data", "taxon_count_data_internal_pipework.csv"))
 taxon_density <- taxon_count_data %>% 
-  mutate(id = paste(area, quadrat_number)) %>% #some quadrats had multiple 'sample' so changed to just area and quadrat
-  group_by(id, taxon, taxon_grouping_qualifier) %>% 
+  mutate(id = paste(area,"_",quadrat_number)) %>% #some quadrats had multiple 'sample' so changed to just area and quadrat
+  group_by(id, taxon, taxon_grouping_qualifier, area, stage, quadrat_number) %>% 
   mutate(density = count*multiply_by/divide_by/area_sampled*100) %>% #counts per m2
   summarise(avg_density = mean(density))
+site_info <- taxon_density %>% 
+  ungroup() %>% 
+  select(id, area, stage, quadrat_number) %>% 
+  group_by(id) %>% 
+  slice(1)
 ```
 
 # Preparing Data for ordination
@@ -31,7 +37,7 @@ I take my data from counts to a community matrix, with species as variables and 
 ```{r nMDS preparation}
 community_matrix <- taxon_density %>% 
   group_by(id) %>% 
-  mutate(full_taxon_group = paste(taxon, taxon_grouping_qualifier)) %>% 
+  mutate(full_taxon_group = paste(taxon,"_",taxon_grouping_qualifier)) %>% 
   select(id, full_taxon_group, avg_density) %>% 
   pivot_wider(names_from = full_taxon_group, values_from = avg_density) %>% 
   ungroup() %>% 
@@ -44,8 +50,30 @@ community_matrix <- community_matrix %>%
 ## nMDS
 
 ```{r nMDS}
-internal_pipe_nmds <- metaMDS(community_matrix, k = 2)
-plot(internal_pipe_nmds, type = "t")
+internal_pipe_nmds <- metaMDS(community_matrix, k = 2, trymax = 250)
+internal_pipe_nmds
+data_scores <- as.data.frame(scores(internal_pipe_nmds))  #Using the scores function from vegan to extract the site scores and convert to a data.frame
+data_scores$site <- rownames(internal_pipe_nmds)  # create a column of site names, from the rownames of data.scores
+data_scores <- data_scores %>% 
+  rownames_to_column(var = "id") %>% 
+  left_join(site_info)
+species_scores <- as.data.frame(scores(internal_pipe_nmds, "species"))  #Using the scores function from vegan to extract the species scores and convert to a data.frame
+species_scores$species <- rownames(species_scores)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Plotting with ggplot
+```{r}
+ggplot() + 
+  #geom_text(data=species_scores,aes(x=NMDS1,y=NMDS2,label=species),alpha=0.5) +  # add the species labels
+  geom_point(data=data_scores,aes(x=NMDS1,y=NMDS2,shape=as_factor(stage),colour=as_factor(area)),size=3) + # add the point markers
+  #geom_text(data=data_scores,aes(x=NMDS1,y=NMDS2,label=area),size=6,vjust=0) +  # add the site labels
+  coord_equal() +
+  theme_bw()
+```
+Checking the nMDS
+
+```{r}
+goodness(internal_pipe_nmds) # Produces a results of test statistics for goodness of fit for each point
+
+stressplot(internal_pipe_nmds) # Produces a Shepards diagram
+```
