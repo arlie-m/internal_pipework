@@ -45,7 +45,7 @@ community_matrix <- community_matrix %>%
 
 ```{r nMDS}
 internal_pipe_nmds <- metaMDS(community_matrix, k = 2)
-plot(internal_pipe_nmds)
+plot(internal_pipe_nmds, type = "t")
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
