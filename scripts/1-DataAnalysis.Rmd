@@ -149,5 +149,10 @@ ggplot() +
   geom_bar(data = mean_density_stage,
            aes(x = stage, y = avg_density, fill = taxon),
            stat = "identity",
-           position = "stack")
+           position = "stack") +
+#  geom_line(data = mean_density_stage, #problem with line is that without 0 for stages where taxa are absent, it connects the line making it look like the density goes consistently up/down rather than sharp changes
+#           aes(x = stage, y = avg_density, colour = taxon),
+#           stat = "identity",
+#           position = "stack") +
+  theme(legend.position = "bottom")
 ```
