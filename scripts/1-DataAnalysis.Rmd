@@ -84,6 +84,8 @@ community_matrix <- community_matrix %>%
            white_tufted_bryozoan_small_colony,
          polychaete_tube_fragment = polychaete_tube_fragment +
            polychaete_tube_na,
+         gastropod = gastropod_na +
+           gastropods_na,
          .keep = "unused") %>% 
   ungroup() %>% 
   column_to_rownames(var = "id") %>% 
@@ -93,22 +95,26 @@ community_matrix <- community_matrix %>%
 ## nMDS
 
 ```{r nMDS}
-internal_pipe_nmds <- metaMDS(community_matrix, k = 2, trymax = 250)
+internal_pipe_nmds <- metaMDS(community_matrix, k = 2, trymax = 500)
 internal_pipe_nmds
 data_scores <- as.data.frame(scores(internal_pipe_nmds))  #Using the scores function from vegan to extract the site scores and convert to a data.frame
 data_scores$site <- rownames(internal_pipe_nmds)  # create a column of site names, from the rownames of data.scores
 data_scores <- data_scores %>% 
   rownames_to_column(var = "id") %>% 
   left_join(site_info)
+data_scores$n_species <- specnumber(community_matrix, MARGIN = 1)
+data_scores$shannon <- diversity(community_matrix, index = "shannon")
+data_scores$simpson <- diversity(community_matrix, index = "simpson")
 species_scores <- as.data.frame(scores(internal_pipe_nmds, "species"))  #Using the scores function from vegan to extract the species scores and convert to a data.frame
 species_scores$species <- rownames(species_scores)
+
 ```
 
 Plotting with ggplot
 ```{r}
 ggplot() + 
   #geom_text(data=species_scores,aes(x=NMDS1,y=NMDS2,label=species),alpha=0.5) +  # add the species labels
-  geom_point(data=data_scores,aes(x=NMDS1,y=NMDS2,shape=as_factor(stage),colour=as_factor(area)),size=3) + # add the point markers
+  geom_point(data=data_scores,aes(x=NMDS1,y=NMDS2,shape=as_factor(stage),colour=n_species),size=3) + # add the point markers
   #geom_text(data=data_scores,aes(x=NMDS1,y=NMDS2,label=area),size=6,vjust=0) +  # add the site labels
   coord_equal() +
   theme_bw()
