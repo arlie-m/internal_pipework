@@ -673,22 +673,22 @@ A13_#43_Q1,c.f. Conchoderma,, Corophium,,25,1,1,32,6.25,200,,,,43,13,1,1
 A13_#43_Q1,polychaete,fragment, Polychaete Fragment,,3,1,1,32,6.25,200,,,,43,13,1,1
 A13_#43_Q1,clam,, Clam,,3,1,1,32,6.25,200,,,,43,13,1,1
 A13_#43_Q1,crab,, Crab,,3,1,1,32,6.25,200,,,,43,13,1,1
-A13_#43_Q1,hydroid,squares, Hydroid Squares,,16,1,1,32,6.25,200,,,,43,13,1,1
+A13_#43_Q1,hydroid,squares, Hydroid Squares,,16,4,1,32,6.25,200,,,,43,13,1,1
 A13_#44_Q2,c.f. Conchoderma,, c.f. Conchoderma,,4,1,1,32,6.25,200,,,,44,13,1,2
 A13_#44_Q2,mussel,, Mussel,,16,1,1,32,6.25,200,,,,44,13,1,2
 A13_#44_Q2,caprellid,, Caprellid,,0,1,1,32,6.25,200,,,,44,13,1,2
 A13_#44_Q2,clam,, Clam,,34,1,1,32,6.25,200,,,,44,13,1,2
 A13_#44_Q2,c.f. Jassa,, c.f. Jassa,,29,1,1,32,6.25,200,,,,44,13,1,2
 A13_#44_Q2,c.f. Corophium,, c.f. Corophium ,,11,1,1,32,6.25,200,,,,44,13,1,2
-A13_#44_Q2,hydroid,squares, Hydroid Squares On Conchoderma,,8,1,1,32,6.25,200,,,,44,13,1,2
+A13_#44_Q2,hydroid,squares, Hydroid Squares On Conchoderma,,8,4,1,32,6.25,200,,,,44,13,1,2
 A15_#47_Q1,c.f. Corophium,, Corophium,,18,1,1,50,6.25,312.5,,,,47,15,1,1
 A15_#47_Q1,c.f. Jassa,, Jassa,,1,1,1,50,6.25,312.5,,,,47,15,1,1
 A15_#47_Q1,clam,, Clam,,1,1,1,50,6.25,312.5,,,,47,15,1,1
 A15_#47_Q1,acorn barnacle,, Acorn Barnacles (smooth),,16,1,1,50,6.25,312.5,,,,47,15,1,1
 A15_#47_Q1,mussel,, Mussel,,1,1,1,50,6.25,312.5,,,,47,15,1,1
-A15_#47_Q1,hydroid,squares, Hydroid Squares,,12,1,1,50,6.25,312.5,,,,47,15,1,1
+A15_#47_Q1,hydroid,squares, Hydroid Squares,,12,4,1,50,6.25,312.5,,,,47,15,1,1
 A13_#45_Q3,c.f. Jassa,, Loose #1 c.f. Jassa,loose_1,201,37,5,32,6.25,200,,loose,1,45,13,1,3
-A13_#45_Q3,encrusting bryozoan,squares, Bryozoan Squares,,2,1,1,32,6.25,200,,,,45,13,1,3
+A13_#45_Q3,encrusting bryozoan,squares, Bryozoan Squares,,2,4,1,32,6.25,200,,,,45,13,1,3
 A13_#45_Q3,acorn barnacle,, Loose #1 Acorn Barnacle,loose_1,13,37,5,32,6.25,200,,loose,1,45,13,1,3
 A13_#45_Q3,encrusting bryozoan,fragment, Loose #1 Encrusting Bryozoan Fragments,loose_1,12,37,5,32,6.25,200,,loose,1,45,13,1,3
 A13_#45_Q3,white tufted bryozoan,fragment, Loose #1 White Tufted Bryozoan,loose_1,4,37,5,32,6.25,200,,loose,1,45,13,1,3
@@ -717,7 +717,7 @@ A13_#45_Q3,white tufted bryozoan,fragment, Loose #5 White Tufted Bryozoan,loose_
 A13_#45_Q3,acorn barnacle,, Loose #5 Acorn Barnacles,loose_5,7,37,5,32,6.25,200,,loose,5,45,13,1,3
 A13_#45_Q3,encrusting bryozoan,fragment, Loose #5 Encrusting Bryozoan,loose_5,16,37,5,32,6.25,200,,loose,5,45,13,1,3
 A13_#45_Q3,mussel,, Loose #5 Mussel,loose_5,3,37,5,32,6.25,200,,loose,5,45,13,1,3
-A13_#45_Q3,c.f. Schizoporella,squares, Schizoporella Encrusting Bryo Squares,,14,1,1,32,6.25,200,,,,45,13,1,3
+A13_#45_Q3,c.f. Schizoporella,squares, Schizoporella Encrusting Bryo Squares,,14,4,1,32,6.25,200,,,,45,13,1,3
 A13_#46_Q4,c.f. Conchoderma,, C.f. Conchoderma,,1,1,1,32,6.25,200,,,,46,13,1,4
 A13_#46_Q4,spiked encrusting bryo,colony, Spiked Encrusting Bryo Colony,,1,1,1,32,6.25,200,,,,46,13,1,4
 A13_#46_Q4,acorn barnacle,, Acorn Barnacle,,25,1,1,32,6.25,200,,,,46,13,1,4

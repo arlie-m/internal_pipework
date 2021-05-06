@@ -126,3 +126,28 @@ goodness(internal_pipe_nmds) # Produces a results of test statistics for goodnes
 
 stressplot(internal_pipe_nmds) # Produces a Shepards diagram
 ```
+
+
+# Density of different groups
+
+Here I will make a stacked bar chart to show mean density of different taxonomic groups at each stage of the pipework
+
+```{r}
+mean_density_stage <- taxon_density %>% 
+  group_by(id, taxon, area, stage) %>% 
+  summarise(avg_density = sum(avg_density)) %>% #this ensures that there is only one number per taxa per sample
+  ungroup() %>% 
+  filter(!is.na(avg_density)) %>% 
+  group_by(taxon, stage) %>% 
+  summarise(avg_density = mean(avg_density))
+```
+
+Now to plot it. This plot will be aligned with a schematic diagram representing the pipework system, so that readers can visualise passage through the pipes and the changes in taxa over space. Ultimately, this will have to be grouped/coloured by more manageable chunks than all the taxa I have listed. But even without that, it's clear that the Jassa amphipods dominate right the way through. It's also clear that there isn't a great deal surviving in the pipework areas sampled in the middle of the ship, but they do survive transit and settle and grow in the final stage before overboard discharge. 
+
+```{r}
+ggplot() +
+  geom_bar(data = mean_density_stage,
+           aes(x = stage, y = avg_density, fill = taxon),
+           stat = "identity",
+           position = "stack")
+```
