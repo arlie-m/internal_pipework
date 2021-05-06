@@ -84,6 +84,8 @@ community_matrix <- community_matrix %>%
            white_tufted_bryozoan_small_colony,
          polychaete_tube_fragment = polychaete_tube_fragment +
            polychaete_tube_na,
+         gastropod = gastropod_na +
+           gastropods_na,
          .keep = "unused") %>% 
   ungroup() %>% 
   column_to_rownames(var = "id") %>% 
@@ -93,22 +95,26 @@ community_matrix <- community_matrix %>%
 ## nMDS
 
 ```{r nMDS}
-internal_pipe_nmds <- metaMDS(community_matrix, k = 2, trymax = 250)
+internal_pipe_nmds <- metaMDS(community_matrix, k = 2, trymax = 500)
 internal_pipe_nmds
 data_scores <- as.data.frame(scores(internal_pipe_nmds))  #Using the scores function from vegan to extract the site scores and convert to a data.frame
 data_scores$site <- rownames(internal_pipe_nmds)  # create a column of site names, from the rownames of data.scores
 data_scores <- data_scores %>% 
   rownames_to_column(var = "id") %>% 
   left_join(site_info)
+data_scores$n_species <- specnumber(community_matrix, MARGIN = 1)
+data_scores$shannon <- diversity(community_matrix, index = "shannon")
+data_scores$simpson <- diversity(community_matrix, index = "simpson")
 species_scores <- as.data.frame(scores(internal_pipe_nmds, "species"))  #Using the scores function from vegan to extract the species scores and convert to a data.frame
 species_scores$species <- rownames(species_scores)
+
 ```
 
 Plotting with ggplot
 ```{r}
 ggplot() + 
   #geom_text(data=species_scores,aes(x=NMDS1,y=NMDS2,label=species),alpha=0.5) +  # add the species labels
-  geom_point(data=data_scores,aes(x=NMDS1,y=NMDS2,shape=as_factor(stage),colour=as_factor(area)),size=3) + # add the point markers
+  geom_point(data=data_scores,aes(x=NMDS1,y=NMDS2,shape=as_factor(stage),colour=n_species),size=3) + # add the point markers
   #geom_text(data=data_scores,aes(x=NMDS1,y=NMDS2,label=area),size=6,vjust=0) +  # add the site labels
   coord_equal() +
   theme_bw()
@@ -119,4 +125,34 @@ Checking the nMDS
 goodness(internal_pipe_nmds) # Produces a results of test statistics for goodness of fit for each point
 
 stressplot(internal_pipe_nmds) # Produces a Shepards diagram
+```
+
+
+# Density of different groups
+
+Here I will make a stacked bar chart to show mean density of different taxonomic groups at each stage of the pipework
+
+```{r}
+mean_density_stage <- taxon_density %>% 
+  group_by(id, taxon, area, stage) %>% 
+  summarise(avg_density = sum(avg_density)) %>% #this ensures that there is only one number per taxa per sample
+  ungroup() %>% 
+  filter(!is.na(avg_density)) %>% 
+  group_by(taxon, stage) %>% 
+  summarise(avg_density = mean(avg_density))
+```
+
+Now to plot it. This plot will be aligned with a schematic diagram representing the pipework system, so that readers can visualise passage through the pipes and the changes in taxa over space. Ultimately, this will have to be grouped/coloured by more manageable chunks than all the taxa I have listed. But even without that, it's clear that the Jassa amphipods dominate right the way through. It's also clear that there isn't a great deal surviving in the pipework areas sampled in the middle of the ship, but they do survive transit and settle and grow in the final stage before overboard discharge. 
+
+```{r}
+ggplot() +
+  geom_bar(data = mean_density_stage,
+           aes(x = stage, y = avg_density, fill = taxon),
+           stat = "identity",
+           position = "stack") +
+#  geom_line(data = mean_density_stage, #problem with line is that without 0 for stages where taxa are absent, it connects the line making it look like the density goes consistently up/down rather than sharp changes
+#           aes(x = stage, y = avg_density, colour = taxon),
+#           stat = "identity",
+#           position = "stack") +
+  theme(legend.position = "bottom")
 ```
