@@ -16,6 +16,8 @@ community_site_info <- select(community_matrix_sites, id, area, stage, quadrat_n
 #Make a presence-absence version of community data
 community_matrix_PA <- decostand(community_matrix_AB, method = "pa")
 
+###########################################################################################
+
 #Perform PERMANOVA - right now PERMANOVAs use bray-curtis distances, as I think from NMDS 
 #output it also uses the bray-curtis distance, so these results are directly comparable to 
 #the ordination visualisation
@@ -25,19 +27,19 @@ ABpermanova <- adonis2(community_matrix_AB ~ stage, community_site_info, permuta
                        method="bray")
 ABpermanova
 ##         Df SumOfSqs      R2      F Pr(>F)
-##stage     1   0.4517 0.03426 1.3834 0.1628
-##Residual 39  12.7328 0.96574              
-##Total    40  13.1844 1.00000 
+##stage     1   0.4827 0.03656 1.4798 0.1249
+##Residual 39  12.7221 0.96344              
+##Total    40  13.2048 1.00000
 #Cannot reject null hypothesis that centroids and/or dispersion of the groups are the same 
 
 #PERMANOVA for presence-absence data
 PApermanova <- adonis2(community_matrix_PA ~ stage, community_site_info, permutations=1000,
                        method="bray")
 PApermanova
-##          Df SumOfSqs      R2      F   Pr(>F)    
-##stage     1   1.3204 0.14654 6.6961 0.000999 ***
-##Residual 39   7.6903 0.85346                    
-##Total    40   9.0107 1.00000 
+##         Df SumOfSqs      R2      F   Pr(>F)    
+##stage     1   1.3602 0.15336 7.0643 0.000999 ***
+##Residual 39   7.5093 0.84664                    
+##Total    40   8.8695 1.00000 
 #CAN reject null hypothesis.
 
 #So basically: heaps of variation in abundances WITHIN each stage (cannot detect overall
@@ -47,54 +49,81 @@ PApermanova
 #terms of what species are there, but there is also an area-specific effect leading to very 
 #variable abundances within each stage.
 
+###########################################################################################
+
 #Analysis of nestedness
-#For now, just use least constrained null model (we need to talk about this) - 
-#the nestedness algorithms we use need serious consideration 
-#Will also increase simulation number 
 
-#Look at nestedness of presence-absence data
-oecosimu(community_matrix_PA, nestednodf, "r00", nsimul=500)
-##nullmodel method ‘r00’ with 500 simulations
-##
-##alternative hypothesis: statistic is less or greater than simulated values
-##
-##N columns  : 43.11143 
-##N rows     : 60.68859 
-##NODF       : 51.90001 
-##Matrix fill: 0.1659726 
-##
-##          statistic    SES   mean   2.5%    50%  97.5% Pr(sim.)   
-##N.columns    43.111 28.761 17.939 16.201 17.918 19.781 0.001996 **
-##N.rows       60.689 49.952 17.921 16.377 17.931 19.668 0.001996 **
-##NODF         51.900 41.510 17.930 16.450 17.919 19.664 0.001996 **
+#First, look at nestedness of presence-absence data:
 
-#i.e. species presences in the community matrix are signifcantly more nested than expected 
-#by chance - i.e. species-poor samples tend to be nested subsets of species-rich ones.
-#This is good - especially if we can show a linear decrease in species richness through the
-#ship's system!
+#Use least-constrained null model (only total count maintained)
 
-#Look at nestedness of abundnace data
+oecosimu(community_matrix_PA, nestednodf, "r00", nsimul=1000)
+##N columns  : 42.16523 
+##N rows     : 60.64611 
+##NODF       : 51.87331 
+##Matrix fill: 0.1651032 
+##
+##          statistic    SES   mean   2.5%    50%  97.5% Pr(sim.)    
+##N.columns    42.165 28.000 17.811 16.148 17.794 19.608 0.000999 ***
+##N.rows       60.646 48.669 17.836 16.199 17.790 19.582 0.000999 ***
+##NODF         51.873 41.577 17.824 16.283 17.798 19.442 0.000999 ***
+
+#Use null model where individual site richness is constrained
+
+oecosimu(community_matrix_PA, nestednodf, "r0", nsimul=1000)
+##N columns  : 42.16523 
+##N rows     : 60.64611 
+##NODF       : 51.87331 
+##Matrix fill: 0.1651032 
+##
+##          statistic    SES   mean   2.5%    50%  97.5% Pr(sim.)    
+##N.columns    42.165 17.995 23.324 21.299 23.321 25.460 0.000999 ***
+##N.rows       60.646 45.033 21.584 20.011 21.537 23.582 0.000999 ***
+##NODF         51.873 34.233 22.410 20.750 22.379 24.143 0.000999 ***
+
+#Use null model where species prevalences are constrained
+
+oecosimu(community_matrix_PA, nestednodf, "c0", nsimul=1000)
+##N columns  : 42.16523 
+##N rows     : 60.64611 
+##NODF       : 51.87331 
+##Matrix fill: 0.1651032 
+##
+##          statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)    
+##N.columns    42.165 15.4292 26.032 24.124 26.010 28.125 0.000999 ***
+##N.rows       60.646  8.2024 43.598 39.589 43.577 47.738 0.000999 ***
+##NODF         51.873 11.3218 35.259 32.480 35.240 38.271 0.000999 ***
+
+#Use null model where both site richness and species prevalences are constrained 
+oecosimu(community_matrix_PA, nestednodf, "quasiswap", nsimul=1000)
+##N columns  : 42.16523 
+##N rows     : 60.64611 
+##NODF       : 51.87331 
+##Matrix fill: 0.1651032 
+##
+##          statistic      SES   mean   2.5%    50%  97.5% Pr(sim.)  
+##N.columns    42.165  1.64850 40.140 37.600 40.238 42.292  0.07093 .
+##N.rows       60.646 -1.48999 63.236 59.253 63.420 66.074  0.15485  
+##NODF         51.873 -0.33869 52.273 49.825 52.353 54.333  0.68831
+
+
+#So basically: we observe that species-poor sites tend to be nested subsets of species-rich
+#ones (r00 model). Allowing for the fact that some sites will be more favourable than others (r0),
+#we still see this pattern. Allowing for the fact that some species are inherently more common than
+#others (c0), we still see this pattern. However, allowing for both these things (quasiswap) we do 
+#NOT see this pattern: nestedness is a combined product of the suitability of certain sites and the
+#differential prevalence of species.
+
+
+#Next, look at nestedness of abundance data
+
 #Algorithms require integer values
 community_matrix_AB_rounded <- ceiling(community_matrix_AB) #round up because otherwise some
 #columns would be entirely 0
-oecosimu(community_matrix_AB_rounded, nestednodf, "r00_ind", nsimul=500)
-##nullmodel method ‘r00_ind’ with 500 simulations
-##
-##alternative hypothesis: statistic is less or greater than simulated values
-##
-##N columns  : 43.11143 
-##N rows     : 60.68859 
-##NODF       : 51.90001 
-##Matrix fill: 0.1659726 
-##
-##          statistic      SES   mean   2.5%    50%  97.5% Pr(sim.)  
-##N.columns    43.111 -2.69421 57.028 45.279 57.465 65.748  0.02196 *
-##N.rows       60.689  0.72595 56.984 44.892 57.497 65.268  0.51697  
-##NODF         51.900 -1.01389 57.006 45.303 57.534 65.118  0.30539 
 
-#In terms of species abundances, they are NOT more nested than expected by chance!
-#This agrees thematically with the PERMANOVA results 
-
+oecosimu(community_matrix_AB_rounded, nestednodf, "r00_ind", nsimul=1000)
+#Don't think this code is right - need to have the weighted version of nestednodf 
+#but can't get the nested version to work with oecosimu right now
 
 
 
