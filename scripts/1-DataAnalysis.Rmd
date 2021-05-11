@@ -65,8 +65,7 @@ community_matrix <- community_matrix %>%
            c_f_jassa_heads +
            c_f_jassa_large +
            c_f_jassa_medium +
-           c_f_jassa_small +
-           green_eye_amphipod_na,
+           c_f_jassa_small,
          acorn_barnacle_ribbed = acorn_barnacle_ribbed_na +
            barnacle_type_2_na,
          sponge = sponge_na +
@@ -86,6 +85,9 @@ community_matrix <- community_matrix %>%
            polychaete_tube_na,
          gastropod = gastropod_na +
            gastropods_na,
+         round_amphipod = round_amphipod_na +
+           green_eye_amphipod_na,
+         conchoderma_auritum = c_f_conchoderma_na
          .keep = "unused") %>% 
   ungroup() %>% 
   column_to_rownames(var = "id") %>% 

@@ -150,7 +150,7 @@ A22_#63_Q1,c.f. Jassa,, Mat Sub-sample #2 cf Jassa,mat_2,5,18,5,32,6.25,200,,mat
 A22_#63_Q1,c.f. Jassa,, Mat Sub-sample #3 cf Jassa,mat_3,5,18,5,32,6.25,200,,mat,3,63,22,3,1
 A22_#63_Q1,c.f. Jassa,, Mat Sub-sample #4 cf Jassa,mat_4,9,18,5,32,6.25,200,,mat,4,63,22,3,1
 A22_#63_Q1,c.f. Jassa,, Mat Sub-sample #5 cf Jassa,mat_5,9,18,5,32,6.25,200,,mat,5,63,22,3,1
-A22_#63_Q1,other bivalves,, Mat Sub-sample #5 Other Bivalves,mat_5,1,18,5,32,6.25,200,,mat,5,63,22,3,1
+A22_#63_Q1,other bivalve,, Mat Sub-sample #5 Other Bivalves,mat_5,1,18,5,32,6.25,200,,mat,5,63,22,3,1
 A22_#64_Q2,insect,, Insect (beetle?),,1,1,1,32,6.25,200,,,,64,22,3,2
 A22_#64_Q2,c.f. Jassa,, Loose Sub-sample #1 cf Jassa,loose_1,30,37,5,32,6.25,200,,loose,1,64,22,3,2
 A22_#64_Q2,gastropod,, Loose Sub-sample #1 Gastropods ,loose_1,1,37,5,32,6.25,200,,loose,1,64,22,3,2
@@ -168,7 +168,7 @@ A22_#64_Q2,c.f. Jassa,, Mat Sub-sample #2 cf Jassa,mat_2,10,16,4,32,6.25,200,,ma
 A22_#64_Q2,mussel,, Mat Sub-sample #2 Mussel,mat_2,1,16,4,32,6.25,200,,mat,2,64,22,3,2
 A22_#64_Q2,c.f. Jassa,, Mat Sub-sample #3 cf Jassa,mat_3,15,16,4,32,6.25,200,,mat,3,64,22,3,2
 A22_#64_Q2,c.f. Jassa,, Mat Sub-sample #4 cf Jassa,mat_4,11,16,4,32,6.25,200,,mat,4,64,22,3,2
-A22_#64_Q2,other bivalves,, Mat Sub-sample #4 Other Bivalve,mat_4,1,16,4,32,6.25,200,,mat,4,64,22,3,2
+A22_#64_Q2,other bivalve,, Mat Sub-sample #4 Other Bivalve,mat_4,1,16,4,32,6.25,200,,mat,4,64,22,3,2
 A23_#65_Q1,mussel,0.3-3cm with tissue, Mussels 0.5-3cm With Tissue,,10,1,1,32,6.25,200,,,,65,23,2,1
 A23_#65_Q1,acorn barnacle,, Acorn Barnacles,,27,1,1,32,6.25,200,,,,65,23,2,1
 A23_#65_Q1,white tufted bryozoan,colony, White Tufted Bryozoan Colonies,,1,1,1,32,6.25,200,,,,65,23,2,1
@@ -228,7 +228,7 @@ A23_#67_Q3,juvenile barnacle,, Juvenile Barnacle,,17,1,1,32,6.25,200,,,,67,23,2,
 A23_#67_Q3,nemertea,, Nemertea,,1,1,1,32,6.25,200,,,,67,23,2,3
 A23_#67_Q3,c.f. Corophium,, cf Corophium,,7,1,1,32,6.25,200,,,,67,23,2,3
 A23_#67_Q3,polychaete,, Polychaetes,,1,1,1,32,6.25,200,,,,67,23,2,3
-A23_#67_Q3,tiny sponges?,, Tiny Sponges?,,20,1,1,32,6.25,200,,,,67,23,2,3
+A23_#67_Q3,sponge,, Tiny Sponges?,,20,1,1,32,6.25,200,,,,67,23,2,3
 A23_#67_Q3,mussel,"valves intact, no tissue", Intact Mussels (no Tissue),,22,1,1,32,6.25,200,,,,67,23,2,3
 A23_#67_Q3,tunicate,, Tunicates,,9,1,1,32,6.25,200,,,,67,23,2,3
 A23_#67_Q3,encrusting bryozoan,colony, Encrusting Bryozoan Colonies,,5,1,1,32,6.25,200,,,,67,23,2,3
@@ -430,7 +430,7 @@ A25_#76_Q2,white tufted bryozoan,, Loose Sub-sampl #3 White Bryozoan Fragments,l
 A25_#76_Q2,c.f. Jassa,, Loose Sub-sample #4 cf Jassa,loose_4,48,28,6,32,6.25,200,,loose,4,76,25,4,2
 A25_#76_Q2,mussel,, Loose Sub-sample #4 Mussels,loose_4,10,28,6,32,6.25,200,,loose,4,76,25,4,2
 A25_#76_Q2,other bivalve,, Loose Sub-sample #4 Other Bivalves,loose_4,1,28,6,32,6.25,200,,loose,4,76,25,4,2
-A25_#76_Q2,gastropods,, Loose Sub-sample #4 Gastropods,loose_4,8,28,6,32,6.25,200,,loose,4,76,25,4,2
+A25_#76_Q2,gastropod,, Loose Sub-sample #4 Gastropods,loose_4,8,28,6,32,6.25,200,,loose,4,76,25,4,2
 A25_#76_Q2,c.f. Jassa,, Loose Sub-sample #5 cf Jassa,loose_5,45,28,6,32,6.25,200,,loose,5,76,25,4,2
 A25_#76_Q2,mussel,, Loose Sub-sample #5 Mussels,loose_5,3,28,6,32,6.25,200,,loose,5,76,25,4,2
 A25_#76_Q2,polychaete tube,, Loose Sub-sample #5 Polychaete Tube ,loose_5,1,28,6,32,6.25,200,,loose,5,76,25,4,2
