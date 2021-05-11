@@ -68,26 +68,20 @@ community_matrix <- community_matrix %>%
            c_f_jassa_small,
          acorn_barnacle_ribbed = acorn_barnacle_ribbed_na +
            barnacle_type_2_na,
-         sponge = sponge_na +
-           tiny_sponges_na,
          crab = crab_na +
            juvenile_crab_na,
          encrusting_bryozoan_fragment = encrusting_bryozoan_fragment +
            encrusting_bryozoan_na,
          white_tufted_bryozoan_fragment = white_tufted_bryozoan_fragment +
            white_tufted_bryozoan_na,
-         other_bivalve = other_bivalve_na +
-           other_bivalves_na,
          white_tufted_bryozoan_colony = white_tufted_bryozoan_colony +
            white_tufted_bryozoan_large_colony +
            white_tufted_bryozoan_small_colony,
          polychaete_tube_fragment = polychaete_tube_fragment +
            polychaete_tube_na,
-         gastropod = gastropod_na +
-           gastropods_na,
          round_amphipod = round_amphipod_na +
            green_eye_amphipod_na,
-         conchoderma_auritum = c_f_conchoderma_na
+         conchoderma_auritum = c_f_conchoderma_na,
          .keep = "unused") %>% 
   ungroup() %>% 
   column_to_rownames(var = "id") %>% 

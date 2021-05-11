@@ -10,7 +10,7 @@ community_matrix_sites <- community_matrix %>%
   rownames_to_column(var = "id") %>% 
   left_join(site_info)
 #Re-extract community matrix and site info data now they are aligned
-community_matrix_AB <- select(community_matrix_sites, c_f_conchoderma_na:other_bivalve)
+community_matrix_AB <- select(community_matrix_sites, c_f_corophium_na:conchoderma_auritum)
 community_site_info <- select(community_matrix_sites, id, area, stage, quadrat_number)
 
 #Make a presence-absence version of community data
