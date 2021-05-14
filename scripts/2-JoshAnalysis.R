@@ -125,6 +125,22 @@ oecosimu(community_matrix_AB_rounded, nestednodf, "r00_ind", nsimul=1000)
 #Don't think this code is right - need to have the weighted version of nestednodf 
 #but can't get the nested version to work with oecosimu right now
 
+#Stuff to do double dendrogram heat map:
+##Heatmap:
+#image(rectangular_matrix,col=your_colourscale,xaxt="n",yaxt="n") ##rectangular_matrix is a numeric matrix with the colour levels you want to represent.
+#
+##Horizontal colour values (levels of invasion):
+#image(as.matrix(numeric_vector),col=brewer.pal(5, "OrRd"),xaxt="n",yaxt="n") ##the colour scale was set to 5 levels for the "OrRd" set of colours (see help file for brewer.pal). The numeric_vector has the same number of elements as there are columns in the rectangular_matrix above.
+#
+##Vertical colour values (driver categories):
+#image(t(as.matrix(another_numeric_vector)),col=brewer.pal(length(levels(typesVariables)),"Set1"),xaxt="n",yaxt="n") ##the colour scale was set to the number of levels corresponding to the number of categories for the "Set1" set of colours (see help file for brewer.pal). The numeric_vector has the same number of elements as there are rows in the rectangular_matrix above. Note that the matrix was transposed to get it vertically, but you can do this by hand in illustrator too.
+#
+##Dendrogram:
+#dendrogram <- hclust(distance_matrix)
+#plot(dendrogram ,hang=-1)
+#
+#For the rotated dendrogram, you need to rotate it in Illustrator.
+
 
 
 
