@@ -20,8 +20,29 @@ I have one data file with the count data from lab processing. The file needs som
 ```{r calculating density}
 taxon_count_data <- read_csv(here("data", "taxon_count_data_internal_pipework.csv"))
 taxon_density <- taxon_count_data %>% 
+  clean_names() %>% 
   mutate(id = paste(area, quadrat_number, sep = "_")) %>% #some quadrats had multiple 'sample' so changed to just area and quadrat
-  group_by(id, taxon, taxon_grouping_qualifier, area, stage, quadrat_number) %>% 
+  mutate(taxon_verified = case_when(taxon == "mussel" ~ "mytilus_sp", 
+                                    taxon == "acorn barnacle" ~ "amphibalanus_improvisus",
+                                    taxon == "barnacle type 2" ~ "amphibalanus_amphitrite",
+                                    taxon == "clam" ~ "hiatella_sp",
+                                    taxon == "c.f. Jassa" ~ "jassa_marmorata", 
+                                    taxon == "acorn barnacle ribbed" ~ "austrominius_modestus",
+                                    taxon == "crab" ~ "carcinus_maenas",
+                                    taxon == "encrusting bryozoan" ~ "membranipora_membranacea",
+                                    taxon == "white tufted bryozoan" | taxon == "type 2 white tufted bryozoan" ~ "tricellaria_inopinata",
+                                    taxon == "round amphipod" | taxon == "green eye amphipod" ~ "stenothoidae",
+                                    taxon == "c.f. Conchoderma" ~ "conchoderma_auritum", 
+                                    taxon == "brown bryozoan" ~ "bugula_neritina",
+                                    taxon == "c.f. Corophium" ~ "monocorophium_sextonae",
+                                    taxon == "caprellid" ~ "caprella_mutica",
+                                    taxon == "c.f. Schizoporella" ~ "cryptosula_pallasiana",
+                                    taxon == "spiked encrusting bryo" ~ "electra_pilosa",
+                                    taxon == "mystery tunicates? large anemone?" ~ "clear_tunicates",
+                                    taxon == "c.f. Caprella equilibra" ~ "caprella_equilibra",
+                                    TRUE ~ taxon
+                                    )) %>% 
+  group_by(id, taxon_verified, taxon_grouping_qualifier, area, stage, quadrat_number) %>% 
   mutate(density = count*multiply_by/divide_by/area_sampled*100) %>% #counts per m2
   summarise(avg_density = mean(density))
 site_info <- taxon_density %>% 
@@ -36,18 +57,22 @@ site_info <- taxon_density %>%
 I take my data from counts to a community matrix, with species as variables and rows as samples
 
 ```{r nMDS preparation}
-community_matrix <- taxon_density %>% 
+community_matrix_rough <- taxon_density %>% 
+  mutate(full_taxon_group = paste(taxon_verified, taxon_grouping_qualifier, sep = "_")) %>% 
+  filter(full_taxon_group != "mytilus sp_valves intact, no tissue",
+         full_taxon_group != "NA_NA",
+         full_taxon_group != "mussel sp_valves intact",
+         full_taxon_group != "insect_NA",
+         full_taxon_group != "crab_exoskeleton_NA") %>% 
+  group_by(id, taxon_verified) %>% 
+  summarise(avg_density = sum(avg_density)) %>% 
+  pivot_wider(names_from = taxon_verified, values_from = avg_density, values_fill = 0) %>% 
+  ungroup()
+#community_matrix_rough[is.na(community_matrix_rough)] <- 0
+community_matrix <- community_matrix_rough %>% 
+  clean_names() 
   group_by(id) %>% 
-  mutate(full_taxon_group = paste(taxon,taxon_grouping_qualifier, sep = "_")) %>% 
-  select(id, full_taxon_group, avg_density) %>% 
-  pivot_wider(names_from = full_taxon_group, values_from = avg_density) %>% 
-  ungroup() 
-community_matrix[is.na(community_matrix)] <- 0
-community_matrix <- community_matrix %>% 
-  select(-"mussel_valves intact, no tissue", -"NA_NA", -"mussel_valves intact") %>% 
-  clean_names() %>% 
-  group_by(id) %>% 
-  mutate(mussel = sum(mussel_na +
+  mutate(mytilus_sp = sum(mussel_na +
                       mussel_0_5cm +
                       mussel_2_5mm +
                       mussel_5mm +
@@ -57,31 +82,45 @@ community_matrix <- community_matrix %>%
                       mussel_0_5cm_2 +
                       mussel_intact_shells_2cm +
                       mussel_with_tissue_0_5cm),
-         acorn_barnacle = sum(acorn_barnacle_na +
+         amphibalanus_improvisus = sum(acorn_barnacle_na +
                               acorn_barnacle_intact),
-         clam = clam_na +
+         amphibalanus_amphitrite = barnacle_type_2_na,
+         hiatella_sp = clam_na +
            clam_0_2cm,
-         c_f_jassa = c_f_jassa_na +
+         jassa_marmorata = c_f_jassa_na +
            c_f_jassa_heads +
            c_f_jassa_large +
            c_f_jassa_medium +
            c_f_jassa_small,
-         acorn_barnacle_ribbed = acorn_barnacle_ribbed_na +
-           barnacle_type_2_na,
-         crab = crab_na +
-           juvenile_crab_na,
-         encrusting_bryozoan_fragment = encrusting_bryozoan_fragment +
-           encrusting_bryozoan_na,
-         white_tufted_bryozoan_fragment = white_tufted_bryozoan_fragment +
-           white_tufted_bryozoan_na,
-         white_tufted_bryozoan_colony = white_tufted_bryozoan_colony +
+         austrominius_modestus = acorn_barnacle_ribbed_na +
+           acorn_barnacle_ribbed_intact,
+         carcinus_maenas = crab_na +
+           crab_juvenile_na,
+         membranipora_membranacea = encrusting_bryozoan_fragment +
+           encrusting_bryozoan_na +
+           encrusting_bryozoan_colony +
+           encrusting_bryozoan_squares,
+         tricellaria_inopinata_colony = white_tufted_bryozoan_colony +
            white_tufted_bryozoan_large_colony +
-           white_tufted_bryozoan_small_colony,
+           white_tufted_bryozoan_small_colony +
+           white_tufted_bryozoan_fragment +
+           white_tufted_bryozoan_na +
+           type_2_white_tufted_bryozoan_fragment,
          polychaete_tube_fragment = polychaete_tube_fragment +
            polychaete_tube_na,
          round_amphipod = round_amphipod_na +
            green_eye_amphipod_na,
          conchoderma_auritum = c_f_conchoderma_na,
+         bugula_neritina = brown_bryozoan_fragment,
+         monocorophium_sextonae = c_f_corophium_na,
+         caprella_mutica = caprellid_na,
+         hydroid = hydroid_squares +
+           hydroid_colony,
+         cryptosula_pallasiana = c_f_schizoporella_squares +
+           c_f_schizoporella_na,
+         electra_pilosa = spiked_encrusting_bryo_colony,
+         clear_tunicates = mystery_tunicates_large_anemone_na,
+         caprella_equilibra = c_f_caprella_equilibra_na,
          .keep = "unused") %>% 
   ungroup() %>% 
   column_to_rownames(var = "id") %>% 
@@ -110,7 +149,7 @@ Plotting with ggplot
 ```{r}
 ggplot() + 
   #geom_text(data=species_scores,aes(x=NMDS1,y=NMDS2,label=species),alpha=0.5) +  # add the species labels
-  geom_point(data=data_scores,aes(x=NMDS1,y=NMDS2,shape=as_factor(stage),colour=n_species),size=3) + # add the point markers
+  geom_point(data=data_scores,aes(x=NMDS1,y=NMDS2,shape=as_factor(stage),colour=as_factor(area)),size=3) + # add the point markers
   #geom_text(data=data_scores,aes(x=NMDS1,y=NMDS2,label=area),size=6,vjust=0) +  # add the site labels
   coord_equal() +
   theme_bw()
