@@ -70,59 +70,7 @@ community_matrix_rough <- taxon_density %>%
   ungroup()
 #community_matrix_rough[is.na(community_matrix_rough)] <- 0
 community_matrix <- community_matrix_rough %>% 
-  clean_names() 
-  group_by(id) %>% 
-  mutate(mytilus_sp = sum(mussel_na +
-                      mussel_0_5cm +
-                      mussel_2_5mm +
-                      mussel_5mm +
-                      mussel_large +
-                      mussel_0_3_3cm_with_tissue +
-                      mussel_0_3cm_with_tissue +
-                      mussel_0_5cm_2 +
-                      mussel_intact_shells_2cm +
-                      mussel_with_tissue_0_5cm),
-         amphibalanus_improvisus = sum(acorn_barnacle_na +
-                              acorn_barnacle_intact),
-         amphibalanus_amphitrite = barnacle_type_2_na,
-         hiatella_sp = clam_na +
-           clam_0_2cm,
-         jassa_marmorata = c_f_jassa_na +
-           c_f_jassa_heads +
-           c_f_jassa_large +
-           c_f_jassa_medium +
-           c_f_jassa_small,
-         austrominius_modestus = acorn_barnacle_ribbed_na +
-           acorn_barnacle_ribbed_intact,
-         carcinus_maenas = crab_na +
-           crab_juvenile_na,
-         membranipora_membranacea = encrusting_bryozoan_fragment +
-           encrusting_bryozoan_na +
-           encrusting_bryozoan_colony +
-           encrusting_bryozoan_squares,
-         tricellaria_inopinata_colony = white_tufted_bryozoan_colony +
-           white_tufted_bryozoan_large_colony +
-           white_tufted_bryozoan_small_colony +
-           white_tufted_bryozoan_fragment +
-           white_tufted_bryozoan_na +
-           type_2_white_tufted_bryozoan_fragment,
-         polychaete_tube_fragment = polychaete_tube_fragment +
-           polychaete_tube_na,
-         round_amphipod = round_amphipod_na +
-           green_eye_amphipod_na,
-         conchoderma_auritum = c_f_conchoderma_na,
-         bugula_neritina = brown_bryozoan_fragment,
-         monocorophium_sextonae = c_f_corophium_na,
-         caprella_mutica = caprellid_na,
-         hydroid = hydroid_squares +
-           hydroid_colony,
-         cryptosula_pallasiana = c_f_schizoporella_squares +
-           c_f_schizoporella_na,
-         electra_pilosa = spiked_encrusting_bryo_colony,
-         clear_tunicates = mystery_tunicates_large_anemone_na,
-         caprella_equilibra = c_f_caprella_equilibra_na,
-         .keep = "unused") %>% 
-  ungroup() %>% 
+  clean_names() %>% 
   column_to_rownames(var = "id") %>% 
   filter_all(any_vars(. != 0))
 ```
@@ -130,7 +78,7 @@ community_matrix <- community_matrix_rough %>%
 ## nMDS
 
 ```{r nMDS}
-internal_pipe_nmds <- metaMDS(community_matrix, k = 2, trymax = 500)
+internal_pipe_nmds <- metaMDS(community_matrix, distance = "bray", k = 2, trymax = 500)
 internal_pipe_nmds
 data_scores <- as.data.frame(scores(internal_pipe_nmds))  #Using the scores function from vegan to extract the site scores and convert to a data.frame
 data_scores$site <- rownames(internal_pipe_nmds)  # create a column of site names, from the rownames of data.scores
@@ -149,7 +97,8 @@ Plotting with ggplot
 ```{r}
 ggplot() + 
   #geom_text(data=species_scores,aes(x=NMDS1,y=NMDS2,label=species),alpha=0.5) +  # add the species labels
-  geom_point(data=data_scores,aes(x=NMDS1,y=NMDS2,shape=as_factor(stage),colour=as_factor(area)),size=3) + # add the point markers
+  #geom_point(data=data_scores,aes(x=NMDS1,y=NMDS2,shape=as_factor(stage), colour= as_factor(area)),size=3) + # add the point markers
+  geom_point(data=data_scores,aes(x=NMDS1,y=NMDS2,shape = as_factor(stage), colour = n_species),size=3) + # add the point markers
   #geom_text(data=data_scores,aes(x=NMDS1,y=NMDS2,label=area),size=6,vjust=0) +  # add the site labels
   coord_equal() +
   theme_bw()
@@ -169,11 +118,11 @@ Here I will make a stacked bar chart to show mean density of different taxonomic
 
 ```{r}
 mean_density_stage <- taxon_density %>% 
-  group_by(id, taxon, area, stage) %>% 
+  group_by(id, taxon_verified, area, stage) %>% 
   summarise(avg_density = sum(avg_density)) %>% #this ensures that there is only one number per taxa per sample
   ungroup() %>% 
   filter(!is.na(avg_density)) %>% 
-  group_by(taxon, stage) %>% 
+  group_by(taxon_verified, stage) %>% 
   summarise(avg_density = mean(avg_density))
 ```
 
@@ -182,7 +131,7 @@ Now to plot it. This plot will be aligned with a schematic diagram representing 
 ```{r}
 ggplot() +
   geom_bar(data = mean_density_stage,
-           aes(x = stage, y = avg_density, fill = taxon),
+           aes(x = stage, y = avg_density, fill = taxon_verified),
            stat = "identity",
            position = "stack") +
 #  geom_line(data = mean_density_stage, #problem with line is that without 0 for stages where taxa are absent, it connects the line making it look like the density goes consistently up/down rather than sharp changes
