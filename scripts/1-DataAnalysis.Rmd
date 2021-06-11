@@ -140,3 +140,11 @@ ggplot() +
 #           position = "stack") +
   theme(legend.position = "bottom")
 ```
+
+
+Creating a heatmap with dendrograms
+```{r}
+library(heatmap3)
+heat_map <- heatmap3(community_matrix)
+heat_map
+```
