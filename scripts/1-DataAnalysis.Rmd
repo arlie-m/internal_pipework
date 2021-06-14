@@ -217,13 +217,15 @@ dendrogram_ends <- bind_cols(dendrogram_ends, sample_pos_table)
 Creating custom colours for the labels of stages
 
 ```{r}
-axiscolour = brewer_pal(type = "seq", palette = "Dark2")(6)
+axiscolour <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+  #brewer_pal(type = "seq", palette = "Dark2")(6)
+
 sample_pos_table <- sample_pos_table %>% 
-  mutate(labs_colour = case_when(stage == 1 ~ axiscolour[1],
+  mutate(labs_colour = case_when(stage == 1 ~ axiscolour[8],
                                  stage == 2 ~ axiscolour[2],
                                  stage == 3 ~ axiscolour[3],
-                                 stage == 4 ~ axiscolour[6]))
-dend_palette <- axiscolour[c(1, 2, 3, 6)]
+                                 stage == 4 ~ axiscolour[4]))
+dend_palette <- axiscolour[c(8, 2, 3, 4)]
 ```
 
 Table to position the samples
