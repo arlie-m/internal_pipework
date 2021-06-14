@@ -13,19 +13,25 @@ library(tidyverse)
 library(readr)
 library(here)
 library(janitor)
+library(cowplot)
+library(reshape2)
+library(ggdendro)
+library(dendextend)
+library(scales)
+library(worrms)
 ```
 
 I have one data file with the count data from lab processing. The file needs some wrangling to calculate a density (counts per cm2) for each quadrat sampled.
 
 ```{r calculating density}
-taxon_count_data <- read_csv(here("data", "taxon_count_data_internal_pipework.csv"))
+taxon_count_data <- read_csv(here::here("data", "taxon_count_data_internal_pipework.csv"))
 taxon_density <- taxon_count_data %>% 
   clean_names() %>% 
   mutate(id = paste(area, quadrat_number, sep = "_")) %>% #some quadrats had multiple 'sample' so changed to just area and quadrat
-  mutate(taxon_verified = case_when(taxon == "mussel" ~ "mytilus_sp", 
+  mutate(taxon_verified = case_when(taxon == "mussel" ~ "mytilus", 
                                     taxon == "acorn barnacle" ~ "amphibalanus_improvisus",
                                     taxon == "barnacle type 2" ~ "amphibalanus_amphitrite",
-                                    taxon == "clam" ~ "hiatella_sp",
+                                    taxon == "clam" ~ "hiatellidae",
                                     taxon == "c.f. Jassa" ~ "jassa_marmorata", 
                                     taxon == "acorn barnacle ribbed" ~ "austrominius_modestus",
                                     taxon == "crab" ~ "carcinus_maenas",
@@ -40,6 +46,20 @@ taxon_density <- taxon_count_data %>%
                                     taxon == "spiked encrusting bryo" ~ "electra_pilosa",
                                     taxon == "mystery tunicates? large anemone?" ~ "clear_tunicates",
                                     taxon == "c.f. Caprella equilibra" ~ "caprella_equilibra",
+                                    taxon == "anemone" ~ "anthozoa",
+                                    taxon == "crab juvenile" ~ "brachyura",
+                                    taxon == "Hyas sp" ~ "hyas",
+                                    taxon == "hydroid" ~ "hydroidolina",
+                                    taxon == "tunicate" ~ "tunicata",
+                                    taxon == "polychaete" ~ "annelida",
+                                    taxon == "gastropod" ~ "gastropoda",
+                                    taxon == "juvenile barnacle" ~ "balanoidea",
+                                    taxon == "mystery thing" ~ "tunicata",
+                                    taxon == "pycnogonid" ~ "pycnogonidae",
+                                    #taxon == "red-eye amphipod" ~ "amphipoda",
+                                    taxon == "other bivalve" ~ "cardiidae",
+                                    taxon == "sponge" ~ "porifera",
+                                    taxon == "squat lobster juvenile" ~ "anomura",
                                     TRUE ~ taxon
                                     )) %>% 
   group_by(id, taxon_verified, taxon_grouping_qualifier, area, stage, quadrat_number) %>% 
@@ -95,20 +115,25 @@ species_scores$species <- rownames(species_scores)
 
 Plotting with ggplot
 ```{r}
-ggplot() + 
+nmds_plot <- ggplot() + 
   #geom_text(data=species_scores,aes(x=NMDS1,y=NMDS2,label=species),alpha=0.5) +  # add the species labels
   #geom_point(data=data_scores,aes(x=NMDS1,y=NMDS2,shape=as_factor(stage), colour= as_factor(area)),size=3) + # add the point markers
   geom_point(data=data_scores,aes(x=NMDS1,y=NMDS2,shape = as_factor(stage), colour = n_species),size=3) + # add the point markers
   #geom_text(data=data_scores,aes(x=NMDS1,y=NMDS2,label=area),size=6,vjust=0) +  # add the site labels
   coord_equal() +
-  theme_bw()
+  theme_bw() +
+  scale_colour_viridis_c("Number of species") +
+  scale_shape("Stage of Pipework", labels = c("1 - sea chest", "2 - sea strainer", "3 - mid ships", "4 - overboard discharge"))
+nmds_plot
+
+save_plot(here("outputs", "nmds_plot.png"), nmds_plot, base_width = 183, base_height = 160, units = "mm")
 ```
 Checking the nMDS
 
 ```{r}
 goodness(internal_pipe_nmds) # Produces a results of test statistics for goodness of fit for each point
 
-stressplot(internal_pipe_nmds) # Produces a Shepards diagram
+nmds_stressplot <- stressplot(internal_pipe_nmds) # Produces a Shepards diagram
 ```
 
 
@@ -124,6 +149,22 @@ mean_density_stage <- taxon_density %>%
   filter(!is.na(avg_density)) %>% 
   group_by(taxon_verified, stage) %>% 
   summarise(avg_density = mean(avg_density))
+```
+Check the species names and allocate higher taxonomic groups
+```{r}
+taxa_list <- unique(taxon_density$taxon_verified) %>% 
+  as_tibble() %>% 
+  rename(taxon_name = value)
+aphia_id <- wm_name2id_(name = taxa_list$taxon_name)
+aphia_id_df <- aphia_id %>% 
+  as.data.frame() %>% 
+  pivot_longer(cols = everything(),
+               names_to = "taxon_name",
+               values_to = "aphia_id")
+classification <- wm_classification_(aphia_id) %>% 
+  pivot_wider()
+taxa_list <- taxa_list %>% 
+  left_join(aphia_id_df)
 ```
 
 Now to plot it. This plot will be aligned with a schematic diagram representing the pipework system, so that readers can visualise passage through the pipes and the changes in taxa over space. Ultimately, this will have to be grouped/coloured by more manageable chunks than all the taxa I have listed. But even without that, it's clear that the Jassa amphipods dominate right the way through. It's also clear that there isn't a great deal surviving in the pipework areas sampled in the middle of the ship, but they do survive transit and settle and grow in the final stage before overboard discharge. 
@@ -142,9 +183,124 @@ ggplot() +
 ```
 
 
-Creating a heatmap with dendrograms
+# Creating a heatmap with dendrograms
+
 ```{r}
-library(heatmap3)
-heat_map <- heatmap3(community_matrix)
-heat_map
+species_names <- colnames(community_matrix)
+# Obtain the dendrogram
+dend <- as.dendrogram(hclust(vegdist(community_matrix, method = "bray")))
+dend_data <- dendro_data(dend)
 ```
+
+#### Setup the data, so that the layout is inverted (this is more "clear" than simply using coord_flip())
+```{r}
+segment_data <- with(
+  segment(dend_data), 
+  data.frame(x = y, y = x, xend = yend, yend = xend))
+# Extract dendrogram terminal segment data
+dendrogram_ends <- with(segment(dend_data) %>%
+  filter(yend == 0),
+  data.frame(x = y, y = x, xend = yend, yend = xend))
+```
+
+Use the dendrogram label data to position the sample labels
+
+```{r}
+sample_pos_table <- with(
+  dend_data$labels, 
+  data.frame(y_center = x, id = as.character(label), height = 1)) %>% 
+  left_join(site_info, by = "id")
+# bind the sample information to the dendrogram ends for plotting
+dendrogram_ends <- bind_cols(dendrogram_ends, sample_pos_table)
+```
+
+Creating custom colours for the labels of stages
+
+```{r}
+axiscolour = brewer_pal(type = "seq", palette = "Dark2")(6)
+sample_pos_table <- sample_pos_table %>% 
+  mutate(labs_colour = case_when(stage == 1 ~ axiscolour[1],
+                                 stage == 2 ~ axiscolour[2],
+                                 stage == 3 ~ axiscolour[3],
+                                 stage == 4 ~ axiscolour[6]))
+dend_palette <- axiscolour[c(1, 2, 3, 6)]
+```
+
+Table to position the samples
+```{r}
+species_pos_table <- data.frame(taxon = species_names) %>%
+  dplyr::mutate(x_center = (1:n()), 
+         width = 1)
+# Neglecting the gap parameters
+heatmap_data <- community_matrix %>% 
+  mutate("id" = rownames(community_matrix)) %>% 
+  pivot_longer(cols = !id, names_to = "taxon", values_to = "density")%>%
+  left_join(sample_pos_table) %>%
+  left_join(species_pos_table)
+
+# changing 0 to NA so that samples/samples with low density appear different to those with none.
+heatmap_data[heatmap_data == 0] <- NA
+
+# Limits for the vertical axes
+sample_axis_limits <- with(
+  sample_pos_table, 
+  c(min(y_center - 0.5 * height), max(y_center + 0.5 * height))
+) + 
+  0.1 * c(-1, 1) # extra spacing: 0.1
+```
+
+```{r}
+# Heatmap plot
+plt_hmap <- ggplot(heatmap_data, 
+                   aes(x = x_center, y = y_center, fill = density, 
+                       height = height, width = width)) + 
+  geom_tile() +
+  scale_fill_viridis_c("Density", option = "cividis", na.value = "white", begin = 0.2) +
+  scale_x_continuous(breaks = species_pos_table$x_center, 
+                     labels = species_pos_table$taxon,
+                     expand = c(0, 0)
+                     ) + 
+  # For the y axis, alternatively set the labels as: gene_position_table$gene
+  scale_y_continuous(breaks = sample_pos_table[, "y_center"], 
+                     labels = rep("", nrow(sample_pos_table)),
+                     limits = sample_axis_limits,
+                     expand = c(0, 0)
+                     ) + 
+  labs(x = "Taxa", y = "") +
+  theme_bw() +
+  theme(axis.text.x = element_text(size = rel(1), hjust = 1, angle = 45), 
+        # margin: top, right, bottom, and left
+        plot.margin = unit(c(1, 0.2, 0.2, -0.7), "cm"), 
+        panel.grid.minor = element_blank(),
+        legend.position = "right",
+        legend.direction = "vertical")
+plt_hmap
+```
+
+```{r}
+# Dendrogram plot
+plt_dendr <- ggplot(segment_data) + 
+  geom_segment(aes(x = x, y = y, xend = xend, yend = yend)) + 
+  geom_point(data = dendrogram_ends, aes(x= xend, y = yend, colour = as_factor(sample_pos_table$stage))) +
+  scale_x_reverse() + 
+  scale_y_continuous(breaks = sample_pos_table$y_center, 
+                     labels = sample_pos_table$id, 
+                     limits = sample_axis_limits, 
+                     expand = c(0, 0)) + 
+  labs(x = "Distance", y = "Sample", colour = sample_pos_table$stage, size = "") +
+  scale_colour_manual("Stage", values = dend_palette) +
+  theme_bw() + 
+  theme(panel.grid.minor = element_blank()) +
+  theme(axis.text.y = element_text(color=sample_pos_table$labs_colour, face = "bold"),
+        legend.position = "left",
+        legend.direction = "vertical")
+plt_dendr
+```
+
+Plot them both together and save
+```{r}
+heat_dend_plot <- plot_grid(plt_dendr, plt_hmap, align = 'h', rel_widths = c(1, 1.5))
+heat_dend_plot
+save_plot(here("outputs", "heat_dend_plot.png"), heat_dend_plot, base_width = 183, base_height = 140, units = "mm")
+```
+
