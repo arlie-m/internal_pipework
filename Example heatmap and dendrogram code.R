@@ -37,13 +37,9 @@ dendrogram_ends <- bind_cols(dendrogram_ends, sample_pos_table)
 
 # creating custom colours for the labels of stages
 axiscolour = brewer_pal(type = "seq", palette = "Dark2")(6)
-
-show_col(brewer_pal(type = "seq", palette = "Dark2")(6))
-  
-  wes_palette("Royal1", 4, type = "discrete")
-
-show_col(viridis_pal(direction = -1, begin = 0.2, end = 0.85)(4))
-viridis_labs = viridis_pal(direction = -1, begin = 0.2, end = 0.85)(4)
+#show_col(brewer_pal(type = "seq", palette = "Dark2")(6))
+#show_col(viridis_pal(direction = -1, begin = 0.2, end = 0.85)(4))
+#viridis_labs = viridis_pal(direction = -1, begin = 0.2, end = 0.85)(4)
 sample_pos_table <- sample_pos_table %>% 
   mutate(labs_colour = case_when(stage == 1 ~ axiscolour[1],
                                  stage == 2 ~ axiscolour[2],
@@ -110,12 +106,10 @@ plt_dendr <- ggplot(segment_data) +
   scale_colour_manual("Stage", values = dend_palette) +
   theme_bw() + 
   theme(panel.grid.minor = element_blank()) +
-  theme(axis.text.y = element_text(color=sample_pos_table$labs_colour),
+  theme(axis.text.y = element_text(color=sample_pos_table$labs_colour, face = "bold"),
         legend.position = "left",
         legend.direction = "vertical"
+        
         )
-# Combined legend
-legend_heat <- get_legend(plt_hmap)
-legend_dend <- get_legend(plt_dendr)
 
 plot_grid(plt_dendr, plt_hmap, align = 'h', rel_widths = c(1, 1.5))
