@@ -1,30 +1,42 @@
----
-title: "1-DataAnalysis"
-author: "Arlie McCarthy"
-date: "02/05/2021"
-output: github_document
----
+1-DataAnalysis
+================
+Arlie McCarthy
+02/05/2021
+
 # Code Setup and Data Import - because that is super-important
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library(vegan)
-library(tidyverse)
-library(readr)
-library(here)
-library(janitor)
-library(cowplot)
-library(reshape2)
-library(ggdendro)
-library(dendextend)
-library(scales)
-library(worrms)
+I have one data file with the count data from lab processing. The file
+needs some wrangling to calculate a density (counts per cm2) for each
+quadrat sampled.
+
+``` r
+taxon_count_data <- read_csv(here::here("data", "taxon_count_data_internal_pipework.csv"))
 ```
 
-I have one data file with the count data from lab processing. The file needs some wrangling to calculate a density (counts per cm2) for each quadrat sampled.
+    ## 
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## cols(
+    ##   sample_id = col_character(),
+    ##   taxon = col_character(),
+    ##   taxon_grouping_qualifier = col_character(),
+    ##   description = col_character(),
+    ##   sub_sample = col_character(),
+    ##   count = col_double(),
+    ##   multiply_by = col_double(),
+    ##   divide_by = col_double(),
+    ##   quadrat_grids_number = col_double(),
+    ##   quadrad_mesh_size_cm2 = col_double(),
+    ##   area_sampled = col_double(),
+    ##   density = col_logical(),
+    ##   sub_sample_type = col_character(),
+    ##   sub_sample_number = col_double(),
+    ##   sample_number = col_double(),
+    ##   area = col_double(),
+    ##   stage = col_double(),
+    ##   quadrat_number = col_double()
+    ## )
 
-```{r calculating density}
-taxon_count_data <- read_csv(here::here("data", "taxon_count_data_internal_pipework.csv"))
+``` r
 taxon_density <- taxon_count_data %>% 
   clean_names() %>% 
   mutate(id = paste(area, quadrat_number, sep = "_")) %>% #some quadrats had multiple 'sample' so changed to just area and quadrat
@@ -65,6 +77,11 @@ taxon_density <- taxon_count_data %>%
   group_by(id, taxon_verified, taxon_grouping_qualifier, area, stage, quadrat_number) %>% 
   mutate(density = count*multiply_by/divide_by/area_sampled*100) %>% #counts per m2
   summarise(avg_density = mean(density))
+```
+
+    ## `summarise()` has grouped output by 'id', 'taxon_verified', 'taxon_grouping_qualifier', 'area', 'stage'. You can override using the `.groups` argument.
+
+``` r
 site_info <- taxon_density %>% 
   ungroup() %>% 
   select(id, area, stage, quadrat_number) %>% 
@@ -74,9 +91,10 @@ site_info <- taxon_density %>%
 
 # Preparing Data for ordination
 
-I take my data from counts to a community matrix, with species as variables and rows as samples
+I take my data from counts to a community matrix, with species as
+variables and rows as samples
 
-```{r nMDS preparation}
+``` r
 community_matrix_rough <- taxon_density %>% 
   mutate(full_taxon_group = paste(taxon_verified, taxon_grouping_qualifier, sep = "_")) %>% 
   filter(full_taxon_group != "mytilus sp_valves intact, no tissue",
@@ -89,6 +107,11 @@ community_matrix_rough <- taxon_density %>%
   summarise(avg_density = sum(avg_density)) %>% 
   pivot_wider(names_from = taxon_verified, values_from = avg_density, values_fill = 0) %>% 
   ungroup()
+```
+
+    ## `summarise()` has grouped output by 'id'. You can override using the `.groups` argument.
+
+``` r
 #community_matrix_rough[is.na(community_matrix_rough)] <- 0
 community_matrix <- community_matrix_rough %>% 
   clean_names() %>% 
@@ -98,24 +121,91 @@ community_matrix <- community_matrix_rough %>%
 
 ## nMDS
 
-```{r nMDS}
+``` r
 internal_pipe_nmds <- metaMDS(community_matrix, distance = "bray", k = 2, trymax = 500)
+```
+
+    ## Square root transformation
+    ## Wisconsin double standardization
+    ## Run 0 stress 0.2008899 
+    ## Run 1 stress 0.1958568 
+    ## ... New best solution
+    ## ... Procrustes: rmse 0.1219134  max resid 0.2882575 
+    ## Run 2 stress 0.2024996 
+    ## Run 3 stress 0.1920054 
+    ## ... New best solution
+    ## ... Procrustes: rmse 0.1100512  max resid 0.2727294 
+    ## Run 4 stress 0.2170999 
+    ## Run 5 stress 0.2059202 
+    ## Run 6 stress 0.1920056 
+    ## ... Procrustes: rmse 7.111693e-05  max resid 0.0002833201 
+    ## ... Similar to previous best
+    ## Run 7 stress 0.2155964 
+    ## Run 8 stress 0.2025342 
+    ## Run 9 stress 0.2058718 
+    ## Run 10 stress 0.1963071 
+    ## Run 11 stress 0.196372 
+    ## Run 12 stress 0.1918381 
+    ## ... New best solution
+    ## ... Procrustes: rmse 0.009508088  max resid 0.04409867 
+    ## Run 13 stress 0.2129508 
+    ## Run 14 stress 0.2065549 
+    ## Run 15 stress 0.216557 
+    ## Run 16 stress 0.2010042 
+    ## Run 17 stress 0.1963832 
+    ## Run 18 stress 0.196372 
+    ## Run 19 stress 0.1963719 
+    ## Run 20 stress 0.20701 
+    ## Run 21 stress 0.1958571 
+    ## Run 22 stress 0.1963719 
+    ## Run 23 stress 0.1919469 
+    ## ... Procrustes: rmse 0.004617774  max resid 0.0158914 
+    ## Run 24 stress 0.1918383 
+    ## ... Procrustes: rmse 0.0001104586  max resid 0.0004566954 
+    ## ... Similar to previous best
+    ## *** Solution reached
+
+``` r
 internal_pipe_nmds
+```
+
+    ## 
+    ## Call:
+    ## metaMDS(comm = community_matrix, distance = "bray", k = 2, trymax = 500) 
+    ## 
+    ## global Multidimensional Scaling using monoMDS
+    ## 
+    ## Data:     wisconsin(sqrt(community_matrix)) 
+    ## Distance: bray 
+    ## 
+    ## Dimensions: 2 
+    ## Stress:     0.1918381 
+    ## Stress type 1, weak ties
+    ## Two convergent solutions found after 24 tries
+    ## Scaling: centring, PC rotation, halfchange scaling 
+    ## Species: expanded scores based on 'wisconsin(sqrt(community_matrix))'
+
+``` r
 data_scores <- as.data.frame(scores(internal_pipe_nmds))  #Using the scores function from vegan to extract the site scores and convert to a data.frame
 data_scores$site <- rownames(internal_pipe_nmds)  # create a column of site names, from the rownames of data.scores
 data_scores <- data_scores %>% 
   rownames_to_column(var = "id") %>% 
   left_join(site_info)
+```
+
+    ## Joining, by = "id"
+
+``` r
 data_scores$n_species <- specnumber(community_matrix, MARGIN = 1)
 data_scores$shannon <- diversity(community_matrix, index = "shannon")
 data_scores$simpson <- diversity(community_matrix, index = "simpson")
 species_scores <- as.data.frame(scores(internal_pipe_nmds, "species"))  #Using the scores function from vegan to extract the species scores and convert to a data.frame
 species_scores$species <- rownames(species_scores)
-
 ```
 
 Plotting with ggplot
-```{r}
+
+``` r
 nmds_plot <- ggplot() + 
   #geom_text(data=species_scores,aes(x=NMDS1,y=NMDS2,label=species),alpha=0.5) +  # add the species labels
   #geom_point(data=data_scores,aes(x=NMDS1,y=NMDS2,shape=as_factor(stage), colour= as_factor(area)),size=3) + # add the point markers
@@ -126,23 +216,40 @@ nmds_plot <- ggplot() +
   scale_colour_viridis_c("Number of species") +
   scale_shape("Stage of Pipework", labels = c("1 - sea chest", "2 - sea strainer", "3 - mid ships", "4 - overboard discharge"))
 nmds_plot
+```
 
+![](1-DataAnalysis_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+
+``` r
 save_plot(here("outputs", "nmds_plot.png"), nmds_plot, base_width = 183, base_height = 100, units = "mm")
 ```
+
 Checking the nMDS
 
-```{r}
+``` r
 goodness(internal_pipe_nmds) # Produces a results of test statistics for goodness of fit for each point
+```
 
+    ##  [1] 0.02033509 0.02824201 0.03442590 0.02497329 0.04245239 0.02981380
+    ##  [7] 0.02768384 0.01849126 0.02718732 0.03431184 0.03431184 0.02573425
+    ## [13] 0.02271676 0.03631014 0.01769830 0.02782913 0.03475630 0.02896647
+    ## [19] 0.05436328 0.03690273 0.05350072 0.02773024 0.02516778 0.01609032
+    ## [25] 0.02060017 0.03154791 0.01988641 0.01807713 0.03431184 0.02672314
+    ## [31] 0.04501758 0.02690322 0.04509841 0.02000358 0.01778452 0.01890682
+    ## [37] 0.02672433 0.02341403 0.01898516 0.01927002 0.02304065
+
+``` r
 stressplot(internal_pipe_nmds) # Produces a Shepards diagram
 ```
 
+![](1-DataAnalysis_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 # Density of different groups
 
-Here I will make a stacked bar chart to show mean density of different taxonomic groups at each stage of the pipework
+Here I will make a stacked bar chart to show mean density of different
+taxonomic groups at each stage of the pipework
 
-```{r}
+``` r
 mean_density_stage <- taxon_density %>% 
   mutate(full_taxon_group = paste(taxon_verified, taxon_grouping_qualifier, sep = "_")) %>% 
   filter(full_taxon_group != "mytilus sp_valves intact, no tissue",
@@ -159,12 +266,42 @@ mean_density_stage <- taxon_density %>%
   group_by(taxon_verified, stage) %>% 
   summarise(avg_density = mean(avg_density))
 ```
+
+    ## `summarise()` has grouped output by 'id', 'taxon_verified', 'area'. You can override using the `.groups` argument.
+
+    ## `summarise()` has grouped output by 'taxon_verified'. You can override using the `.groups` argument.
+
 Check the species names and allocate higher taxonomic groups
-```{r}
+
+``` r
 taxa_list <- unique(taxon_density$taxon_verified) %>% 
   as_tibble() %>% 
   rename(taxon_name = value)
 aphia_id <- wm_name2id_(name = taxa_list$taxon_name)
+```
+
+    ## Warning: (204) No Content - NA
+
+    ## Warning: `data_frame()` was deprecated in tibble 1.1.0.
+    ## Please use `tibble()` instead.
+
+    ## Warning: (204) No Content - red-eye amphipod
+
+    ## Warning: (204) No Content - colonial tunicate
+
+    ## Warning: (204) No Content - polychaete tube
+
+    ## Warning: (204) No Content - crustacean larvae
+
+    ## Warning: (204) No Content - insect
+
+    ## Warning: (204) No Content - purple amphipod
+
+    ## Warning: (204) No Content - clear_tunicates
+
+    ## Warning: (204) No Content - crab exoskeleton
+
+``` r
 aphia_id_df <- aphia_id %>% 
   as.data.frame() %>% 
   pivot_longer(cols = everything(),
@@ -212,9 +349,21 @@ mean_density_stage_plotting <- mean_density_stage %>%
   arrange(Phylum)
 ```
 
-Now to plot it. This plot will be aligned with a schematic diagram representing the pipework system, so that readers can visualise passage through the pipes and the changes in taxa over space. Ultimately, this will have to be grouped/coloured by more manageable chunks than all the taxa I have listed. But even without that, it's clear that the Jassa amphipods dominate right the way through. It's also clear that there isn't a great deal surviving in the pipework areas sampled in the middle of the ship, but they do survive transit and settle and grow in the final stage before overboard discharge. 
+    ## Joining, by = "taxon_name"
 
-```{r}
+    ## `summarise()` has grouped output by 'plotting_name', 'Phylum'. You can override using the `.groups` argument.
+
+Now to plot it. This plot will be aligned with a schematic diagram
+representing the pipework system, so that readers can visualise passage
+through the pipes and the changes in taxa over space. Ultimately, this
+will have to be grouped/coloured by more manageable chunks than all the
+taxa I have listed. But even without that, it’s clear that the Jassa
+amphipods dominate right the way through. It’s also clear that there
+isn’t a great deal surviving in the pipework areas sampled in the middle
+of the ship, but they do survive transit and settle and grow in the
+final stage before overboard discharge.
+
+``` r
 pal <- c("#332288", "#117733", "#44AA99", "#88CCEE", "#DDCC77", "#CC6677", "#AA4499", "#882255")
 stacked_bar_plot <- ggplot() +
   geom_bar(data = mean_density_stage_plotting,
@@ -232,21 +381,26 @@ stacked_bar_plot <- ggplot() +
   scale_fill_manual("Phylum", values = pal)
   #scale_fill_viridis_d(option = "B", direction = 1, begin = 0.1)
 stacked_bar_plot
+```
+
+![](1-DataAnalysis_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
+``` r
 save_plot(here("outputs", "stacked_bar_plot.png"), stacked_bar_plot, base_width = 183, base_height = 100, units = "mm")
 ```
 
-
 # Creating a heatmap with dendrograms
 
-```{r}
+``` r
 species_names <- colnames(community_matrix)
 # Obtain the dendrogram
 dend <- as.dendrogram(hclust(vegdist(community_matrix, method = "bray")))
 dend_data <- dendro_data(dend)
 ```
 
-#### Setup the data, so that the layout is inverted (this is more "clear" than simply using coord_flip())
-```{r}
+#### Setup the data, so that the layout is inverted (this is more “clear” than simply using coord\_flip())
+
+``` r
 segment_data <- with(
   segment(dend_data), 
   data.frame(x = y, y = x, xend = yend, yend = xend))
@@ -258,7 +412,7 @@ dendrogram_ends <- with(segment(dend_data) %>%
 
 Use the dendrogram label data to position the sample labels
 
-```{r}
+``` r
 sample_pos_table <- with(
   dend_data$labels, 
   data.frame(y_center = x, id = as.character(label), height = 1)) %>% 
@@ -269,7 +423,7 @@ dendrogram_ends <- bind_cols(dendrogram_ends, sample_pos_table)
 
 Creating custom colours for the labels of stages
 
-```{r}
+``` r
 axiscolour <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
   #brewer_pal(type = "seq", palette = "Dark2")(6)
 
@@ -282,7 +436,8 @@ dend_palette <- axiscolour[c(8, 2, 3, 4)]
 ```
 
 Table to position the samples
-```{r}
+
+``` r
 species_pos_table <- data.frame(taxon = species_names) %>%
   dplyr::mutate(x_center = (1:n()), 
          width = 1)
@@ -292,7 +447,13 @@ heatmap_data <- community_matrix %>%
   pivot_longer(cols = !id, names_to = "taxon", values_to = "density")%>%
   left_join(sample_pos_table) %>%
   left_join(species_pos_table)
+```
 
+    ## Joining, by = "id"
+
+    ## Joining, by = "taxon"
+
+``` r
 # changing 0 to NA so that samples/samples with low density appear different to those with none.
 heatmap_data[heatmap_data == 0] <- NA
 
@@ -303,10 +464,13 @@ sample_axis_limits <- with(
 ) + 
   0.1 * c(-1, 1) # extra spacing: 0.1
 ```
-#For the heatmap plot I have changed the 'fill' to log density rather than density, as I think that
-#with raw densities only Jassa was anything other than blue really - this way gives a bit more idea of the
-#variation. Easy to go back though if you don't like it!
-```{r}
+
+\#For the heatmap plot I have changed the ‘fill’ to log density rather
+than density, as I think that \#with raw densities only Jassa was
+anything other than blue really - this way gives a bit more idea of the
+\#variation. Easy to go back though if you don’t like it!
+
+``` r
 # Heatmap plot
 plt_hmap <- ggplot(heatmap_data, 
                    aes(x = x_center, y = y_center, fill = log10(density), 
@@ -334,7 +498,9 @@ plt_hmap <- ggplot(heatmap_data,
 plt_hmap
 ```
 
-```{r}
+![](1-DataAnalysis_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+
+``` r
 # Dendrogram plot
 plt_dendr <- ggplot(segment_data) + 
   geom_segment(aes(x = x, y = y, xend = xend, yend = yend)) + 
@@ -351,13 +517,26 @@ plt_dendr <- ggplot(segment_data) +
   theme(axis.text.y = element_text(color=sample_pos_table$labs_colour, face = "bold"),
         legend.position = "left",
         legend.direction = "vertical")
+```
+
+    ## Warning: Vectorized input to `element_text()` is not officially supported.
+    ## Results may be unexpected or may change in future versions of ggplot2.
+
+``` r
 plt_dendr
 ```
 
+![](1-DataAnalysis_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+
 Plot them both together and save
-```{r}
+
+``` r
 heat_dend_plot <- plot_grid(plt_dendr, plt_hmap, align = 'h', rel_widths = c(1, 1.5))
 heat_dend_plot
-save_plot(here("outputs", "heat_dend_plot.png"), heat_dend_plot, base_width = 183, base_height = 140, units = "mm")
 ```
 
+![](1-DataAnalysis_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+
+``` r
+save_plot(here("outputs", "heat_dend_plot.png"), heat_dend_plot, base_width = 183, base_height = 140, units = "mm")
+```
