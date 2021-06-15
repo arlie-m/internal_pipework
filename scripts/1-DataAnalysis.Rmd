@@ -250,14 +250,16 @@ sample_axis_limits <- with(
 ) + 
   0.1 * c(-1, 1) # extra spacing: 0.1
 ```
-
+#For the heatmap plot I have changed the 'fill' to log density rather than density, as I think that
+#with raw densities only Jassa was anything other than blue really - this way gives a bit more idea of the
+#variation. Easy to go back though if you don't like it!
 ```{r}
 # Heatmap plot
 plt_hmap <- ggplot(heatmap_data, 
-                   aes(x = x_center, y = y_center, fill = density, 
+                   aes(x = x_center, y = y_center, fill = log10(density), 
                        height = height, width = width)) + 
   geom_tile() +
-  scale_fill_viridis_c("Density", option = "cividis", na.value = "white", begin = 0.2) +
+  scale_fill_viridis_c("Log density", option = "cividis", na.value = "white", begin = 0.2) +
   scale_x_continuous(breaks = species_pos_table$x_center, 
                      labels = species_pos_table$taxon,
                      expand = c(0, 0)

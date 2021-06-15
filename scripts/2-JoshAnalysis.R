@@ -64,56 +64,55 @@ PApermanova
 #Use least-constrained null model (only total count maintained)
 
 oecosimu(community_matrix_PA, nestednodf, "r00", nsimul=1000)
-#N columns  : 51.34796 
-#N rows     : 80.44558 
-#NODF       : 65.89677 
-#Matrix fill: 0.2355741 
-#
-#statistic    SES   mean   2.5%    50%  97.5% Pr(sim.)    
-#N.columns    51.348 28.868 24.819 23.065 24.816 26.638 0.000999 ***
-#N.rows       80.446 60.828 24.828 23.000 24.850 26.632 0.000999 ***
-#NODF         65.897 47.811 24.823 23.191 24.812 26.545 0.000999 ***
+##N columns  : 52.12222 
+##N rows     : 80.47978 
+##NODF       : 66.65547 
+##Matrix fill: 0.2414634 
+##
+##          statistic    SES   mean   2.5%    50%  97.5% Pr(sim.)    
+##N.columns    52.122 28.871 25.428 23.626 25.432 27.272 0.000999 ***
+##N.rows       80.480 60.098 25.463 23.684 25.494 27.258 0.000999 ***
+##NODF         66.655 48.315 25.446 23.857 25.429 27.189 0.000999 ***
 
 #Use null model where individual site richness is constrained
 
 oecosimu(community_matrix_PA, nestednodf, "r0", nsimul=1000)
-#N columns  : 51.34796 
-#N rows     : 80.44558 
-#NODF       : 65.89677 
-#Matrix fill: 0.2355741 
-#
-#statistic    SES   mean   2.5%    50%  97.5% Pr(sim.)    
-#N.columns    51.348 26.839 27.561 25.865 27.559 29.280 0.000999 ***
-#N.rows       80.446 95.989 27.882 26.930 27.839 29.011 0.000999 ***
-#NODF         65.897 55.755 27.721 26.489 27.713 29.066 0.000999 ***
+##N columns  : 52.12222 
+##N rows     : 80.47978 
+##NODF       : 66.65547 
+##Matrix fill: 0.2414634 
+##
+##          statistic    SES   mean   2.5%    50%  97.5% Pr(sim.)    
+##N.columns    52.122 25.050 28.210 26.278 28.248 30.018 0.000999 ***
+##N.rows       80.480 92.183 28.578 27.534 28.533 29.784 0.000999 ***
+##NODF         66.655 53.135 28.399 27.013 28.398 29.922 0.000999 ***
 
 #Use null model where species prevalences are constrained
 
 oecosimu(community_matrix_PA, nestednodf, "c0", nsimul=1000)
-#N columns  : 51.34796 
-#N rows     : 80.44558 
-#NODF       : 65.89677 
-#Matrix fill: 0.2355741 
-#
-#statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)    
-#N.columns    51.348 14.9415 37.895 36.257 37.858 39.842 0.000999 ***
-#N.rows       80.446  7.6746 62.071 57.127 62.233 66.400 0.000999 ***
-#NODF         65.897 10.4494 49.983 47.015 50.038 52.768 0.000999 ***
+##N columns  : 52.12222 
+##N rows     : 80.47978 
+##NODF       : 66.65547 
+##Matrix fill: 0.2414634 
+##
+##          statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)    
+##N.columns    52.122 15.0916 38.680 37.082 38.617 40.583 0.000999 ***
+##N.rows       80.480  7.7312 61.892 56.961 61.982 66.585 0.000999 ***
+##NODF         66.655 10.4793 50.576 47.514 50.540 53.676 0.000999 ***
 
 
 #Use null model where both site richness and species prevalences are constrained 
-oecosimu(community_matrix_PA, nestednodf, "quasiswap", nsimul=1000)
-#N columns  : 51.34796 
-#N rows     : 80.44558 
-#NODF       : 65.89677 
-#Matrix fill: 0.2355741 
 
-#statistic      SES   mean   2.5%    50%  97.5% Pr(sim.)  
-#N.columns    51.348  1.34289 50.143 48.245 50.204 51.757  0.16484  
-#N.rows       80.446 -1.86316 80.961 80.342 80.990 81.404  0.08891 .
-#NODF         65.897  0.69391 65.552 64.467 65.581 66.402  0.51049  
-#---
-#  Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+oecosimu(community_matrix_PA, nestednodf, "quasiswap", nsimul=1000)
+##N columns  : 52.12222 
+##N rows     : 80.47978 
+##NODF       : 66.65547 
+##Matrix fill: 0.2414634 
+##
+##statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)  
+##N.columns    52.122  0.8833 51.259 49.102 51.354 52.917  0.39261  
+##N.rows       80.480 -1.8819 81.010 80.411 81.049 81.457  0.08492 .
+##NODF         66.655  0.2791 66.507 65.386 66.549 67.456  0.84016
 
 
 #So basically: we observe that species-poor sites tend to be nested subsets of species-rich
