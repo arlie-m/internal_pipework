@@ -51,7 +51,7 @@ taxon_density <- taxon_count_data %>%
                                     taxon == "Hyas sp" ~ "hyas",
                                     taxon == "hydroid" ~ "hydroidolina",
                                     taxon == "tunicate" ~ "tunicata",
-                                    taxon == "polychaete" ~ "annelida",
+                                    taxon == "polychaete" ~ "polychaeta",
                                     taxon == "gastropod" ~ "gastropoda",
                                     taxon == "juvenile barnacle" ~ "balanoidea",
                                     taxon == "mystery thing" ~ "tunicata",
@@ -83,7 +83,8 @@ community_matrix_rough <- taxon_density %>%
          full_taxon_group != "NA_NA",
          full_taxon_group != "mussel sp_valves intact",
          full_taxon_group != "insect_NA",
-         full_taxon_group != "crab_exoskeleton_NA") %>% 
+         full_taxon_group != "crab_exoskeleton_NA",
+         full_taxon_group != "polychaete tube") %>% 
   group_by(id, taxon_verified) %>% 
   summarise(avg_density = sum(avg_density)) %>% 
   pivot_wider(names_from = taxon_verified, values_from = avg_density, values_fill = 0) %>% 
@@ -133,7 +134,7 @@ Checking the nMDS
 ```{r}
 goodness(internal_pipe_nmds) # Produces a results of test statistics for goodness of fit for each point
 
-nmds_stressplot <- stressplot(internal_pipe_nmds) # Produces a Shepards diagram
+stressplot(internal_pipe_nmds) # Produces a Shepards diagram
 ```
 
 
@@ -143,6 +144,14 @@ Here I will make a stacked bar chart to show mean density of different taxonomic
 
 ```{r}
 mean_density_stage <- taxon_density %>% 
+  mutate(full_taxon_group = paste(taxon_verified, taxon_grouping_qualifier, sep = "_")) %>% 
+  filter(full_taxon_group != "mytilus sp_valves intact, no tissue",
+         full_taxon_group != "NA_NA",
+         full_taxon_group != "mussel sp_valves intact",
+         full_taxon_group != "insect_NA",
+         full_taxon_group != "crab exoskeleton_NA",
+         full_taxon_group != "polychaete tube_NA",
+         full_taxon_group != "polychaete tube_fragment") %>% 
   group_by(id, taxon_verified, area, stage) %>% 
   summarise(avg_density = sum(avg_density)) %>% #this ensures that there is only one number per taxa per sample
   ungroup() %>% 
@@ -160,26 +169,57 @@ aphia_id_df <- aphia_id %>%
   as.data.frame() %>% 
   pivot_longer(cols = everything(),
                names_to = "taxon_name",
-               values_to = "aphia_id")
+               values_to = "id") 
 classification <- wm_classification_(aphia_id) %>% 
-  pivot_wider()
-taxa_list <- taxa_list %>% 
-  left_join(aphia_id_df)
+  pivot_wider(id_cols = id, names_from = c(rank), values_from = c(scientificname), values_fill = NA) %>%
+  mutate(id = as.integer(id))
+taxa_list_full <- aphia_id_df %>% 
+  left_join(classification, by = "id") %>% 
+  right_join(taxa_list, by = "taxon_name")
+mean_density_stage_plotting <- mean_density_stage %>% 
+  rename(taxon_name = taxon_verified) %>% 
+  left_join(taxa_list_full) %>% 
+  mutate(plotting_name = case_when(!is.na(Species) ~ Species,
+                                   is.na(Species) ~ Family)) %>% 
+  mutate(plotting_name = case_when(is.na(Family) ~ Order,
+                                   TRUE ~ plotting_name)) %>%
+  mutate(plotting_name = case_when(is.na(Order) ~ Class,
+                                   TRUE ~ plotting_name)) %>%
+  mutate(plotting_name = case_when(is.na(Class) ~ Subphylum,
+                                   TRUE ~ plotting_name)) %>%
+  mutate(plotting_name = case_when(is.na(Subphylum) ~ Phylum,
+                                   TRUE ~ plotting_name)) %>% 
+  mutate(plotting_name = case_when(taxon_name == "red-eye amphipod" ~ "Amphipoda",
+                                   taxon_name == "purple amphipod" ~ "Amphipoda",
+                                   taxon_name == "clear_tunicates" ~ "Tunicata",
+                                   taxon_name == "colonial tunicate" ~ "Tunicata",
+                                   taxon_name == "crustacean larvae" ~ "Crustacea",
+                                   TRUE ~ plotting_name)) %>%
+  mutate(Phylum = case_when(taxon_name == "red-eye amphipod" ~ "Arthropoda",
+                                   taxon_name == "purple amphipod" ~ "Arthropoda",
+                                   taxon_name == "clear_tunicates" ~ "Chordata",
+                                   taxon_name == "colonial tunicate" ~ "Chordata",
+                                   taxon_name == "crustacean larvae" ~ "Arthropoda")) %>% 
+  select(taxon_name, stage, avg_density, plotting_name, Phylum) %>% 
+  group_by(plotting_name, Phylum, stage) %>% 
+  summarise(avg_density = sum(avg_density)) %>% #this ensures that there is only one number per taxa per sample
+  ungroup() %>% 
+  group_by(phylum)
 ```
 
 Now to plot it. This plot will be aligned with a schematic diagram representing the pipework system, so that readers can visualise passage through the pipes and the changes in taxa over space. Ultimately, this will have to be grouped/coloured by more manageable chunks than all the taxa I have listed. But even without that, it's clear that the Jassa amphipods dominate right the way through. It's also clear that there isn't a great deal surviving in the pipework areas sampled in the middle of the ship, but they do survive transit and settle and grow in the final stage before overboard discharge. 
 
 ```{r}
 ggplot() +
-  geom_bar(data = mean_density_stage,
-           aes(x = stage, y = avg_density, fill = taxon_verified),
+  geom_bar(data = mean_density_stage_plotting,
+           aes(x = stage, y = avg_density, fill = plotting_name),
            stat = "identity",
            position = "stack") +
 #  geom_line(data = mean_density_stage, #problem with line is that without 0 for stages where taxa are absent, it connects the line making it look like the density goes consistently up/down rather than sharp changes
 #           aes(x = stage, y = avg_density, colour = taxon),
 #           stat = "identity",
 #           position = "stack") +
-  theme(legend.position = "bottom")
+  theme(legend.position = "right")
 ```
 
 
