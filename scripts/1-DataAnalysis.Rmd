@@ -127,7 +127,7 @@ nmds_plot <- ggplot() +
   scale_shape("Stage of Pipework", labels = c("1 - sea chest", "2 - sea strainer", "3 - mid ships", "4 - overboard discharge"))
 nmds_plot
 
-save_plot(here("outputs", "nmds_plot.png"), nmds_plot, base_width = 183, base_height = 160, units = "mm")
+save_plot(here("outputs", "nmds_plot.png"), nmds_plot, base_width = 183, base_height = 100, units = "mm")
 ```
 Checking the nMDS
 
@@ -180,14 +180,18 @@ mean_density_stage_plotting <- mean_density_stage %>%
   rename(taxon_name = taxon_verified) %>% 
   left_join(taxa_list_full) %>% 
   mutate(plotting_name = case_when(!is.na(Species) ~ Species,
-                                   is.na(Species) ~ Family)) %>% 
-  mutate(plotting_name = case_when(is.na(Family) ~ Order,
+                                   is.na(Species) ~ Family,
+                                   is.na(Family) ~ Order,
+                                   is.na(Order) ~ Class,
+                                   is.na(Class) ~ Subphylum,
+                                   is.na(Subphylum) ~ Phylum)) %>% 
+  mutate(plotting_name = case_when(is.na(plotting_name) ~ Order,
                                    TRUE ~ plotting_name)) %>%
-  mutate(plotting_name = case_when(is.na(Order) ~ Class,
+  mutate(plotting_name = case_when(is.na(plotting_name) ~ Class,
                                    TRUE ~ plotting_name)) %>%
-  mutate(plotting_name = case_when(is.na(Class) ~ Subphylum,
+  mutate(plotting_name = case_when(is.na(plotting_name) ~ Subphylum,
                                    TRUE ~ plotting_name)) %>%
-  mutate(plotting_name = case_when(is.na(Subphylum) ~ Phylum,
+  mutate(plotting_name = case_when(is.na(plotting_name) ~ Phylum,
                                    TRUE ~ plotting_name)) %>% 
   mutate(plotting_name = case_when(taxon_name == "red-eye amphipod" ~ "Amphipoda",
                                    taxon_name == "purple amphipod" ~ "Amphipoda",
@@ -199,27 +203,36 @@ mean_density_stage_plotting <- mean_density_stage %>%
                                    taxon_name == "purple amphipod" ~ "Arthropoda",
                                    taxon_name == "clear_tunicates" ~ "Chordata",
                                    taxon_name == "colonial tunicate" ~ "Chordata",
-                                   taxon_name == "crustacean larvae" ~ "Arthropoda")) %>% 
+                                   taxon_name == "crustacean larvae" ~ "Arthropoda",
+                            TRUE ~ Phylum)) %>% 
   select(taxon_name, stage, avg_density, plotting_name, Phylum) %>% 
   group_by(plotting_name, Phylum, stage) %>% 
   summarise(avg_density = sum(avg_density)) %>% #this ensures that there is only one number per taxa per sample
   ungroup() %>% 
-  group_by(phylum)
+  arrange(Phylum)
 ```
 
 Now to plot it. This plot will be aligned with a schematic diagram representing the pipework system, so that readers can visualise passage through the pipes and the changes in taxa over space. Ultimately, this will have to be grouped/coloured by more manageable chunks than all the taxa I have listed. But even without that, it's clear that the Jassa amphipods dominate right the way through. It's also clear that there isn't a great deal surviving in the pipework areas sampled in the middle of the ship, but they do survive transit and settle and grow in the final stage before overboard discharge. 
 
 ```{r}
-ggplot() +
+pal <- c("#332288", "#117733", "#44AA99", "#88CCEE", "#DDCC77", "#CC6677", "#AA4499", "#882255")
+stacked_bar_plot <- ggplot() +
   geom_bar(data = mean_density_stage_plotting,
-           aes(x = stage, y = avg_density, fill = plotting_name),
+           aes(x = stage, y = avg_density, fill = Phylum),
+           colour = "white",
            stat = "identity",
            position = "stack") +
 #  geom_line(data = mean_density_stage, #problem with line is that without 0 for stages where taxa are absent, it connects the line making it look like the density goes consistently up/down rather than sharp changes
 #           aes(x = stage, y = avg_density, colour = taxon),
 #           stat = "identity",
 #           position = "stack") +
-  theme(legend.position = "right")
+  labs(x = "Stage of Pipework") +
+  ylab(expression(Mean~density~(individuals~per~m^2))) +
+  theme_bw() +
+  scale_fill_manual("Phylum", values = pal)
+  #scale_fill_viridis_d(option = "B", direction = 1, begin = 0.1)
+stacked_bar_plot
+save_plot(here("outputs", "stacked_bar_plot.png"), stacked_bar_plot, base_width = 183, base_height = 100, units = "mm")
 ```
 
 
@@ -299,7 +312,7 @@ plt_hmap <- ggplot(heatmap_data,
                    aes(x = x_center, y = y_center, fill = log10(density), 
                        height = height, width = width)) + 
   geom_tile() +
-  scale_fill_viridis_c("Log density", option = "cividis", na.value = "white", begin = 0.2) +
+  scale_fill_viridis_c("Log density", option = "cividis", na.value = "white", begin = 0) +
   scale_x_continuous(breaks = species_pos_table$x_center, 
                      labels = species_pos_table$taxon,
                      expand = c(0, 0)
