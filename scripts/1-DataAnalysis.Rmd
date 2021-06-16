@@ -361,3 +361,21 @@ heat_dend_plot
 save_plot(here("outputs", "heat_dend_plot.png"), heat_dend_plot, base_width = 183, base_height = 140, units = "mm")
 ```
 
+# Pulling out key numbers
+
+Highest densities
+```{r}
+max(taxon_density$avg_density, na.rm = TRUE)
+taxon_density %>% 
+  group_by(id, taxon_verified, area, stage) %>% 
+  summarise(avg_density = sum(avg_density)) %>%
+  arrange(desc(avg_density)) %>%
+  head()
+
+
+taxon_density %>% 
+  group_by(id, taxon_verified, area, stage) %>% 
+  summarise(avg_density = sum(avg_density)) %>%
+  arrange(desc(avg_density)) %>%
+  filter(stage == 4)
+```
