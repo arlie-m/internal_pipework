@@ -50,7 +50,7 @@ taxon_density <- taxon_count_data %>%
                                     taxon == "crab juvenile" ~ "brachyura",
                                     taxon == "Hyas sp" ~ "hyas",
                                     taxon == "hydroid" ~ "hydroidolina",
-                                    taxon == "tunicate" ~ "tunicata",
+                                    taxon == "tunicate" ~ "clear_tunicates",
                                     taxon == "polychaete" ~ "polychaeta",
                                     taxon == "gastropod" ~ "gastropoda",
                                     taxon == "juvenile barnacle" ~ "balanoidea",
@@ -83,8 +83,8 @@ community_matrix_rough <- taxon_density %>%
          full_taxon_group != "NA_NA",
          full_taxon_group != "mussel sp_valves intact",
          full_taxon_group != "insect_NA",
-         full_taxon_group != "crab_exoskeleton_NA",
-         full_taxon_group != "polychaete tube") %>% 
+         full_taxon_group != "crab exoskeleton_NA",
+         taxon_verified != "polychaete tube") %>% 
   group_by(id, taxon_verified) %>% 
   summarise(avg_density = sum(avg_density)) %>% 
   pivot_wider(names_from = taxon_verified, values_from = avg_density, values_fill = 0) %>% 
@@ -150,8 +150,7 @@ mean_density_stage <- taxon_density %>%
          full_taxon_group != "mussel sp_valves intact",
          full_taxon_group != "insect_NA",
          full_taxon_group != "crab exoskeleton_NA",
-         full_taxon_group != "polychaete tube_NA",
-         full_taxon_group != "polychaete tube_fragment") %>% 
+         taxon_verified != "polychaete tube") %>% 
   group_by(id, taxon_verified, area, stage) %>% 
   summarise(avg_density = sum(avg_density)) %>% #this ensures that there is only one number per taxa per sample
   ungroup() %>% 
@@ -176,7 +175,7 @@ classification <- wm_classification_(aphia_id) %>%
 taxa_list_full <- aphia_id_df %>% 
   left_join(classification, by = "id") %>% 
   right_join(taxa_list, by = "taxon_name")
-mean_density_stage_plotting <- mean_density_stage %>% 
+plotting_names <- mean_density_stage %>% 
   rename(taxon_name = taxon_verified) %>% 
   left_join(taxa_list_full) %>% 
   mutate(plotting_name = case_when(!is.na(Species) ~ Species,
@@ -193,11 +192,11 @@ mean_density_stage_plotting <- mean_density_stage %>%
                                    TRUE ~ plotting_name)) %>%
   mutate(plotting_name = case_when(is.na(plotting_name) ~ Phylum,
                                    TRUE ~ plotting_name)) %>% 
-  mutate(plotting_name = case_when(taxon_name == "red-eye amphipod" ~ "Amphipoda",
-                                   taxon_name == "purple amphipod" ~ "Amphipoda",
-                                   taxon_name == "clear_tunicates" ~ "Tunicata",
-                                   taxon_name == "colonial tunicate" ~ "Tunicata",
-                                   taxon_name == "crustacean larvae" ~ "Crustacea",
+  mutate(plotting_name = case_when(taxon_name == "red-eye amphipod" ~ "Amphipoda indet 1",
+                                   taxon_name == "purple amphipod" ~ "Amphipoda indet 2",
+                                   taxon_name == "clear_tunicates" ~ "Tunicata indet 1",
+                                   taxon_name == "colonial tunicate" ~ "Tunicata indet 2",
+                                   taxon_name == "crustacean larvae" ~ "Crustacea larvae indet",
                                    TRUE ~ plotting_name)) %>%
   mutate(Phylum = case_when(taxon_name == "red-eye amphipod" ~ "Arthropoda",
                                    taxon_name == "purple amphipod" ~ "Arthropoda",
@@ -205,6 +204,8 @@ mean_density_stage_plotting <- mean_density_stage %>%
                                    taxon_name == "colonial tunicate" ~ "Chordata",
                                    taxon_name == "crustacean larvae" ~ "Arthropoda",
                             TRUE ~ Phylum)) %>% 
+  select(taxon_name, plotting_name, Phylum, stage, avg_density)
+mean_density_stage_plotting <- plotting_names %>% 
   select(taxon_name, stage, avg_density, plotting_name, Phylum) %>% 
   group_by(plotting_name, Phylum, stage) %>% 
   summarise(avg_density = sum(avg_density)) %>% #this ensures that there is only one number per taxa per sample
@@ -282,16 +283,40 @@ dend_palette <- axiscolour[c(8, 2, 3, 4)]
 ```
 
 Table to position the samples
+
+I also prepare suitable names for plotting the taxa and colouring by phylum (using the same colour scheme as the stacked bar chart)
 ```{r}
 species_pos_table <- data.frame(taxon = species_names) %>%
   dplyr::mutate(x_center = (1:n()), 
-         width = 1)
+         width = 1) %>% 
+  left_join(plotting_names %>% rename("taxon" = taxon_name) %>% select(-stage, -avg_density), by = "taxon") %>% 
+  mutate(plotting_name = case_when(taxon == "red_eye_amphipod" ~ "Amphipoda indet 1",
+                                   taxon == "purple_amphipod" ~ "Amphipoda indet 2",
+                                   taxon == "colonial_tunicate" ~ "Tunicata indet 2",
+                                   taxon == "tunicata" ~ "Tunicata indet 3",
+                                   taxon == "crustacean_larvae" ~ "Crustacea larvae indet",
+                                   taxon == "clear_tunicates" ~ "Tunicata indet 2", 
+                                   !is.na(plotting_name) ~ plotting_name),
+         Phylum = case_when(taxon == "red_eye_amphipod" ~ "Arthropoda",
+                                   taxon == "purple_amphipod" ~ "Arthropoda",
+                                   taxon == "colonial_tunicate" ~ "Chordata",
+                                   taxon == "crustacean_larvae" ~ "Arthropoda",
+                                   taxon == "clear_tunicates" ~ "Chordata", 
+                                   !is.na(Phylum) ~ Phylum),
+         labs_colour = case_when(Phylum == "Annelida" ~ pal[1],
+                                 Phylum == "Arthropoda" ~ pal[2],
+                                 Phylum == "Bryozoa" ~ pal[3],
+                                 Phylum == "Chordata" ~ pal[4],
+                                 Phylum == "Cnidaria" ~ pal[5],
+                                 Phylum == "Mollusca" ~ pal[6],
+                                 Phylum == "Nemertea" ~ pal[7],
+                                 Phylum == "Porifera" ~ pal[8]))
 # Neglecting the gap parameters
 heatmap_data <- community_matrix %>% 
   mutate("id" = rownames(community_matrix)) %>% 
   pivot_longer(cols = !id, names_to = "taxon", values_to = "density")%>%
   left_join(sample_pos_table) %>%
-  left_join(species_pos_table)
+  left_join(species_pos_table, by = "taxon")
 
 # changing 0 to NA so that samples/samples with low density appear different to those with none.
 heatmap_data[heatmap_data == 0] <- NA
@@ -314,10 +339,10 @@ plt_hmap <- ggplot(heatmap_data,
   geom_tile() +
   scale_fill_viridis_c("Log density", option = "cividis", na.value = "white", begin = 0) +
   scale_x_continuous(breaks = species_pos_table$x_center, 
-                     labels = species_pos_table$taxon,
+                     labels = species_pos_table$plotting_name,
                      expand = c(0, 0)
                      ) + 
-  # For the y axis, alternatively set the labels as: gene_position_table$gene
+  # For the y axis, alternatively set the labels as: sample_position_table$gene
   scale_y_continuous(breaks = sample_pos_table[, "y_center"], 
                      labels = rep("", nrow(sample_pos_table)),
                      limits = sample_axis_limits,
@@ -325,7 +350,7 @@ plt_hmap <- ggplot(heatmap_data,
                      ) + 
   labs(x = "Taxa", y = "") +
   theme_bw() +
-  theme(axis.text.x = element_text(size = rel(1), hjust = 1, angle = 45), 
+  theme(axis.text.x = element_text(color=species_pos_table$labs_colour, size = rel(0.8), hjust = 1, angle = 45), 
         # margin: top, right, bottom, and left
         plot.margin = unit(c(1, 0.2, 0.2, -0.7), "cm"), 
         panel.grid.minor = element_blank(),
@@ -338,17 +363,17 @@ plt_hmap
 # Dendrogram plot
 plt_dendr <- ggplot(segment_data) + 
   geom_segment(aes(x = x, y = y, xend = xend, yend = yend)) + 
-  geom_point(data = dendrogram_ends, aes(x= xend, y = yend, colour = as_factor(sample_pos_table$stage))) +
+  geom_point(data = dendrogram_ends, aes(x= xend, y = yend, shape = as_factor(sample_pos_table$stage))) +
   scale_x_reverse() + 
   scale_y_continuous(breaks = sample_pos_table$y_center, 
                      labels = sample_pos_table$id, 
                      limits = sample_axis_limits, 
                      expand = c(0, 0)) + 
-  labs(x = "Distance", y = "Sample", colour = sample_pos_table$stage, size = "") +
-  scale_colour_manual("Stage", values = dend_palette) +
+  labs(x = "Distance", y = "Sample", size = "") +
+  scale_shape("Stage") +
   theme_bw() + 
   theme(panel.grid.minor = element_blank()) +
-  theme(axis.text.y = element_text(color=sample_pos_table$labs_colour, face = "bold"),
+  theme(#axis.text.y = element_text(face = "bold"),
         legend.position = "left",
         legend.direction = "vertical")
 plt_dendr
