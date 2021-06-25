@@ -1,0 +1,85 @@
+---
+title: "2-PermanovaNullModels"
+author: "Arlie McCarthy"
+date: "25/06/2021"
+output: html_document
+---
+
+ONLY RUN THIS SCRIPT IN THE SAME SESSION AS RUNNING ALL OF SCRIPT 1. IT RELIES ON PACKAGES AND OBJECTS FROM SCRIPT 1. 
+
+#PERMANOVA - to get statistical significance for NMDS results
+
+(are the clusterings significant?)
+```{r}
+#Need to make sure have community matrix and site data with matching numbers of rows
+community_matrix_sites <- community_matrix %>% 
+  rownames_to_column(var = "id") %>% 
+  left_join(site_info)
+#Re-extract community matrix and site info data now they are aligned
+community_matrix_AB <- select(community_matrix_sites, -id)
+community_site_info <- select(community_matrix_sites, id, area, stage, quadrat_number)
+#Make a presence-absence version of community data
+community_matrix_PA <- decostand(community_matrix_AB, method = "pa")
+```
+
+# Perform PERMANOVA - right now PERMANOVAs use bray-curtis distances, as the NMDS also uses the bray-curtis distance, these results are directly comparable to 
+the ordination visualisation
+
+## PERMANOVA for abundance data
+```{r}
+ABpermanova <- adonis2(community_matrix_AB ~ stage, community_site_info, permutations=1000,
+                       method="bray")
+ABpermanova
+```
+
+Cannot reject null hypothesis
+
+So, we can detect overall differences between stages on the abundance matrix.
+
+
+## PERMANOVA for presence-absence data
+```{r}
+PApermanova <- adonis2(community_matrix_PA ~ stage, community_site_info, permutations=1000,
+                       method="bray")
+PApermanova
+```
+CAN reject null hypothesis.
+
+So basically: heaps of variation in abundances WITHIN each stage (cannot detect overall differences between stages), BUT just looking at the presence of species, the four stages ARE
+significantly different i.e. different communities of organisms are in the four stages. 
+Suggests multiple things going on - there are broad differences between the four stages in 
+terms of what species are there, but there is also an area-specific effect leading to very 
+variable abundances within each stage.
+
+
+
+#Analysis of nestedness
+
+Look at nestedness of presence-absence data:
+```{r}
+#Use least-constrained null model (only total count maintained)
+oecosimu(community_matrix_PA, nestednodf, "r00", nsimul=1000)
+```
+
+```{r}
+#Use null model where individual site richness is constrained
+oecosimu(community_matrix_PA, nestednodf, "r0", nsimul=1000)
+```
+
+```{r}
+#Use null model where species prevalences are constrained
+oecosimu(community_matrix_PA, nestednodf, "c0", nsimul=1000)
+```
+
+```{r}
+#Use null model where both site richness and species prevalences are constrained 
+oecosimu(community_matrix_PA, nestednodf, "quasiswap", nsimul=1000)
+```
+
+
+So basically: we observe that species-poor sites tend to be nested subsets of species-rich
+ones (r00 model). Allowing for the fact that some sites will be more favourable than others (r0),
+we still see this pattern. Allowing for the fact that some species are inherently more common than
+others (c0), we still see this pattern. However, allowing for both these things (quasiswap) we do 
+NOT see this pattern: nestedness is a combined product of the suitability of certain sites and the
+differential prevalence of species.

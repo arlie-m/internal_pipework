@@ -44,26 +44,37 @@ taxon_density <- taxon_count_data %>%
                                     taxon == "caprellid" ~ "caprella_mutica",
                                     taxon == "c.f. Schizoporella" ~ "cryptosula_pallasiana",
                                     taxon == "spiked encrusting bryo" ~ "electra_pilosa",
-                                    taxon == "mystery tunicates? large anemone?" ~ "clear_tunicates",
+                                    taxon == "mystery tunicates? large anemone?" ~ "Tunicata indet 1",
                                     taxon == "c.f. Caprella equilibra" ~ "caprella_equilibra",
                                     taxon == "anemone" ~ "anthozoa",
-                                    taxon == "crab juvenile" ~ "brachyura",
+                                    taxon == "crab juvenile" ~ "Brachyura juvenile",
                                     taxon == "Hyas sp" ~ "hyas",
                                     taxon == "hydroid" ~ "hydroidolina",
-                                    taxon == "tunicate" ~ "clear_tunicates",
+                                    taxon == "tunicate" ~ "Tunicata indet 1",
                                     taxon == "polychaete" ~ "polychaeta",
                                     taxon == "gastropod" ~ "gastropoda",
-                                    taxon == "juvenile barnacle" ~ "balanoidea",
-                                    taxon == "mystery thing" ~ "tunicata",
+                                    taxon == "juvenile barnacle" ~ "Balanoidea juvenile",
+                                    taxon == "mystery thing" ~ "Tunicata indet 3",
                                     taxon == "pycnogonid" ~ "pycnogonidae",
-                                    #taxon == "red-eye amphipod" ~ "amphipoda",
                                     taxon == "other bivalve" ~ "cardiidae",
                                     taxon == "sponge" ~ "porifera",
-                                    taxon == "squat lobster juvenile" ~ "anomura",
+                                    taxon == "squat lobster juvenile" ~ "Anomura juvenile",
+                                    taxon == "red-eye amphipod" ~ "Amphipoda indet 1",
+                                    taxon == "purple amphipod" ~ "Amphipoda indet 2",
+                                    taxon == "clear_tunicates" ~ "Tunicata indet 1",
+                                    taxon == "colonial tunicate" ~ "Tunicata indet 2",
+                                    taxon == "crustacean larvae" ~ "Crustacea larvae indet",
                                     TRUE ~ taxon
-                                    )) %>% 
+                                    ))  %>% 
+  mutate(full_taxon_group = paste(taxon_verified, taxon_grouping_qualifier, sep = "_")) %>% 
+  filter(full_taxon_group != "mytilus sp_valves intact, no tissue",
+         full_taxon_group != "NA_NA",
+         full_taxon_group != "mussel sp_valves intact",
+         full_taxon_group != "insect_NA",
+         full_taxon_group != "crab exoskeleton_NA",
+         taxon_verified != "polychaete tube")%>% 
   group_by(id, taxon_verified, taxon_grouping_qualifier, area, stage, quadrat_number) %>% 
-  mutate(density = count*multiply_by/divide_by/area_sampled*100) %>% #counts per m2
+  mutate(density = count*multiply_by/divide_by/area_sampled*10000) %>% #counts per m2
   summarise(avg_density = mean(density))
 site_info <- taxon_density %>% 
   ungroup() %>% 
@@ -71,27 +82,79 @@ site_info <- taxon_density %>%
   group_by(id) %>% 
   slice(1)
 ```
+Check the species names and allocate higher taxonomic groups
+```{r}
+taxa_list <- unique(taxon_density$taxon_verified) %>% 
+  as_tibble() %>% 
+  rename(taxon_name = value)
+aphia_id <- wm_name2id_(name = taxa_list$taxon_name)
+aphia_id_df <- aphia_id %>% 
+  as.data.frame() %>% 
+  pivot_longer(cols = everything(),
+               names_to = "taxon_name",
+               values_to = "id") 
+classification <- wm_classification_(aphia_id) %>% 
+  pivot_wider(id_cols = id, names_from = c(rank), values_from = c(scientificname), values_fill = NA) %>%
+  mutate(id = as.integer(id))
+taxa_list_full <- aphia_id_df %>% 
+  left_join(classification, by = "id") %>% 
+  right_join(taxa_list, by = "taxon_name")
+plotting_names <- taxon_density %>% 
+  rename(taxon_name = taxon_verified) %>% 
+  left_join(taxa_list_full %>% rename(aphia_id = id), by = "taxon_name") %>% 
+  mutate(plotting_name = case_when(!is.na(Species) ~ Species,
+                                   is.na(Species) ~ Genus,
+                                   is.na(Genus) ~ Family,
+                                   is.na(Family) ~ Order,
+                                   is.na(Order) ~ Class,
+                                   is.na(Class) ~ Subphylum,
+                                   is.na(Subphylum) ~ Phylum)) %>% 
+  mutate(plotting_name = case_when(is.na(plotting_name) ~ Family,
+                                   TRUE ~ plotting_name)) %>% 
+  mutate(plotting_name = case_when(is.na(plotting_name) ~ Order,
+                                   TRUE ~ plotting_name)) %>%
+  mutate(plotting_name = case_when(is.na(plotting_name) ~ Class,
+                                   TRUE ~ plotting_name)) %>%
+  mutate(plotting_name = case_when(is.na(plotting_name) ~ Subphylum,
+                                   TRUE ~ plotting_name)) %>%
+  mutate(plotting_name = case_when(is.na(plotting_name) ~ Phylum,
+                                   TRUE ~ plotting_name)) %>% 
+  mutate(plotting_name = case_when(taxon_name == "Amphipoda indet 1" ~ "Amphipoda indet 1",
+                                   taxon_name == "Amphipoda indet 2" ~ "Amphipoda indet 2",
+                                   taxon_name == "Tunicata indet 1" ~ "Tunicata indet 1",
+                                   taxon_name == "Tunicata indet 2" ~ "Tunicata indet 2",
+                                   taxon_name == "Tunicata indet 3" ~ "Tunicata indet 3",
+                                   taxon_name == "Crustacea larvae indet" ~ "Crustacea larvae indet",
+                                   taxon_name == "Brachyura juvenile" ~ "Brachyura juvenile indet",
+                                   taxon_name == "Balanoidea juvenile" ~ "Balanoidea juvenile indet",
+                                   taxon_name == "Anomura juvenile" ~ "Anomura juvenile indet",
+                                   TRUE ~ plotting_name)) %>%
+  mutate(Phylum = case_when(taxon_name == "Amphipoda indet 1" ~ "Arthropoda",
+                            taxon_name == "Amphipoda indet 2" ~ "Arthropoda",
+                            taxon_name == "Tunicata indet 1" ~ "Chordata",
+                            taxon_name == "Tunicata indet 2" ~ "Chordata",
+                            taxon_name == "Tunicata indet 3" ~ "Chordata",
+                            taxon_name == "Crustacea larvae indet" ~ "Arthropoda",
+                            taxon_name == "Brachyura juvenile" ~ "Arthropoda",
+                            taxon_name == "Balanoidea juvenile" ~ "Arthropoda",
+                            taxon_name == "Anomura juvenile" ~ "Arthropoda",
+                            TRUE ~ Phylum)) %>% 
+  select(taxon_name, plotting_name, Phylum, stage, avg_density)
+```
+
 
 # Preparing Data for ordination
 
 I take my data from counts to a community matrix, with species as variables and rows as samples
 
 ```{r nMDS preparation}
-community_matrix_rough <- taxon_density %>% 
-  mutate(full_taxon_group = paste(taxon_verified, taxon_grouping_qualifier, sep = "_")) %>% 
-  filter(full_taxon_group != "mytilus sp_valves intact, no tissue",
-         full_taxon_group != "NA_NA",
-         full_taxon_group != "mussel sp_valves intact",
-         full_taxon_group != "insect_NA",
-         full_taxon_group != "crab exoskeleton_NA",
-         taxon_verified != "polychaete tube") %>% 
-  group_by(id, taxon_verified) %>% 
+community_matrix_rough <- plotting_names %>% 
+  group_by(id, plotting_name) %>% 
   summarise(avg_density = sum(avg_density)) %>% 
-  pivot_wider(names_from = taxon_verified, values_from = avg_density, values_fill = 0) %>% 
+  pivot_wider(names_from = plotting_name, values_from = avg_density, values_fill = 0) %>% 
   ungroup()
 #community_matrix_rough[is.na(community_matrix_rough)] <- 0
 community_matrix <- community_matrix_rough %>% 
-  clean_names() %>% 
   column_to_rownames(var = "id") %>% 
   filter_all(any_vars(. != 0))
 ```
@@ -123,7 +186,7 @@ nmds_plot <- ggplot() +
   #geom_text(data=data_scores,aes(x=NMDS1,y=NMDS2,label=area),size=6,vjust=0) +  # add the site labels
   coord_equal() +
   theme_bw() +
-  scale_colour_viridis_c("Number of species") +
+  scale_colour_viridis_c("Number of taxa") +
   scale_shape("Stage of Pipework", labels = c("1 - sea chest", "2 - sea strainer", "3 - mid ships", "4 - overboard discharge"))
 nmds_plot
 
@@ -143,82 +206,22 @@ stressplot(internal_pipe_nmds) # Produces a Shepards diagram
 Here I will make a stacked bar chart to show mean density of different taxonomic groups at each stage of the pipework
 
 ```{r}
-mean_density_stage <- taxon_density %>% 
-  mutate(full_taxon_group = paste(taxon_verified, taxon_grouping_qualifier, sep = "_")) %>% 
-  filter(full_taxon_group != "mytilus sp_valves intact, no tissue",
-         full_taxon_group != "NA_NA",
-         full_taxon_group != "mussel sp_valves intact",
-         full_taxon_group != "insect_NA",
-         full_taxon_group != "crab exoskeleton_NA",
-         taxon_verified != "polychaete tube") %>% 
-  group_by(id, taxon_verified, area, stage) %>% 
+mean_density_stage <- plotting_names %>% 
+  group_by(id, plotting_name, area, stage, Phylum) %>% 
   summarise(avg_density = sum(avg_density)) %>% #this ensures that there is only one number per taxa per sample
   ungroup() %>% 
   filter(!is.na(avg_density)) %>% 
-  group_by(taxon_verified, stage) %>% 
+  group_by(plotting_name, stage, Phylum) %>% 
   summarise(avg_density = mean(avg_density))
 ```
-Check the species names and allocate higher taxonomic groups
-```{r}
-taxa_list <- unique(taxon_density$taxon_verified) %>% 
-  as_tibble() %>% 
-  rename(taxon_name = value)
-aphia_id <- wm_name2id_(name = taxa_list$taxon_name)
-aphia_id_df <- aphia_id %>% 
-  as.data.frame() %>% 
-  pivot_longer(cols = everything(),
-               names_to = "taxon_name",
-               values_to = "id") 
-classification <- wm_classification_(aphia_id) %>% 
-  pivot_wider(id_cols = id, names_from = c(rank), values_from = c(scientificname), values_fill = NA) %>%
-  mutate(id = as.integer(id))
-taxa_list_full <- aphia_id_df %>% 
-  left_join(classification, by = "id") %>% 
-  right_join(taxa_list, by = "taxon_name")
-plotting_names <- mean_density_stage %>% 
-  rename(taxon_name = taxon_verified) %>% 
-  left_join(taxa_list_full) %>% 
-  mutate(plotting_name = case_when(!is.na(Species) ~ Species,
-                                   is.na(Species) ~ Family,
-                                   is.na(Family) ~ Order,
-                                   is.na(Order) ~ Class,
-                                   is.na(Class) ~ Subphylum,
-                                   is.na(Subphylum) ~ Phylum)) %>% 
-  mutate(plotting_name = case_when(is.na(plotting_name) ~ Order,
-                                   TRUE ~ plotting_name)) %>%
-  mutate(plotting_name = case_when(is.na(plotting_name) ~ Class,
-                                   TRUE ~ plotting_name)) %>%
-  mutate(plotting_name = case_when(is.na(plotting_name) ~ Subphylum,
-                                   TRUE ~ plotting_name)) %>%
-  mutate(plotting_name = case_when(is.na(plotting_name) ~ Phylum,
-                                   TRUE ~ plotting_name)) %>% 
-  mutate(plotting_name = case_when(taxon_name == "red-eye amphipod" ~ "Amphipoda indet 1",
-                                   taxon_name == "purple amphipod" ~ "Amphipoda indet 2",
-                                   taxon_name == "clear_tunicates" ~ "Tunicata indet 1",
-                                   taxon_name == "colonial tunicate" ~ "Tunicata indet 2",
-                                   taxon_name == "crustacean larvae" ~ "Crustacea larvae indet",
-                                   TRUE ~ plotting_name)) %>%
-  mutate(Phylum = case_when(taxon_name == "red-eye amphipod" ~ "Arthropoda",
-                                   taxon_name == "purple amphipod" ~ "Arthropoda",
-                                   taxon_name == "clear_tunicates" ~ "Chordata",
-                                   taxon_name == "colonial tunicate" ~ "Chordata",
-                                   taxon_name == "crustacean larvae" ~ "Arthropoda",
-                            TRUE ~ Phylum)) %>% 
-  select(taxon_name, plotting_name, Phylum, stage, avg_density)
-mean_density_stage_plotting <- plotting_names %>% 
-  select(taxon_name, stage, avg_density, plotting_name, Phylum) %>% 
-  group_by(plotting_name, Phylum, stage) %>% 
-  summarise(avg_density = sum(avg_density)) %>% #this ensures that there is only one number per taxa per sample
-  ungroup() %>% 
-  arrange(Phylum)
-```
+
 
 Now to plot it. This plot will be aligned with a schematic diagram representing the pipework system, so that readers can visualise passage through the pipes and the changes in taxa over space. Ultimately, this will have to be grouped/coloured by more manageable chunks than all the taxa I have listed. But even without that, it's clear that the Jassa amphipods dominate right the way through. It's also clear that there isn't a great deal surviving in the pipework areas sampled in the middle of the ship, but they do survive transit and settle and grow in the final stage before overboard discharge. 
 
 ```{r}
 pal <- c("#332288", "#117733", "#44AA99", "#88CCEE", "#DDCC77", "#CC6677", "#AA4499", "#882255")
 stacked_bar_plot <- ggplot() +
-  geom_bar(data = mean_density_stage_plotting,
+  geom_bar(data = mean_density_stage,
            aes(x = stage, y = avg_density, fill = Phylum),
            colour = "white",
            stat = "identity",
@@ -235,7 +238,13 @@ stacked_bar_plot <- ggplot() +
 stacked_bar_plot
 save_plot(here("outputs", "stacked_bar_plot.png"), stacked_bar_plot, base_width = 183, base_height = 100, units = "mm")
 ```
+numbers for richness in each stage
 
+```{r}
+mean_density_stage %>% 
+  group_by(stage) %>% 
+  summarise(count = n_distinct(plotting_name))
+```
 
 # Creating a heatmap with dendrograms
 
@@ -286,24 +295,16 @@ Table to position the samples
 
 I also prepare suitable names for plotting the taxa and colouring by phylum (using the same colour scheme as the stacked bar chart)
 ```{r}
-species_pos_table <- data.frame(taxon = species_names) %>%
+species_pos_table <- data.frame("taxon" = species_names) %>%
   dplyr::mutate(x_center = (1:n()), 
          width = 1) %>% 
-  left_join(plotting_names %>% rename("taxon" = taxon_name) %>% select(-stage, -avg_density), by = "taxon") %>% 
-  mutate(plotting_name = case_when(taxon == "red_eye_amphipod" ~ "Amphipoda indet 1",
-                                   taxon == "purple_amphipod" ~ "Amphipoda indet 2",
-                                   taxon == "colonial_tunicate" ~ "Tunicata indet 2",
-                                   taxon == "tunicata" ~ "Tunicata indet 3",
-                                   taxon == "crustacean_larvae" ~ "Crustacea larvae indet",
-                                   taxon == "clear_tunicates" ~ "Tunicata indet 2", 
-                                   !is.na(plotting_name) ~ plotting_name),
-         Phylum = case_when(taxon == "red_eye_amphipod" ~ "Arthropoda",
-                                   taxon == "purple_amphipod" ~ "Arthropoda",
-                                   taxon == "colonial_tunicate" ~ "Chordata",
-                                   taxon == "crustacean_larvae" ~ "Arthropoda",
-                                   taxon == "clear_tunicates" ~ "Chordata", 
-                                   !is.na(Phylum) ~ Phylum),
-         labs_colour = case_when(Phylum == "Annelida" ~ pal[1],
+  left_join(mean_density_stage %>% 
+              rename("taxon" = plotting_name) %>% 
+              select(-stage, -avg_density) %>% 
+              group_by(taxon, Phylum) %>% 
+              slice(1), 
+            by = "taxon") %>% 
+  mutate(labs_colour = case_when(Phylum == "Annelida" ~ pal[1],
                                  Phylum == "Arthropoda" ~ pal[2],
                                  Phylum == "Bryozoa" ~ pal[3],
                                  Phylum == "Chordata" ~ pal[4],
@@ -339,7 +340,7 @@ plt_hmap <- ggplot(heatmap_data,
   geom_tile() +
   scale_fill_viridis_c("Log density", option = "cividis", na.value = "white", begin = 0) +
   scale_x_continuous(breaks = species_pos_table$x_center, 
-                     labels = species_pos_table$plotting_name,
+                     labels = species_pos_table$taxon,
                      expand = c(0, 0)
                      ) + 
   # For the y axis, alternatively set the labels as: sample_position_table$gene
@@ -390,16 +391,16 @@ save_plot(here("outputs", "heat_dend_plot.png"), heat_dend_plot, base_width = 18
 
 Highest densities
 ```{r}
-max(taxon_density$avg_density, na.rm = TRUE)
-taxon_density %>% 
-  group_by(id, taxon_verified, area, stage) %>% 
+max(plotting_names$avg_density, na.rm = TRUE)
+plotting_names %>% 
+  group_by(id, plotting_name, area, stage) %>% 
   summarise(avg_density = sum(avg_density)) %>%
   arrange(desc(avg_density)) %>%
   head()
 
 
-taxon_density %>% 
-  group_by(id, taxon_verified, area, stage) %>% 
+plotting_names %>% 
+  group_by(id, plotting_name, area, stage) %>% 
   summarise(avg_density = sum(avg_density)) %>%
   arrange(desc(avg_density)) %>%
   filter(stage == 4)
