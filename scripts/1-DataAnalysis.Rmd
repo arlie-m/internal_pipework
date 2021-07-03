@@ -21,7 +21,7 @@ library(scales)
 library(worrms)
 ```
 
-I have one data file with the count data from lab processing. The file needs some wrangling to calculate a density (counts per cm2) for each quadrat sampled.
+I have one data file with the count data from lab processing. The file needs some wrangling to calculate a density (counts per m2) for each quadrat sampled.
 
 ```{r calculating density}
 taxon_count_data <- read_csv(here::here("data", "taxon_count_data_internal_pipework.csv"))
@@ -64,6 +64,7 @@ taxon_density <- taxon_count_data %>%
                                     taxon == "clear_tunicates" ~ "Tunicata indet 1",
                                     taxon == "colonial tunicate" ~ "Tunicata indet 2",
                                     taxon == "crustacean larvae" ~ "Crustacea larvae indet",
+                                    taxon == "conopeum reticulum" ~ "conopeum_reticulum",
                                     TRUE ~ taxon
                                     ))  %>% 
   mutate(full_taxon_group = paste(taxon_verified, taxon_grouping_qualifier, sep = "_")) %>% 
@@ -157,6 +158,9 @@ community_matrix_rough <- plotting_names %>%
 community_matrix <- community_matrix_rough %>% 
   column_to_rownames(var = "id") %>% 
   filter_all(any_vars(. != 0))
+write_csv(community_matrix %>% 
+  rownames_to_column(var = "id"), here("data","community_matrix.csv"), col_names = TRUE)
+write_csv(site_info, here("data","site_info.csv"), col_names = TRUE)
 ```
 
 ## nMDS
