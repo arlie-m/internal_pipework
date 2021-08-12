@@ -200,7 +200,7 @@ ABpermanova</code></pre>
 ## 
 ## adonis2(formula = community_matrix_AB ~ stage, data = community_site_info, permutations = 1000, method = &quot;bray&quot;)
 ##          Df SumOfSqs      R2      F   Pr(&gt;F)   
-## stage     1   0.9079 0.09001 3.8578 0.007992 **
+## stage     1   0.9079 0.09001 3.8578 0.005994 **
 ## Residual 39   9.1779 0.90999                   
 ## Total    40  10.0858 1.00000                   
 ## ---
@@ -227,7 +227,10 @@ PApermanova</code></pre>
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>CAN reject null hypothesis.</p>
 <p>So basically: some variation in abundances WITHIN each stage (less significant differences between stages), BUT just looking at the presence of species, the four stages are still significantly different i.e. different communities of organisms are in the four stages. Suggests multiple things going on - there are broad differences between the four stages in terms of what species are there, but there is also an area-specific effect leading to very variable abundances within each stage.</p>
-<p>#Analysis of nestedness</p>
+</div>
+</div>
+<div id="analysis-of-nestedness" class="section level1">
+<h1>Analysis of nestedness</h1>
 <p>Look at nestedness of presence-absence data:</p>
 <pre class="r"><code>#Use least-constrained null model (only total count maintained)
 oecosimu(community_matrix_PA, nestednodf, &quot;r00&quot;, nsimul=1000)</code></pre>
@@ -246,9 +249,9 @@ oecosimu(community_matrix_PA, nestednodf, &quot;r00&quot;, nsimul=1000)</code></
 ## Matrix fill: 0.2457786 
 ## 
 ##           statistic    SES   mean   2.5%    50%  97.5% Pr(sim.)    
-## N.columns    52.418 27.866 25.880 24.075 25.859 27.769 0.000999 ***
-## N.rows       81.256 59.684 25.933 24.157 25.903 27.725 0.000999 ***
-## NODF         67.567 47.665 25.908 24.321 25.844 27.684 0.000999 ***
+## N.columns    52.418 28.409 25.867 24.053 25.887 27.774 0.000999 ***
+## N.rows       81.256 57.390 25.916 23.964 25.902 27.810 0.000999 ***
+## NODF         67.567 47.152 25.893 24.122 25.867 27.667 0.000999 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre class="r"><code>#Use null model where individual site richness is constrained
@@ -268,9 +271,9 @@ oecosimu(community_matrix_PA, nestednodf, &quot;r0&quot;, nsimul=1000)</code></p
 ## Matrix fill: 0.2457786 
 ## 
 ##           statistic    SES   mean   2.5%    50%  97.5% Pr(sim.)    
-## N.columns    52.418 25.631 28.383 26.424 28.430 30.084 0.000999 ***
-## N.rows       81.256 98.564 29.004 28.050 28.983 30.190 0.000999 ***
-## NODF         67.567 56.252 28.709 27.360 28.723 30.066 0.000999 ***
+## N.columns    52.418 24.809 28.470 26.520 28.484 30.251 0.000999 ***
+## N.rows       81.256 91.702 29.049 28.052 29.005 30.265 0.000999 ***
+## NODF         67.567 53.839 28.774 27.332 28.755 30.257 0.000999 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre class="r"><code>#Use null model where species prevalences are constrained
@@ -290,9 +293,9 @@ oecosimu(community_matrix_PA, nestednodf, &quot;c0&quot;, nsimul=1000)</code></p
 ## Matrix fill: 0.2457786 
 ## 
 ##           statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)    
-## N.columns    52.418 13.6208 39.425 37.640 39.328 41.332 0.000999 ***
-## N.rows       81.256  7.7922 62.270 57.197 62.324 66.618 0.000999 ***
-## NODF         67.567 10.0726 51.426 48.323 51.395 54.381 0.000999 ***
+## N.columns    52.418 13.6582 39.399 37.624 39.348 41.440 0.000999 ***
+## N.rows       81.256  7.9053 62.514 57.573 62.638 67.216 0.000999 ***
+## NODF         67.567 10.2118 51.542 48.376 51.573 54.699 0.000999 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre class="r"><code>#Use null model where both site richness and species prevalences are constrained 
@@ -312,13 +315,12 @@ oecosimu(community_matrix_PA, nestednodf, &quot;quasiswap&quot;, nsimul=1000)</c
 ## Matrix fill: 0.2457786 
 ## 
 ##           statistic      SES   mean   2.5%    50%  97.5% Pr(sim.)  
-## N.columns    52.418  0.91261 51.558 49.518 51.631 53.150  0.37063  
-## N.rows       81.256 -1.84964 81.763 81.148 81.797 82.233  0.08492 .
-## NODF         67.567  0.28154 67.425 66.319 67.469 68.286  0.84216  
+## N.columns    52.418  0.97338 51.545 49.675 51.593 53.161  0.32068  
+## N.rows       81.256 -1.84357 81.747 81.182 81.772 82.207  0.08292 .
+## NODF         67.567  0.32434 67.411 66.413 67.437 68.278  0.76623  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>So basically: we observe that species-poor sites tend to be nested subsets of species-rich ones (r00 model). Allowing for the fact that some sites will be more favourable than others (r0), we still see this pattern. Allowing for the fact that some species are inherently more common than others (c0), we still see this pattern. However, allowing for both these things (quasiswap) we do NOT see this pattern: nestedness is a combined product of the suitability of certain sites and the differential prevalence of species.</p>
-</div>
 </div>
 
 

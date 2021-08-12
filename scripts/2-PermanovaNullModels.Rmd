@@ -70,7 +70,7 @@ variable abundances within each stage.
 
 
 
-#Analysis of nestedness
+# Analysis of nestedness
 
 Look at nestedness of presence-absence data:
 ```{r}

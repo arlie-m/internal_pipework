@@ -228,35 +228,35 @@ internal_pipe_nmds <- metaMDS(community_matrix, distance = "bray", k = 2, trymax
     ## Square root transformation
     ## Wisconsin double standardization
     ## Run 0 stress 0.2083567 
-    ## Run 1 stress 0.2189997 
-    ## Run 2 stress 0.2034616 
+    ## Run 1 stress 0.2096647 
+    ## Run 2 stress 0.1939164 
     ## ... New best solution
-    ## ... Procrustes: rmse 0.08222224  max resid 0.2229752 
-    ## Run 3 stress 0.1939158 
+    ## ... Procrustes: rmse 0.1063508  max resid 0.2768804 
+    ## Run 3 stress 0.1936172 
     ## ... New best solution
-    ## ... Procrustes: rmse 0.1315004  max resid 0.2853599 
-    ## Run 4 stress 0.1936171 
+    ## ... Procrustes: rmse 0.01255299  max resid 0.06051315 
+    ## Run 4 stress 0.2147952 
+    ## Run 5 stress 0.2183227 
+    ## Run 6 stress 0.2304983 
+    ## Run 7 stress 0.2170841 
+    ## Run 8 stress 0.2101118 
+    ## Run 9 stress 0.214831 
+    ## Run 10 stress 0.1941687 
+    ## Run 11 stress 0.2097637 
+    ## Run 12 stress 0.2080049 
+    ## Run 13 stress 0.2034619 
+    ## Run 14 stress 0.1936118 
     ## ... New best solution
-    ## ... Procrustes: rmse 0.01247405  max resid 0.06009926 
-    ## Run 5 stress 0.2086926 
-    ## Run 6 stress 0.2034757 
-    ## Run 7 stress 0.1939247 
-    ## ... Procrustes: rmse 0.01273712  max resid 0.06071364 
-    ## Run 8 stress 0.2159103 
-    ## Run 9 stress 0.2034619 
-    ## Run 10 stress 0.1941688 
-    ## Run 11 stress 0.1936176 
-    ## ... Procrustes: rmse 0.0005392215  max resid 0.002571557 
-    ## ... Similar to previous best
-    ## Run 12 stress 0.1941531 
-    ## Run 13 stress 0.2189039 
-    ## Run 14 stress 0.2144143 
-    ## Run 15 stress 0.2034753 
-    ## Run 16 stress 0.2654839 
-    ## Run 17 stress 0.1941686 
+    ## ... Procrustes: rmse 0.002961742  max resid 0.01282919 
+    ## Run 15 stress 0.1941529 
+    ## Run 16 stress 0.2102632 
+    ## Run 17 stress 0.1941529 
     ## Run 18 stress 0.1941687 
-    ## Run 19 stress 0.2069657 
-    ## Run 20 stress 0.2069656 
+    ## Run 19 stress 0.1936115 
+    ## ... New best solution
+    ## ... Procrustes: rmse 0.0003742098  max resid 0.001760878 
+    ## ... Similar to previous best
+    ## Run 20 stress 0.2098794 
     ## *** Solution reached
 
 ``` r
@@ -273,7 +273,7 @@ internal_pipe_nmds
     ## Distance: bray 
     ## 
     ## Dimensions: 2 
-    ## Stress:     0.1936171 
+    ## Stress:     0.1936115 
     ## Stress type 1, weak ties
     ## Two convergent solutions found after 20 tries
     ## Scaling: centring, PC rotation, halfchange scaling 
@@ -324,13 +324,13 @@ Checking the nMDS
 goodness(internal_pipe_nmds) # Produces a results of test statistics for goodness of fit for each point
 ```
 
-    ##  [1] 0.02214375 0.02734277 0.03810039 0.02533077 0.04385278 0.03375824
-    ##  [7] 0.02530228 0.02019213 0.03180455 0.03403171 0.03403171 0.02530942
-    ## [13] 0.01854800 0.03496054 0.02008826 0.02408069 0.03251827 0.02231845
-    ## [19] 0.04835846 0.02977243 0.05853681 0.02168821 0.02657381 0.01797594
-    ## [25] 0.01936029 0.02939343 0.02226435 0.02105253 0.03403170 0.03592355
-    ## [31] 0.04602990 0.02245657 0.04976899 0.01752281 0.01753412 0.01824280
-    ## [37] 0.03592356 0.02116238 0.02227665 0.01865810 0.02375946
+    ##  [1] 0.02231977 0.02743661 0.03825664 0.02554014 0.04357397 0.03389883
+    ##  [7] 0.02523901 0.02021067 0.03175057 0.03387410 0.03387402 0.02517272
+    ## [13] 0.01836960 0.03486186 0.02005641 0.02406501 0.03249707 0.02229610
+    ## [19] 0.04843401 0.02985792 0.05868295 0.02167578 0.02671938 0.01793273
+    ## [25] 0.01939897 0.02948204 0.02216670 0.02117482 0.03387401 0.03593103
+    ## [31] 0.04615030 0.02244052 0.04972720 0.01735216 0.01751435 0.01819608
+    ## [37] 0.03593104 0.02114724 0.02214675 0.01863353 0.02387609
 
 ``` r
 stressplot(internal_pipe_nmds) # Produces a Shepards diagram
@@ -462,13 +462,13 @@ phylum (using the same colour scheme as the stacked bar chart)
 
 ``` r
 species_pos_table <- data.frame("taxon" = species_names) %>%
-  left_join(mean_density_stage %>% 
-              rename("taxon" = plotting_name) %>% 
-              group_by(taxon, Phylum) %>% 
-              mutate(density = sum(avg_density)) %>% 
-              select(-stage, -avg_density) %>% 
+  left_join(plotting_names %>% 
+              group_by(plotting_name, Phylum) %>% 
+              mutate(density = sum(avg_density, na.rm = TRUE)) %>% 
+              select(plotting_name, Phylum, density) %>% 
               slice(1) %>% 
-              arrange(desc(density)), 
+              arrange(desc(density)) %>% 
+              rename(taxon = plotting_name), 
             by = "taxon") %>% 
   arrange(desc(density)) %>% 
   dplyr::mutate(x_center = (1:n()), 

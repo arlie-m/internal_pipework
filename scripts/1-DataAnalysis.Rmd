@@ -306,13 +306,13 @@ Table to position the samples
 I also prepare suitable names for plotting the taxa and colouring by phylum (using the same colour scheme as the stacked bar chart)
 ```{r}
 species_pos_table <- data.frame("taxon" = species_names) %>%
-  left_join(mean_density_stage %>% 
-              rename("taxon" = plotting_name) %>% 
-              group_by(taxon, Phylum) %>% 
-              mutate(density = sum(avg_density)) %>% 
-              select(-stage, -avg_density) %>% 
+  left_join(plotting_names %>% 
+              group_by(plotting_name, Phylum) %>% 
+              mutate(density = sum(avg_density, na.rm = TRUE)) %>% 
+              select(plotting_name, Phylum, density) %>% 
               slice(1) %>% 
-              arrange(desc(density)), 
+              arrange(desc(density)) %>% 
+              rename(taxon = plotting_name), 
             by = "taxon") %>% 
   arrange(desc(density)) %>% 
   dplyr::mutate(x_center = (1:n()), 
