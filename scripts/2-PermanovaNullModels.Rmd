@@ -50,9 +50,9 @@ ABpermanova <- adonis2(community_matrix_AB ~ stage, community_site_info, permuta
 ABpermanova
 ```
 
-Cannot reject null hypothesis
+CAN reject null hypothesis
 
-So, we cannot detect overall differences between stages on the abundance matrix.
+So, we can detect overall differences between stages on the abundance matrix.
 
 
 ## PERMANOVA for presence-absence data
@@ -63,8 +63,7 @@ PApermanova
 ```
 CAN reject null hypothesis.
 
-So basically: heaps of variation in abundances WITHIN each stage (cannot detect overall differences between stages), BUT just looking at the presence of species, the four stages ARE
-significantly different i.e. different communities of organisms are in the four stages. 
+So basically: some variation in abundances WITHIN each stage (less significant differences between stages), BUT just looking at the presence of species, the four stages are still significantly different i.e. different communities of organisms are in the four stages. 
 Suggests multiple things going on - there are broad differences between the four stages in 
 terms of what species are there, but there is also an area-specific effect leading to very 
 variable abundances within each stage.

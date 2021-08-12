@@ -21,13 +21,19 @@ library(scales)
 library(worrms)
 ```
 
-I have one data file with the count data from lab processing. The file needs some wrangling to calculate a density (counts per m2) for each quadrat sampled.
+I have one data file with the count data from lab processing. The file needs some wrangling to calculate a density (counts per decimeter squared, aka 100cm2) for each quadrat sampled.
 
 ```{r calculating density}
 taxon_count_data <- read_csv(here::here("data", "taxon_count_data_internal_pipework.csv"))
 taxon_density <- taxon_count_data %>% 
   clean_names() %>% 
   mutate(id = paste(area, quadrat_number, sep = "_")) %>% #some quadrats had multiple 'sample' so changed to just area and quadrat
+  mutate(count = case_when(taxon_grouping_qualifier == "colony" ~ count * 4,
+                           taxon_grouping_qualifier == "fragment" ~ count * 0.25,
+                           taxon_grouping_qualifier == "squares" ~ count * 4,
+                           taxon_grouping_qualifier == "small colony" ~ count * 4,
+                           taxon_grouping_qualifier == "large colony" ~ count * 8,
+                           TRUE ~ count)) %>%  #converts colonial organisms to cm2, i.e. a count of 1 = 1cm2, density is then e.g. 1 cm2 per 1dm2
   mutate(taxon_verified = case_when(taxon == "mussel" ~ "mytilus", 
                                     taxon == "acorn barnacle" ~ "amphibalanus_improvisus",
                                     taxon == "barnacle type 2" ~ "amphibalanus_amphitrite",
@@ -75,7 +81,7 @@ taxon_density <- taxon_count_data %>%
          full_taxon_group != "crab exoskeleton_NA",
          taxon_verified != "polychaete tube")%>% 
   group_by(id, taxon_verified, taxon_grouping_qualifier, area, stage, quadrat_number) %>% 
-  mutate(density = count*multiply_by/divide_by/area_sampled*10000) %>% #counts per m2
+  mutate(density = count*multiply_by/divide_by/area_sampled*100) %>% #counts per dm2
   summarise(avg_density = mean(density))
 site_info <- taxon_density %>% 
   ungroup() %>% 
@@ -235,7 +241,7 @@ stacked_bar_plot <- ggplot() +
 #           stat = "identity",
 #           position = "stack") +
   labs(x = "Stage of Pipework") +
-  ylab(expression(Mean~density~(individuals~per~m^2))) +
+  ylab(expression(Mean~density~(individuals~per~dm^2))) +
   theme_bw() +
   scale_fill_manual("Phylum", values = pal)
   #scale_fill_viridis_d(option = "B", direction = 1, begin = 0.1)
@@ -300,14 +306,17 @@ Table to position the samples
 I also prepare suitable names for plotting the taxa and colouring by phylum (using the same colour scheme as the stacked bar chart)
 ```{r}
 species_pos_table <- data.frame("taxon" = species_names) %>%
-  dplyr::mutate(x_center = (1:n()), 
-         width = 1) %>% 
   left_join(mean_density_stage %>% 
               rename("taxon" = plotting_name) %>% 
-              select(-stage, -avg_density) %>% 
               group_by(taxon, Phylum) %>% 
-              slice(1), 
+              mutate(density = sum(avg_density)) %>% 
+              select(-stage, -avg_density) %>% 
+              slice(1) %>% 
+              arrange(desc(density)), 
             by = "taxon") %>% 
+  arrange(desc(density)) %>% 
+  dplyr::mutate(x_center = (1:n()), 
+         width = 1) %>%
   mutate(labs_colour = case_when(Phylum == "Annelida" ~ pal[1],
                                  Phylum == "Arthropoda" ~ pal[2],
                                  Phylum == "Bryozoa" ~ pal[3],
@@ -315,7 +324,8 @@ species_pos_table <- data.frame("taxon" = species_names) %>%
                                  Phylum == "Cnidaria" ~ pal[5],
                                  Phylum == "Mollusca" ~ pal[6],
                                  Phylum == "Nemertea" ~ pal[7],
-                                 Phylum == "Porifera" ~ pal[8]))
+                                 Phylum == "Porifera" ~ pal[8])) %>% 
+  select(-density)
 # Neglecting the gap parameters
 heatmap_data <- community_matrix %>% 
   mutate("id" = rownames(community_matrix)) %>% 

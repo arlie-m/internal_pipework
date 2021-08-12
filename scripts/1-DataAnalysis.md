@@ -6,8 +6,8 @@ Arlie McCarthy
 # Code Setup and Data Import - because that is super-important
 
 I have one data file with the count data from lab processing. The file
-needs some wrangling to calculate a density (counts per m2) for each
-quadrat sampled.
+needs some wrangling to calculate a density (counts per decimeter
+squared, aka 100cm2) for each quadrat sampled.
 
 ``` r
 taxon_count_data <- read_csv(here::here("data", "taxon_count_data_internal_pipework.csv"))
@@ -40,6 +40,12 @@ taxon_count_data <- read_csv(here::here("data", "taxon_count_data_internal_pipew
 taxon_density <- taxon_count_data %>% 
   clean_names() %>% 
   mutate(id = paste(area, quadrat_number, sep = "_")) %>% #some quadrats had multiple 'sample' so changed to just area and quadrat
+  mutate(count = case_when(taxon_grouping_qualifier == "colony" ~ count * 4,
+                           taxon_grouping_qualifier == "fragment" ~ count * 0.25,
+                           taxon_grouping_qualifier == "squares" ~ count * 4,
+                           taxon_grouping_qualifier == "small colony" ~ count * 4,
+                           taxon_grouping_qualifier == "large colony" ~ count * 8,
+                           TRUE ~ count)) %>%  #converts colonial organisms to cm2, i.e. a count of 1 = 1cm2, density is then e.g. 1 cm2 per 1dm2
   mutate(taxon_verified = case_when(taxon == "mussel" ~ "mytilus", 
                                     taxon == "acorn barnacle" ~ "amphibalanus_improvisus",
                                     taxon == "barnacle type 2" ~ "amphibalanus_amphitrite",
@@ -87,7 +93,7 @@ taxon_density <- taxon_count_data %>%
          full_taxon_group != "crab exoskeleton_NA",
          taxon_verified != "polychaete tube")%>% 
   group_by(id, taxon_verified, taxon_grouping_qualifier, area, stage, quadrat_number) %>% 
-  mutate(density = count*multiply_by/divide_by/area_sampled*10000) %>% #counts per m2
+  mutate(density = count*multiply_by/divide_by/area_sampled*100) %>% #counts per dm2
   summarise(avg_density = mean(density))
 ```
 
@@ -221,41 +227,36 @@ internal_pipe_nmds <- metaMDS(community_matrix, distance = "bray", k = 2, trymax
 
     ## Square root transformation
     ## Wisconsin double standardization
-    ## Run 0 stress 0.2099288 
-    ## Run 1 stress 0.207473 
+    ## Run 0 stress 0.2083567 
+    ## Run 1 stress 0.2189997 
+    ## Run 2 stress 0.2034616 
     ## ... New best solution
-    ## ... Procrustes: rmse 0.0772623  max resid 0.178121 
-    ## Run 2 stress 0.2074717 
+    ## ... Procrustes: rmse 0.08222224  max resid 0.2229752 
+    ## Run 3 stress 0.1939158 
     ## ... New best solution
-    ## ... Procrustes: rmse 0.01949227  max resid 0.08820818 
-    ## Run 3 stress 0.2108949 
-    ## Run 4 stress 0.1969307 
+    ## ... Procrustes: rmse 0.1315004  max resid 0.2853599 
+    ## Run 4 stress 0.1936171 
     ## ... New best solution
-    ## ... Procrustes: rmse 0.1284393  max resid 0.2800145 
-    ## Run 5 stress 0.2246209 
-    ## Run 6 stress 0.2137322 
-    ## Run 7 stress 0.2202722 
-    ## Run 8 stress 0.2220286 
-    ## Run 9 stress 0.2074716 
-    ## Run 10 stress 0.2206302 
-    ## Run 11 stress 0.2010232 
-    ## Run 12 stress 0.210811 
-    ## Run 13 stress 0.2172441 
-    ## Run 14 stress 0.196201 
-    ## ... New best solution
-    ## ... Procrustes: rmse 0.02154094  max resid 0.08521428 
-    ## Run 15 stress 0.2116169 
-    ## Run 16 stress 0.2137324 
-    ## Run 17 stress 0.1961947 
-    ## ... New best solution
-    ## ... Procrustes: rmse 0.001507064  max resid 0.006243337 
+    ## ... Procrustes: rmse 0.01247405  max resid 0.06009926 
+    ## Run 5 stress 0.2086926 
+    ## Run 6 stress 0.2034757 
+    ## Run 7 stress 0.1939247 
+    ## ... Procrustes: rmse 0.01273712  max resid 0.06071364 
+    ## Run 8 stress 0.2159103 
+    ## Run 9 stress 0.2034619 
+    ## Run 10 stress 0.1941688 
+    ## Run 11 stress 0.1936176 
+    ## ... Procrustes: rmse 0.0005392215  max resid 0.002571557 
     ## ... Similar to previous best
-    ## Run 18 stress 0.201023 
-    ## Run 19 stress 0.2235763 
-    ## Run 20 stress 0.1961945 
-    ## ... New best solution
-    ## ... Procrustes: rmse 0.000132799  max resid 0.0004599812 
-    ## ... Similar to previous best
+    ## Run 12 stress 0.1941531 
+    ## Run 13 stress 0.2189039 
+    ## Run 14 stress 0.2144143 
+    ## Run 15 stress 0.2034753 
+    ## Run 16 stress 0.2654839 
+    ## Run 17 stress 0.1941686 
+    ## Run 18 stress 0.1941687 
+    ## Run 19 stress 0.2069657 
+    ## Run 20 stress 0.2069656 
     ## *** Solution reached
 
 ``` r
@@ -272,7 +273,7 @@ internal_pipe_nmds
     ## Distance: bray 
     ## 
     ## Dimensions: 2 
-    ## Stress:     0.1961945 
+    ## Stress:     0.1936171 
     ## Stress type 1, weak ties
     ## Two convergent solutions found after 20 tries
     ## Scaling: centring, PC rotation, halfchange scaling 
@@ -323,13 +324,13 @@ Checking the nMDS
 goodness(internal_pipe_nmds) # Produces a results of test statistics for goodness of fit for each point
 ```
 
-    ##  [1] 0.02971270 0.02520666 0.04016481 0.02316549 0.03748557 0.02487949
-    ##  [7] 0.03010432 0.01933424 0.03916483 0.02997184 0.02997184 0.03218594
-    ## [13] 0.03922891 0.04258170 0.02028205 0.04127165 0.04884371 0.02443240
-    ## [19] 0.03191105 0.03193194 0.03642111 0.02942491 0.02986166 0.02208749
-    ## [25] 0.01840580 0.02289766 0.02115616 0.03219489 0.02997184 0.03863244
-    ## [31] 0.03707223 0.02386507 0.03824561 0.02427829 0.02220746 0.01833447
-    ## [37] 0.03863244 0.02327439 0.02241278 0.02024873 0.02417355
+    ##  [1] 0.02214375 0.02734277 0.03810039 0.02533077 0.04385278 0.03375824
+    ##  [7] 0.02530228 0.02019213 0.03180455 0.03403171 0.03403171 0.02530942
+    ## [13] 0.01854800 0.03496054 0.02008826 0.02408069 0.03251827 0.02231845
+    ## [19] 0.04835846 0.02977243 0.05853681 0.02168821 0.02657381 0.01797594
+    ## [25] 0.01936029 0.02939343 0.02226435 0.02105253 0.03403170 0.03592355
+    ## [31] 0.04602990 0.02245657 0.04976899 0.01752281 0.01753412 0.01824280
+    ## [37] 0.03592356 0.02116238 0.02227665 0.01865810 0.02375946
 
 ``` r
 stressplot(internal_pipe_nmds) # Produces a Shepards diagram
@@ -379,7 +380,7 @@ stacked_bar_plot <- ggplot() +
 #           stat = "identity",
 #           position = "stack") +
   labs(x = "Stage of Pipework") +
-  ylab(expression(Mean~density~(individuals~per~m^2))) +
+  ylab(expression(Mean~density~(individuals~per~dm^2))) +
   theme_bw() +
   scale_fill_manual("Phylum", values = pal)
   #scale_fill_viridis_d(option = "B", direction = 1, begin = 0.1)
@@ -461,14 +462,17 @@ phylum (using the same colour scheme as the stacked bar chart)
 
 ``` r
 species_pos_table <- data.frame("taxon" = species_names) %>%
-  dplyr::mutate(x_center = (1:n()), 
-         width = 1) %>% 
   left_join(mean_density_stage %>% 
               rename("taxon" = plotting_name) %>% 
-              select(-stage, -avg_density) %>% 
               group_by(taxon, Phylum) %>% 
-              slice(1), 
+              mutate(density = sum(avg_density)) %>% 
+              select(-stage, -avg_density) %>% 
+              slice(1) %>% 
+              arrange(desc(density)), 
             by = "taxon") %>% 
+  arrange(desc(density)) %>% 
+  dplyr::mutate(x_center = (1:n()), 
+         width = 1) %>%
   mutate(labs_colour = case_when(Phylum == "Annelida" ~ pal[1],
                                  Phylum == "Arthropoda" ~ pal[2],
                                  Phylum == "Bryozoa" ~ pal[3],
@@ -476,12 +480,8 @@ species_pos_table <- data.frame("taxon" = species_names) %>%
                                  Phylum == "Cnidaria" ~ pal[5],
                                  Phylum == "Mollusca" ~ pal[6],
                                  Phylum == "Nemertea" ~ pal[7],
-                                 Phylum == "Porifera" ~ pal[8]))
-```
-
-    ## Adding missing grouping variables: `stage`
-
-``` r
+                                 Phylum == "Porifera" ~ pal[8])) %>% 
+  select(-density)
 # Neglecting the gap parameters
 heatmap_data <- community_matrix %>% 
   mutate("id" = rownames(community_matrix)) %>% 
@@ -588,7 +588,7 @@ Highest densities
 max(plotting_names$avg_density, na.rm = TRUE)
 ```
 
-    ## [1] 47804
+    ## [1] 478.04
 
 ``` r
 plotting_names %>% 
@@ -604,12 +604,12 @@ plotting_names %>%
     ## # Groups:   id, plotting_name, area [6]
     ##   id    plotting_name    area stage avg_density
     ##   <chr> <chr>           <dbl> <dbl>       <dbl>
-    ## 1 26_2  Jassa marmorata    26     4      61054.
-    ## 2 26_1  Jassa marmorata    26     4      61006.
-    ## 3 13_3  Jassa marmorata    13     1      47804 
-    ## 4 13_4  Jassa marmorata    13     1      31820 
-    ## 5 19_3  Jassa marmorata    19     2      25550 
-    ## 6 19_2  Jassa marmorata    19     2      24429.
+    ## 1 26_2  Jassa marmorata    26     4        611.
+    ## 2 26_1  Jassa marmorata    26     4        610.
+    ## 3 13_3  Jassa marmorata    13     1        478.
+    ## 4 13_4  Jassa marmorata    13     1        318.
+    ## 5 19_3  Jassa marmorata    19     2        256.
+    ## 6 19_2  Jassa marmorata    19     2        244.
 
 ``` r
 plotting_names %>% 
@@ -623,16 +623,16 @@ plotting_names %>%
 
     ## # A tibble: 45 x 5
     ## # Groups:   id, plotting_name, area [45]
-    ##    id    plotting_name    area stage avg_density
-    ##    <chr> <chr>           <dbl> <dbl>       <dbl>
-    ##  1 26_2  Jassa marmorata    26     4      61054.
-    ##  2 26_1  Jassa marmorata    26     4      61006.
-    ##  3 18_2  Jassa marmorata    18     4      20444.
-    ##  4 26_2  Mytilus            26     4      14222.
-    ##  5 26_3  Jassa marmorata    26     4      13219.
-    ##  6 26_1  Mytilus            26     4      10271.
-    ##  7 25_2  Jassa marmorata    25     4       8892.
-    ##  8 18_1  Jassa marmorata    18     4       3116.
-    ##  9 26_3  Mytilus            26     4       2850 
-    ## 10 25_2  Mytilus            25     4       2144.
+    ##    id    plotting_name          area stage avg_density
+    ##    <chr> <chr>                 <dbl> <dbl>       <dbl>
+    ##  1 26_2  Jassa marmorata          26     4       611. 
+    ##  2 26_1  Jassa marmorata          26     4       610. 
+    ##  3 18_2  Jassa marmorata          18     4       204. 
+    ##  4 26_2  Mytilus                  26     4       142. 
+    ##  5 26_3  Jassa marmorata          26     4       132. 
+    ##  6 26_1  Mytilus                  26     4       103. 
+    ##  7 25_2  Jassa marmorata          25     4        88.9
+    ##  8 25_2  Tricellaria inopinata    25     4        37.3
+    ##  9 18_1  Jassa marmorata          18     4        31.2
+    ## 10 26_3  Mytilus                  26     4        28.5
     ## # … with 35 more rows
