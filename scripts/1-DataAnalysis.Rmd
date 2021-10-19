@@ -418,4 +418,16 @@ plotting_names %>%
   summarise(avg_density = sum(avg_density)) %>%
   arrange(desc(avg_density)) %>%
   filter(stage == 4)
+
+total_averages <- plotting_names %>% 
+  group_by(id, plotting_name, area, stage, Phylum) %>% 
+  summarise(avg_density = sum(avg_density)) %>% #this ensures that there is only one number per taxa per sample
+  ungroup() %>% 
+  filter(!is.na(avg_density)) %>% 
+  group_by(area, stage) %>% 
+  summarise(total_density = sum(avg_density)) %>% 
+  group_by(stage) %>% 
+  summarise(avg_total_density = mean(total_density),
+            sd_total_density = sd(total_density))
+total_averages
 ```
