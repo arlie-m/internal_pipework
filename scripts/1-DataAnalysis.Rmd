@@ -19,6 +19,7 @@ library(ggdendro)
 library(dendextend)
 library(scales)
 library(worrms)
+library(plotrix)
 ```
 
 I have one data file with the count data from lab processing. The file needs some wrangling to calculate a density (counts per decimeter squared, aka 100cm2) for each quadrat sampled.
@@ -216,11 +217,37 @@ stressplot(internal_pipe_nmds) # Produces a Shepards diagram
 Here I will make a stacked bar chart to show mean density of different taxonomic groups at each stage of the pipework
 
 ```{r}
-mean_density_stage <- plotting_names %>% 
+#average density for each taxon in each area
+mean_density_area <- plotting_names %>% 
   group_by(id, plotting_name, area, stage, Phylum) %>% 
-  summarise(avg_density = sum(avg_density)) %>% #this ensures that there is only one number per taxa per sample
+  summarise(avg_density = sum(avg_density)) %>% #this ensures that there is only one number per taxon per sample
   ungroup() %>% 
-  filter(!is.na(avg_density)) %>% 
+  filter(!is.na(avg_density))  %>% 
+  group_by(plotting_name, area, stage, Phylum) %>% 
+  summarise(avg_density = mean(avg_density))
+
+area_info <- site_info %>% 
+  ungroup() %>% 
+  select(area, stage) %>% 
+  group_by(area,stage) %>% 
+  slice(1)
+
+mean_density_area_wider <- mean_density_area %>% 
+  pivot_wider(names_from = c(area),
+              names_sep = "_",
+              values_from = avg_density,
+              values_fill = 0)
+
+mean_density_area_longer <- mean_density_area_wider %>% 
+  pivot_longer(cols = 4:17,
+               names_to = "area",
+               values_to = "avg_density")
+
+mean_density_area_full <- mean_density_area_longer %>% 
+  mutate(area = as.numeric(area)) %>% 
+  right_join(area_info, by = c("area", "stage"))
+
+mean_density_stage <- mean_density_area_full %>% 
   group_by(plotting_name, stage, Phylum) %>% 
   summarise(avg_density = mean(avg_density))
 ```
@@ -229,7 +256,7 @@ mean_density_stage <- plotting_names %>%
 Now to plot it. This plot will be aligned with a schematic diagram representing the pipework system, so that readers can visualise passage through the pipes and the changes in taxa over space. Ultimately, this will have to be grouped/coloured by more manageable chunks than all the taxa I have listed. But even without that, it's clear that the Jassa amphipods dominate right the way through. It's also clear that there isn't a great deal surviving in the pipework areas sampled in the middle of the ship, but they do survive transit and settle and grow in the final stage before overboard discharge. 
 
 ```{r}
-pal <- c("#332288", "#117733", "#44AA99", "#88CCEE", "#DDCC77", "#CC6677", "#AA4499", "#882255")
+pal <- c("#332288", "#117733", "#44AA99", "#88CCEE", "#CEB53A", "#CC6677", "#AA4499", "#882255")
 stacked_bar_plot <- ggplot() +
   geom_bar(data = mean_density_stage,
            aes(x = stage, y = avg_density, fill = Phylum),
@@ -248,12 +275,68 @@ stacked_bar_plot <- ggplot() +
 stacked_bar_plot
 save_plot(here("outputs", "stacked_bar_plot.png"), stacked_bar_plot, base_width = 183, base_height = 100, units = "mm")
 ```
-numbers for richness in each stage
+# Taxonomic richness in each stage, and overall metrics to be used in the table.
 
 ```{r}
-mean_density_stage %>% 
-  group_by(stage) %>% 
+#species richness by phylum per area
+mean_richness_area <- mean_density_area_full %>% 
+  group_by(stage, area, Phylum) %>% 
+  filter(avg_density > 0) %>% 
+  summarise(richness = n_distinct(plotting_name)) %>% 
+  pivot_wider(names_from = c(area),
+              names_sep = "_",
+              values_from = richness,
+              values_fill = 0) %>% 
+  pivot_longer(cols = 3:16,
+               names_to = "area",
+               values_to = "richness") %>% 
+  mutate(area = as.numeric(area)) %>% 
+  right_join(area_info, by = c("area", "stage"))
+
+#the mean taxonomic richness and SE per phylum per stage
+mean_richness_stage <- mean_richness_area %>% 
+  group_by(Phylum, stage) %>% 
+  summarise(mean_richness = mean(richness),
+            sd_richness = sd(richness, na.rm = TRUE),
+            se_richness = std.error(richness, na.rm = TRUE))
+
+
+#species richness by phylum for all stages, i.e. overall richness across all stages by phylum
+mean_density_area_full %>% 
+  group_by(Phylum) %>% 
+  filter(avg_density > 0) %>% 
   summarise(count = n_distinct(plotting_name))
+
+#species richness by stage for all phyla, i.e. overall richness for each stage
+mean_density_area_full %>% 
+  group_by(stage) %>% 
+  filter(avg_density > 0) %>% 
+  summarise(count = n_distinct(plotting_name))
+
+#total density per stage
+mean_density_area_full %>% 
+  group_by(area, stage) %>% 
+  summarise(total_density = sum(avg_density)) %>% #gives the total density of all taxa in each area
+  group_by(stage) %>% 
+  summarise(avg_total_density = mean(total_density),
+            se_density = std.error(total_density)) #gives the mean total density across areas for each stage
+
+#Overall mean richness per stage (i.e. each area within a stage had, on average x taxa)
+mean_density_area_full %>% 
+  group_by(stage, area) %>% 
+  filter(avg_density > 0) %>% 
+  summarise(richness = n_distinct(plotting_name)) %>% 
+  pivot_wider(names_from = c(area),
+              names_sep = "_",
+              values_from = richness,
+              values_fill = 0) %>% 
+  pivot_longer(cols = 2:15,
+               names_to = "area",
+               values_to = "richness") %>% 
+  mutate(area = as.numeric(area)) %>% 
+  right_join(area_info, by = c("area", "stage")) %>% 
+  summarise(mean_richness = mean(richness),
+            se_richness = std.error(richness, na.rm = TRUE))
 ```
 
 # Creating a heatmap with dendrograms
@@ -365,12 +448,12 @@ plt_hmap <- ggplot(heatmap_data,
                      ) + 
   labs(x = "Taxa", y = "") +
   theme_bw() +
-  theme(axis.text.x = element_text(color=species_pos_table$labs_colour, size = rel(0.8), hjust = 1, angle = 45), 
+  theme(axis.text.x = element_text(color=species_pos_table$labs_colour, size = rel(0.9), face = "bold", hjust = 1, angle = 45), 
         # margin: top, right, bottom, and left
         plot.margin = unit(c(1, 0.2, 0.2, -0.7), "cm"), 
         panel.grid.minor = element_blank(),
-        legend.position = "right",
-        legend.direction = "vertical")
+        legend.position = "bottom",
+        legend.direction = "horizontal")
 plt_hmap
 ```
 
@@ -389,8 +472,8 @@ plt_dendr <- ggplot(segment_data) +
   theme_bw() + 
   theme(panel.grid.minor = element_blank()) +
   theme(#axis.text.y = element_text(face = "bold"),
-        legend.position = "left",
-        legend.direction = "vertical")
+        legend.position = "bottom",
+        legend.direction = "horizontal")
 plt_dendr
 ```
 
@@ -412,22 +495,10 @@ plotting_names %>%
   arrange(desc(avg_density)) %>%
   head()
 
-
+#Density per taxon from each sample in stage 4
 plotting_names %>% 
   group_by(id, plotting_name, area, stage) %>% 
   summarise(avg_density = sum(avg_density)) %>%
   arrange(desc(avg_density)) %>%
   filter(stage == 4)
-
-total_averages <- plotting_names %>% 
-  group_by(id, plotting_name, area, stage, Phylum) %>% 
-  summarise(avg_density = sum(avg_density)) %>% #this ensures that there is only one number per taxa per sample
-  ungroup() %>% 
-  filter(!is.na(avg_density)) %>% 
-  group_by(area, stage) %>% 
-  summarise(total_density = sum(avg_density)) %>% 
-  group_by(stage) %>% 
-  summarise(avg_total_density = mean(total_density),
-            sd_total_density = sd(total_density))
-total_averages
 ```
