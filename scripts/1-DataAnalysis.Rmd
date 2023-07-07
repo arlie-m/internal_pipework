@@ -25,10 +25,12 @@ library(plotrix)
 I have one data file with the count data from lab processing. The file needs some wrangling to calculate a density (counts per decimeter squared, aka 100cm2) for each quadrat sampled.
 
 ```{r calculating density}
-taxon_count_data <- read_csv(here::here("data", "taxon_count_data_internal_pipework.csv"))
+taxon_count_data <- read_delim((here::here("data", "taxon_count_data_internal_pipework.csv")), 
+    delim = ";", escape_double = FALSE, trim_ws = TRUE)
 taxon_density <- taxon_count_data %>% 
   clean_names() %>% 
   mutate(id = paste(area, quadrat_number, sep = "_")) %>% #some quadrats had multiple 'sample' so changed to just area and quadrat
+  filter(id != "23_6") %>% #an 'extras' sample was collected, but as a quadrat so removed from the community analysis
   mutate(count = case_when(taxon_grouping_qualifier == "colony" ~ count * 4,
                            taxon_grouping_qualifier == "fragment" ~ count * 0.25,
                            taxon_grouping_qualifier == "squares" ~ count * 4,
@@ -42,36 +44,37 @@ taxon_density <- taxon_count_data %>%
                                     taxon == "c.f. Jassa" ~ "jassa_marmorata", 
                                     taxon == "acorn barnacle ribbed" ~ "austrominius_modestus",
                                     taxon == "crab" ~ "carcinus_maenas",
-                                    taxon == "encrusting bryozoan" ~ "membranipora_membranacea",
-                                    taxon == "white tufted bryozoan" | taxon == "type 2 white tufted bryozoan" ~ "tricellaria_inopinata",
+                                    taxon == "encrusting bryozoan" ~ "conopeum",
+                                    taxon == "white tufted bryozoan" | taxon == "type 2 white tufted bryozoan" ~ "tricellaria",
                                     taxon == "round amphipod" | taxon == "green eye amphipod" ~ "stenothoidae",
                                     taxon == "c.f. Conchoderma" ~ "conchoderma_auritum", 
                                     taxon == "brown bryozoan" ~ "bugula_neritina",
-                                    taxon == "c.f. Corophium" ~ "monocorophium_sextonae",
+                                    taxon == "c.f. Corophium" ~ "monocorophium_acherusicum",
                                     taxon == "caprellid" ~ "caprella_mutica",
                                     taxon == "c.f. Schizoporella" ~ "cryptosula_pallasiana",
                                     taxon == "spiked encrusting bryo" ~ "electra_pilosa",
-                                    taxon == "mystery tunicates? large anemone?" ~ "Tunicata indet 1",
+                                    taxon == "mystery tunicates? large anemone?" ~ "ascidiella_aspersa",
                                     taxon == "c.f. Caprella equilibra" ~ "caprella_equilibra",
                                     taxon == "anemone" ~ "anthozoa",
                                     taxon == "crab juvenile" ~ "Brachyura juvenile",
-                                    taxon == "Hyas sp" ~ "hyas",
+                                    taxon == "Hyas sp" ~ "hyas_araneus",
                                     taxon == "hydroid" ~ "hydroidolina",
-                                    taxon == "tunicate" ~ "Tunicata indet 1",
+                                    taxon == "tunicate" ~ "ascidiella_aspersa",
                                     taxon == "polychaete" ~ "polychaeta",
                                     taxon == "gastropod" ~ "gastropoda",
                                     taxon == "juvenile barnacle" ~ "Balanoidea juvenile",
-                                    taxon == "mystery thing" ~ "Tunicata indet 3",
+                                    taxon == "mystery thing" ~ "styela_clava",
                                     taxon == "pycnogonid" ~ "pycnogonidae",
                                     taxon == "other bivalve" ~ "cardiidae",
-                                    taxon == "sponge" ~ "porifera",
-                                    taxon == "squat lobster juvenile" ~ "Anomura juvenile",
+                                    taxon == "squat lobster juvenile" ~ "Pisidia_longicornis",
                                     taxon == "red-eye amphipod" ~ "Amphipoda indet 1",
                                     taxon == "purple amphipod" ~ "Amphipoda indet 2",
-                                    taxon == "clear_tunicates" ~ "Tunicata indet 1",
-                                    taxon == "colonial tunicate" ~ "Tunicata indet 2",
+                                    taxon == "clear_tunicates" ~ "ascidiella_aspersa",
+                                    taxon == "colonial tunicate" ~ "botryllus_schlosseri",
                                     taxon == "crustacean larvae" ~ "Crustacea larvae indet",
-                                    taxon == "conopeum reticulum" ~ "conopeum_reticulum",
+                                    taxon == "Conopeum reticulum" ~ "conopeum",
+                                    taxon == "Obelia bidentata" ~ "obelia_bidentata",
+                                    taxon == "tricellaria_sp" ~ "tricellaria",
                                     TRUE ~ taxon
                                     ))  %>% 
   mutate(full_taxon_group = paste(taxon_verified, taxon_grouping_qualifier, sep = "_")) %>% 
@@ -80,7 +83,9 @@ taxon_density <- taxon_count_data %>%
          full_taxon_group != "mussel sp_valves intact",
          full_taxon_group != "insect_NA",
          full_taxon_group != "crab exoskeleton_NA",
-         taxon_verified != "polychaete tube")%>% 
+         taxon_verified != "polychaete tube",
+         taxon_verified != "sponge",
+         taxon_verified != "nemertea")%>% 
   group_by(id, taxon_verified, taxon_grouping_qualifier, area, stage, quadrat_number) %>% 
   mutate(density = count*multiply_by/divide_by/area_sampled*100) %>% #counts per dm2
   summarise(avg_density = mean(density))
@@ -97,7 +102,7 @@ taxa_list <- unique(taxon_density$taxon_verified) %>%
   rename(taxon_name = value)
 aphia_id <- wm_name2id_(name = taxa_list$taxon_name)
 aphia_id_df <- aphia_id %>% 
-  as.data.frame() %>% 
+  as_tibble() %>% 
   pivot_longer(cols = everything(),
                names_to = "taxon_name",
                values_to = "id") 
@@ -136,6 +141,8 @@ plotting_names <- taxon_density %>%
                                    taxon_name == "Brachyura juvenile" ~ "Brachyura juvenile indet",
                                    taxon_name == "Balanoidea juvenile" ~ "Balanoidea juvenile indet",
                                    taxon_name == "Anomura juvenile" ~ "Anomura juvenile indet",
+                                   taxon_name == "conopeum" ~ "Conopeum sp.",
+                                   taxon_name == "tricellaria" ~ "Tricellaria sp.",
                                    TRUE ~ plotting_name)) %>%
   mutate(Phylum = case_when(taxon_name == "Amphipoda indet 1" ~ "Arthropoda",
                             taxon_name == "Amphipoda indet 2" ~ "Arthropoda",
@@ -175,15 +182,15 @@ write_csv(site_info, here("data","site_info.csv"), col_names = TRUE)
 ```{r nMDS}
 internal_pipe_nmds <- metaMDS(community_matrix, distance = "bray", k = 2, trymax = 500)
 internal_pipe_nmds
-data_scores <- as.data.frame(scores(internal_pipe_nmds))  #Using the scores function from vegan to extract the site scores and convert to a data.frame
-data_scores$site <- rownames(internal_pipe_nmds)  # create a column of site names, from the rownames of data.scores
+data_scores <- as_tibble(scores(internal_pipe_nmds, display = c("sites")))  #Using the scores function from vegan to extract the site scores and convert to a data.frame
+data_scores$site <- rownames(scores(internal_pipe_nmds, display = c("sites")))  # create a column of site names, from the rownames of data.scores
 data_scores <- data_scores %>% 
-  rownames_to_column(var = "id") %>% 
+  mutate("id" = site) %>% 
   left_join(site_info)
 data_scores$n_species <- specnumber(community_matrix, MARGIN = 1)
 data_scores$shannon <- diversity(community_matrix, index = "shannon")
 data_scores$simpson <- diversity(community_matrix, index = "simpson")
-species_scores <- as.data.frame(scores(internal_pipe_nmds, "species"))  #Using the scores function from vegan to extract the species scores and convert to a data.frame
+species_scores <- as_tibble(scores(internal_pipe_nmds, "species"))  #Using the scores function from vegan to extract the species scores and convert to a data.frame
 species_scores$species <- rownames(species_scores)
 
 ```
