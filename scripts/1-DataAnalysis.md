@@ -10,36 +10,26 @@ needs some wrangling to calculate a density (counts per decimeter
 squared, aka 100cm2) for each quadrat sampled.
 
 ``` r
-taxon_count_data <- read_csv(here::here("data", "taxon_count_data_internal_pipework.csv"))
+taxon_count_data <- read_delim((here::here("data", "taxon_count_data_internal_pipework.csv")), 
+    delim = ",", escape_double = FALSE, trim_ws = TRUE)
 ```
 
-    ## 
-    ## ── Column specification ────────────────────────────────────────────────────────
-    ## cols(
-    ##   sample_id = col_character(),
-    ##   taxon = col_character(),
-    ##   taxon_grouping_qualifier = col_character(),
-    ##   description = col_character(),
-    ##   sub_sample = col_character(),
-    ##   count = col_double(),
-    ##   multiply_by = col_double(),
-    ##   divide_by = col_double(),
-    ##   quadrat_grids_number = col_double(),
-    ##   quadrad_mesh_size_cm2 = col_double(),
-    ##   area_sampled = col_double(),
-    ##   density = col_logical(),
-    ##   sub_sample_type = col_character(),
-    ##   sub_sample_number = col_double(),
-    ##   sample_number = col_double(),
-    ##   area = col_double(),
-    ##   stage = col_double(),
-    ##   quadrat_number = col_double()
-    ## )
+    ## New names:
+    ## Rows: 767 Columns: 19
+    ## ── Column specification
+    ## ──────────────────────────────────────────────────────── Delimiter: "," chr
+    ## (6): sample_id, taxon, taxon_grouping_qualifier, description, sub_sampl... dbl
+    ## (11): count, multiply_by, divide_by, quadrat_grids_number, quadrad_mesh_... lgl
+    ## (2): density, ...19
+    ## ℹ Use `spec()` to retrieve the full column specification for this data. ℹ
+    ## Specify the column types or set `show_col_types = FALSE` to quiet this message.
+    ## • `` -> `...19`
 
 ``` r
 taxon_density <- taxon_count_data %>% 
   clean_names() %>% 
   mutate(id = paste(area, quadrat_number, sep = "_")) %>% #some quadrats had multiple 'sample' so changed to just area and quadrat
+  filter(id != "23_6") %>% #an 'extras' sample was collected, but as a quadrat so removed from the community analysis
   mutate(count = case_when(taxon_grouping_qualifier == "colony" ~ count * 4,
                            taxon_grouping_qualifier == "fragment" ~ count * 0.25,
                            taxon_grouping_qualifier == "squares" ~ count * 4,
@@ -53,36 +43,37 @@ taxon_density <- taxon_count_data %>%
                                     taxon == "c.f. Jassa" ~ "jassa_marmorata", 
                                     taxon == "acorn barnacle ribbed" ~ "austrominius_modestus",
                                     taxon == "crab" ~ "carcinus_maenas",
-                                    taxon == "encrusting bryozoan" ~ "membranipora_membranacea",
-                                    taxon == "white tufted bryozoan" | taxon == "type 2 white tufted bryozoan" ~ "tricellaria_inopinata",
+                                    taxon == "encrusting bryozoan" ~ "conopeum",
+                                    taxon == "white tufted bryozoan" | taxon == "type 2 white tufted bryozoan" ~ "tricellaria",
                                     taxon == "round amphipod" | taxon == "green eye amphipod" ~ "stenothoidae",
                                     taxon == "c.f. Conchoderma" ~ "conchoderma_auritum", 
                                     taxon == "brown bryozoan" ~ "bugula_neritina",
-                                    taxon == "c.f. Corophium" ~ "monocorophium_sextonae",
+                                    taxon == "c.f. Corophium" ~ "monocorophium_acherusicum",
                                     taxon == "caprellid" ~ "caprella_mutica",
                                     taxon == "c.f. Schizoporella" ~ "cryptosula_pallasiana",
                                     taxon == "spiked encrusting bryo" ~ "electra_pilosa",
-                                    taxon == "mystery tunicates? large anemone?" ~ "Tunicata indet 1",
+                                    taxon == "mystery tunicates? large anemone?" ~ "ascidiella_aspersa",
                                     taxon == "c.f. Caprella equilibra" ~ "caprella_equilibra",
                                     taxon == "anemone" ~ "anthozoa",
                                     taxon == "crab juvenile" ~ "Brachyura juvenile",
-                                    taxon == "Hyas sp" ~ "hyas",
+                                    taxon == "Hyas sp" ~ "hyas_araneus",
                                     taxon == "hydroid" ~ "hydroidolina",
-                                    taxon == "tunicate" ~ "Tunicata indet 1",
+                                    taxon == "tunicate" ~ "ascidiella_aspersa",
                                     taxon == "polychaete" ~ "polychaeta",
                                     taxon == "gastropod" ~ "gastropoda",
                                     taxon == "juvenile barnacle" ~ "Balanoidea juvenile",
-                                    taxon == "mystery thing" ~ "Tunicata indet 3",
+                                    taxon == "mystery thing" ~ "styela_clava",
                                     taxon == "pycnogonid" ~ "pycnogonidae",
                                     taxon == "other bivalve" ~ "cardiidae",
-                                    taxon == "sponge" ~ "porifera",
-                                    taxon == "squat lobster juvenile" ~ "Anomura juvenile",
+                                    taxon == "squat lobster juvenile" ~ "Pisidia_longicornis",
                                     taxon == "red-eye amphipod" ~ "Amphipoda indet 1",
                                     taxon == "purple amphipod" ~ "Amphipoda indet 2",
-                                    taxon == "clear_tunicates" ~ "Tunicata indet 1",
-                                    taxon == "colonial tunicate" ~ "Tunicata indet 2",
+                                    taxon == "clear_tunicates" ~ "ascidiella_aspersa",
+                                    taxon == "colonial tunicate" ~ "botryllus_schlosseri",
                                     taxon == "crustacean larvae" ~ "Crustacea larvae indet",
-                                    taxon == "conopeum reticulum" ~ "conopeum_reticulum",
+                                    taxon == "Conopeum reticulum" ~ "conopeum",
+                                    taxon == "Obelia bidentata" ~ "obelia_bidentata",
+                                    taxon == "tricellaria_sp" ~ "tricellaria",
                                     TRUE ~ taxon
                                     ))  %>% 
   mutate(full_taxon_group = paste(taxon_verified, taxon_grouping_qualifier, sep = "_")) %>% 
@@ -91,13 +82,17 @@ taxon_density <- taxon_count_data %>%
          full_taxon_group != "mussel sp_valves intact",
          full_taxon_group != "insect_NA",
          full_taxon_group != "crab exoskeleton_NA",
-         taxon_verified != "polychaete tube")%>% 
+         taxon_verified != "polychaete tube",
+         taxon_verified != "sponge",
+         taxon_verified != "nemertea")%>% 
   group_by(id, taxon_verified, taxon_grouping_qualifier, area, stage, quadrat_number) %>% 
   mutate(density = count*multiply_by/divide_by/area_sampled*100) %>% #counts per dm2
   summarise(avg_density = mean(density))
 ```
 
-    ## `summarise()` has grouped output by 'id', 'taxon_verified', 'taxon_grouping_qualifier', 'area', 'stage'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'id', 'taxon_verified',
+    ## 'taxon_grouping_qualifier', 'area', 'stage'. You can override using the
+    ## `.groups` argument.
 
 ``` r
 site_info <- taxon_density %>% 
@@ -118,28 +113,17 @@ aphia_id <- wm_name2id_(name = taxa_list$taxon_name)
 
     ## Warning: (204) No Content - Brachyura juvenile
 
-    ## Warning: `data_frame()` was deprecated in tibble 1.1.0.
-    ## Please use `tibble()` instead.
-
-    ## Warning: (204) No Content - Tunicata indet 1
-
     ## Warning: (204) No Content - Balanoidea juvenile
 
-    ## Warning: (204) No Content - Tunicata indet 3
-
     ## Warning: (204) No Content - Amphipoda indet 1
-
-    ## Warning: (204) No Content - Tunicata indet 2
 
     ## Warning: (204) No Content - Crustacea larvae indet
 
     ## Warning: (204) No Content - Amphipoda indet 2
 
-    ## Warning: (204) No Content - Anomura juvenile
-
 ``` r
 aphia_id_df <- aphia_id %>% 
-  as.data.frame() %>% 
+  as_tibble() %>% 
   pivot_longer(cols = everything(),
                names_to = "taxon_name",
                values_to = "id") 
@@ -178,6 +162,8 @@ plotting_names <- taxon_density %>%
                                    taxon_name == "Brachyura juvenile" ~ "Brachyura juvenile indet",
                                    taxon_name == "Balanoidea juvenile" ~ "Balanoidea juvenile indet",
                                    taxon_name == "Anomura juvenile" ~ "Anomura juvenile indet",
+                                   taxon_name == "conopeum" ~ "Conopeum sp.",
+                                   taxon_name == "tricellaria" ~ "Tricellaria sp.",
                                    TRUE ~ plotting_name)) %>%
   mutate(Phylum = case_when(taxon_name == "Amphipoda indet 1" ~ "Arthropoda",
                             taxon_name == "Amphipoda indet 2" ~ "Arthropoda",
@@ -207,7 +193,8 @@ community_matrix_rough <- plotting_names %>%
   ungroup()
 ```
 
-    ## `summarise()` has grouped output by 'id'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'id'. You can override using the `.groups`
+    ## argument.
 
 ``` r
 #community_matrix_rough[is.na(community_matrix_rough)] <- 0
@@ -227,37 +214,44 @@ internal_pipe_nmds <- metaMDS(community_matrix, distance = "bray", k = 2, trymax
 
     ## Square root transformation
     ## Wisconsin double standardization
-    ## Run 0 stress 0.2083567 
-    ## Run 1 stress 0.2096647 
-    ## Run 2 stress 0.1939164 
+    ## Run 0 stress 0.2052366 
+    ## Run 1 stress 0.1949497 
     ## ... New best solution
-    ## ... Procrustes: rmse 0.1063508  max resid 0.2768804 
-    ## Run 3 stress 0.1936172 
-    ## ... New best solution
-    ## ... Procrustes: rmse 0.01255299  max resid 0.06051315 
-    ## Run 4 stress 0.2147952 
-    ## Run 5 stress 0.2183227 
-    ## Run 6 stress 0.2304983 
-    ## Run 7 stress 0.2170841 
-    ## Run 8 stress 0.2101118 
-    ## Run 9 stress 0.214831 
-    ## Run 10 stress 0.1941687 
-    ## Run 11 stress 0.2097637 
-    ## Run 12 stress 0.2080049 
-    ## Run 13 stress 0.2034619 
-    ## Run 14 stress 0.1936118 
-    ## ... New best solution
-    ## ... Procrustes: rmse 0.002961742  max resid 0.01282919 
-    ## Run 15 stress 0.1941529 
-    ## Run 16 stress 0.2102632 
-    ## Run 17 stress 0.1941529 
-    ## Run 18 stress 0.1941687 
-    ## Run 19 stress 0.1936115 
-    ## ... New best solution
-    ## ... Procrustes: rmse 0.0003742098  max resid 0.001760878 
+    ## ... Procrustes: rmse 0.1346327  max resid 0.3645798 
+    ## Run 2 stress 0.2072936 
+    ## Run 3 stress 0.2209578 
+    ## Run 4 stress 0.19495 
+    ## ... Procrustes: rmse 0.0006747345  max resid 0.002587224 
     ## ... Similar to previous best
-    ## Run 20 stress 0.2098794 
-    ## *** Solution reached
+    ## Run 5 stress 0.1931093 
+    ## ... New best solution
+    ## ... Procrustes: rmse 0.1176037  max resid 0.2986012 
+    ## Run 6 stress 0.2055807 
+    ## Run 7 stress 0.1930807 
+    ## ... New best solution
+    ## ... Procrustes: rmse 0.004007448  max resid 0.01395228 
+    ## Run 8 stress 0.1930793 
+    ## ... New best solution
+    ## ... Procrustes: rmse 0.001223381  max resid 0.006295099 
+    ## ... Similar to previous best
+    ## Run 9 stress 0.2129636 
+    ## Run 10 stress 0.205581 
+    ## Run 11 stress 0.1934914 
+    ## ... Procrustes: rmse 0.01567  max resid 0.07514131 
+    ## Run 12 stress 0.1932328 
+    ## ... Procrustes: rmse 0.1186825  max resid 0.2874057 
+    ## Run 13 stress 0.1935315 
+    ## ... Procrustes: rmse 0.01606437  max resid 0.07583131 
+    ## Run 14 stress 0.2093223 
+    ## Run 15 stress 0.2129629 
+    ## Run 16 stress 0.2052368 
+    ## Run 17 stress 0.1932326 
+    ## ... Procrustes: rmse 0.1183983  max resid 0.2873341 
+    ## Run 18 stress 0.2161249 
+    ## Run 19 stress 0.2034655 
+    ## Run 20 stress 0.1934908 
+    ## ... Procrustes: rmse 0.01491939  max resid 0.07270998 
+    ## *** Best solution repeated 1 times
 
 ``` r
 internal_pipe_nmds
@@ -273,27 +267,28 @@ internal_pipe_nmds
     ## Distance: bray 
     ## 
     ## Dimensions: 2 
-    ## Stress:     0.1936115 
+    ## Stress:     0.1930793 
     ## Stress type 1, weak ties
-    ## Two convergent solutions found after 20 tries
+    ## Best solution was repeated 1 time in 20 tries
+    ## The best solution was from try 8 (random start)
     ## Scaling: centring, PC rotation, halfchange scaling 
     ## Species: expanded scores based on 'wisconsin(sqrt(community_matrix))'
 
 ``` r
-data_scores <- as.data.frame(scores(internal_pipe_nmds))  #Using the scores function from vegan to extract the site scores and convert to a data.frame
-data_scores$site <- rownames(internal_pipe_nmds)  # create a column of site names, from the rownames of data.scores
+data_scores <- as_tibble(scores(internal_pipe_nmds, display = c("sites")))  #Using the scores function from vegan to extract the site scores and convert to a data.frame
+data_scores$site <- rownames(scores(internal_pipe_nmds, display = c("sites")))  # create a column of site names, from the rownames of data.scores
 data_scores <- data_scores %>% 
-  rownames_to_column(var = "id") %>% 
+  mutate("id" = site) %>% 
   left_join(site_info)
 ```
 
-    ## Joining, by = "id"
+    ## Joining with `by = join_by(id)`
 
 ``` r
 data_scores$n_species <- specnumber(community_matrix, MARGIN = 1)
 data_scores$shannon <- diversity(community_matrix, index = "shannon")
 data_scores$simpson <- diversity(community_matrix, index = "simpson")
-species_scores <- as.data.frame(scores(internal_pipe_nmds, "species"))  #Using the scores function from vegan to extract the species scores and convert to a data.frame
+species_scores <- as_tibble(scores(internal_pipe_nmds, "species"))  #Using the scores function from vegan to extract the species scores and convert to a data.frame
 species_scores$species <- rownames(species_scores)
 ```
 
@@ -324,13 +319,13 @@ Checking the nMDS
 goodness(internal_pipe_nmds) # Produces a results of test statistics for goodness of fit for each point
 ```
 
-    ##  [1] 0.02231977 0.02743661 0.03825664 0.02554014 0.04357397 0.03389883
-    ##  [7] 0.02523901 0.02021067 0.03175057 0.03387410 0.03387402 0.02517272
-    ## [13] 0.01836960 0.03486186 0.02005641 0.02406501 0.03249707 0.02229610
-    ## [19] 0.04843401 0.02985792 0.05868295 0.02167578 0.02671938 0.01793273
-    ## [25] 0.01939897 0.02948204 0.02216670 0.02117482 0.03387401 0.03593103
-    ## [31] 0.04615030 0.02244052 0.04972720 0.01735216 0.01751435 0.01819608
-    ## [37] 0.03593104 0.02114724 0.02214675 0.01863353 0.02387609
+    ##  [1] 0.04763037 0.03267889 0.02622873 0.01971368 0.03069701 0.03405638
+    ##  [7] 0.03406080 0.02575069 0.01915956 0.03387549 0.02049790 0.02163501
+    ## [13] 0.02695590 0.03807817 0.02360163 0.02297276 0.03246520 0.02278386
+    ## [19] 0.04762263 0.02855167 0.05823443 0.02200856 0.02558861 0.01552055
+    ## [25] 0.02047896 0.02860381 0.02050833 0.02086943 0.03405638 0.03596618
+    ## [31] 0.04545201 0.02172076 0.05068499 0.01842201 0.01708923 0.01961678
+    ## [37] 0.03596618 0.02171096 0.02286656 0.01870938 0.02327131
 
 ``` r
 stressplot(internal_pipe_nmds) # Produces a Shepards diagram
@@ -344,18 +339,50 @@ Here I will make a stacked bar chart to show mean density of different
 taxonomic groups at each stage of the pipework
 
 ``` r
-mean_density_stage <- plotting_names %>% 
+#average density for each taxon in each area
+mean_density_area <- plotting_names %>% 
   group_by(id, plotting_name, area, stage, Phylum) %>% 
-  summarise(avg_density = sum(avg_density)) %>% #this ensures that there is only one number per taxa per sample
+  summarise(avg_density = sum(avg_density)) %>% #this ensures that there is only one number per taxon per sample
   ungroup() %>% 
-  filter(!is.na(avg_density)) %>% 
+  filter(!is.na(avg_density))  %>% 
+  group_by(plotting_name, area, stage, Phylum) %>% 
+  summarise(avg_density = mean(avg_density))
+```
+
+    ## `summarise()` has grouped output by 'id', 'plotting_name', 'area', 'stage'. You
+    ## can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'plotting_name', 'area', 'stage'. You can
+    ## override using the `.groups` argument.
+
+``` r
+area_info <- site_info %>% 
+  ungroup() %>% 
+  select(area, stage) %>% 
+  group_by(area,stage) %>% 
+  slice(1)
+
+mean_density_area_wider <- mean_density_area %>% 
+  pivot_wider(names_from = c(area),
+              names_sep = "_",
+              values_from = avg_density,
+              values_fill = 0)
+
+mean_density_area_longer <- mean_density_area_wider %>% 
+  pivot_longer(cols = 4:17,
+               names_to = "area",
+               values_to = "avg_density")
+
+mean_density_area_full <- mean_density_area_longer %>% 
+  mutate(area = as.numeric(area)) %>% 
+  right_join(area_info, by = c("area", "stage"))
+
+mean_density_stage <- mean_density_area_full %>% 
   group_by(plotting_name, stage, Phylum) %>% 
   summarise(avg_density = mean(avg_density))
 ```
 
-    ## `summarise()` has grouped output by 'id', 'plotting_name', 'area', 'stage'. You can override using the `.groups` argument.
-
-    ## `summarise()` has grouped output by 'plotting_name', 'stage'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'plotting_name', 'stage'. You can override
+    ## using the `.groups` argument.
 
 Now to plot it. This plot will be aligned with a schematic diagram
 representing the pipework system, so that readers can visualise passage
@@ -368,7 +395,7 @@ of the ship, but they do survive transit and settle and grow in the
 final stage before overboard discharge.
 
 ``` r
-pal <- c("#332288", "#117733", "#44AA99", "#88CCEE", "#DDCC77", "#CC6677", "#AA4499", "#882255")
+pal <- c("#332288", "#117733", "#44AA99", "#88CCEE", "#CEB53A", "#CC6677", "#AA4499", "#882255")
 stacked_bar_plot <- ggplot() +
   geom_bar(data = mean_density_stage,
            aes(x = stage, y = avg_density, fill = Phylum),
@@ -393,21 +420,124 @@ stacked_bar_plot
 save_plot(here("outputs", "stacked_bar_plot.png"), stacked_bar_plot, base_width = 183, base_height = 100, units = "mm")
 ```
 
-numbers for richness in each stage
+# Taxonomic richness in each stage, and overall metrics to be used in the table.
 
 ``` r
-mean_density_stage %>% 
-  group_by(stage) %>% 
+#species richness by phylum per area
+mean_richness_area <- mean_density_area_full %>% 
+  group_by(stage, area, Phylum) %>% 
+  filter(avg_density > 0) %>% 
+  summarise(richness = n_distinct(plotting_name)) %>% 
+  pivot_wider(names_from = c(area),
+              names_sep = "_",
+              values_from = richness,
+              values_fill = 0) %>% 
+  pivot_longer(cols = 3:16,
+               names_to = "area",
+               values_to = "richness") %>% 
+  mutate(area = as.numeric(area)) %>% 
+  right_join(area_info, by = c("area", "stage"))
+```
+
+    ## `summarise()` has grouped output by 'stage', 'area'. You can override using the
+    ## `.groups` argument.
+
+``` r
+#the mean taxonomic richness and SE per phylum per stage
+mean_richness_stage <- mean_richness_area %>% 
+  group_by(Phylum, stage) %>% 
+  summarise(mean_richness = mean(richness),
+            sd_richness = sd(richness, na.rm = TRUE),
+            se_richness = std.error(richness, na.rm = TRUE))
+```
+
+    ## `summarise()` has grouped output by 'Phylum'. You can override using the
+    ## `.groups` argument.
+
+``` r
+#species richness by phylum for all stages, i.e. overall richness across all stages by phylum
+mean_density_area_full %>% 
+  group_by(Phylum) %>% 
+  filter(avg_density > 0) %>% 
   summarise(count = n_distinct(plotting_name))
 ```
 
-    ## # A tibble: 4 x 2
+    ## # A tibble: 6 × 2
+    ##   Phylum     count
+    ##   <chr>      <int>
+    ## 1 Annelida       3
+    ## 2 Arthropoda    18
+    ## 3 Bryozoa        5
+    ## 4 Chordata       3
+    ## 5 Cnidaria       2
+    ## 6 Mollusca       4
+
+``` r
+#species richness by stage for all phyla, i.e. overall richness for each stage
+mean_density_area_full %>% 
+  group_by(stage) %>% 
+  filter(avg_density > 0) %>% 
+  summarise(count = n_distinct(plotting_name))
+```
+
+    ## # A tibble: 4 × 2
     ##   stage count
     ##   <dbl> <int>
     ## 1     1    22
-    ## 2     2    23
+    ## 2     2    21
     ## 3     3     9
     ## 4     4    16
+
+``` r
+#total density per stage
+mean_density_area_full %>% 
+  group_by(area, stage) %>% 
+  summarise(total_density = sum(avg_density)) %>% #gives the total density of all taxa in each area
+  group_by(stage) %>% 
+  summarise(avg_total_density = mean(total_density),
+            se_density = std.error(total_density)) #gives the mean total density across areas for each stage
+```
+
+    ## `summarise()` has grouped output by 'area'. You can override using the
+    ## `.groups` argument.
+
+    ## # A tibble: 4 × 3
+    ##   stage avg_total_density se_density
+    ##   <dbl>             <dbl>      <dbl>
+    ## 1     1             226.        92.0
+    ## 2     2             181.        89.5
+    ## 3     3              49.5       20.1
+    ## 4     4             260.       147.
+
+``` r
+#Overall mean richness per stage (i.e. each area within a stage had, on average x taxa)
+mean_density_area_full %>% 
+  group_by(stage, area) %>% 
+  filter(avg_density > 0) %>% 
+  summarise(richness = n_distinct(plotting_name)) %>% 
+  pivot_wider(names_from = c(area),
+              names_sep = "_",
+              values_from = richness,
+              values_fill = 0) %>% 
+  pivot_longer(cols = 2:15,
+               names_to = "area",
+               values_to = "richness") %>% 
+  mutate(area = as.numeric(area)) %>% 
+  right_join(area_info, by = c("area", "stage")) %>% 
+  summarise(mean_richness = mean(richness),
+            se_richness = std.error(richness, na.rm = TRUE))
+```
+
+    ## `summarise()` has grouped output by 'stage'. You can override using the
+    ## `.groups` argument.
+
+    ## # A tibble: 4 × 3
+    ##   stage mean_richness se_richness
+    ##   <dbl>         <dbl>       <dbl>
+    ## 1     1            13        2.89
+    ## 2     2            11        4.93
+    ## 3     3             4        1.29
+    ## 4     4             8        4.36
 
 # Creating a heatmap with dendrograms
 
@@ -418,7 +548,7 @@ dend <- as.dendrogram(hclust(vegdist(community_matrix, method = "bray")))
 dend_data <- dendro_data(dend)
 ```
 
-#### Setup the data, so that the layout is inverted (this is more “clear” than simply using coord\_flip())
+#### Setup the data, so that the layout is inverted (this is more “clear” than simply using coord_flip())
 
 ``` r
 segment_data <- with(
@@ -490,7 +620,7 @@ heatmap_data <- community_matrix %>%
   left_join(species_pos_table, by = "taxon")
 ```
 
-    ## Joining, by = "id"
+    ## Joining with `by = join_by(id)`
 
 ``` r
 # changing 0 to NA so that samples/samples with low density appear different to those with none.
@@ -528,16 +658,16 @@ plt_hmap <- ggplot(heatmap_data,
                      ) + 
   labs(x = "Taxa", y = "") +
   theme_bw() +
-  theme(axis.text.x = element_text(color=species_pos_table$labs_colour, size = rel(0.8), hjust = 1, angle = 45), 
+  theme(axis.text.x = element_text(color=species_pos_table$labs_colour, size = rel(0.9), face = "bold", hjust = 1, angle = 45), 
         # margin: top, right, bottom, and left
         plot.margin = unit(c(1, 0.2, 0.2, -0.7), "cm"), 
         panel.grid.minor = element_blank(),
-        legend.position = "right",
-        legend.direction = "vertical")
+        legend.position = "bottom",
+        legend.direction = "horizontal")
 ```
 
     ## Warning: Vectorized input to `element_text()` is not officially supported.
-    ## Results may be unexpected or may change in future versions of ggplot2.
+    ## ℹ Results may be unexpected or may change in future versions of ggplot2.
 
 ``` r
 plt_hmap
@@ -560,8 +690,8 @@ plt_dendr <- ggplot(segment_data) +
   theme_bw() + 
   theme(panel.grid.minor = element_blank()) +
   theme(#axis.text.y = element_text(face = "bold"),
-        legend.position = "left",
-        legend.direction = "vertical")
+        legend.position = "bottom",
+        legend.direction = "horizontal")
 plt_dendr
 ```
 
@@ -598,9 +728,10 @@ plotting_names %>%
   head()
 ```
 
-    ## `summarise()` has grouped output by 'id', 'plotting_name', 'area'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'id', 'plotting_name', 'area'. You can
+    ## override using the `.groups` argument.
 
-    ## # A tibble: 6 x 5
+    ## # A tibble: 6 × 5
     ## # Groups:   id, plotting_name, area [6]
     ##   id    plotting_name    area stage avg_density
     ##   <chr> <chr>           <dbl> <dbl>       <dbl>
@@ -612,6 +743,7 @@ plotting_names %>%
     ## 6 19_2  Jassa marmorata    19     2        244.
 
 ``` r
+#Density per taxon from each sample in stage 4
 plotting_names %>% 
   group_by(id, plotting_name, area, stage) %>% 
   summarise(avg_density = sum(avg_density)) %>%
@@ -619,20 +751,21 @@ plotting_names %>%
   filter(stage == 4)
 ```
 
-    ## `summarise()` has grouped output by 'id', 'plotting_name', 'area'. You can override using the `.groups` argument.
+    ## `summarise()` has grouped output by 'id', 'plotting_name', 'area'. You can
+    ## override using the `.groups` argument.
 
-    ## # A tibble: 45 x 5
+    ## # A tibble: 45 × 5
     ## # Groups:   id, plotting_name, area [45]
-    ##    id    plotting_name          area stage avg_density
-    ##    <chr> <chr>                 <dbl> <dbl>       <dbl>
-    ##  1 26_2  Jassa marmorata          26     4       611. 
-    ##  2 26_1  Jassa marmorata          26     4       610. 
-    ##  3 18_2  Jassa marmorata          18     4       204. 
-    ##  4 26_2  Mytilus                  26     4       142. 
-    ##  5 26_3  Jassa marmorata          26     4       132. 
-    ##  6 26_1  Mytilus                  26     4       103. 
-    ##  7 25_2  Jassa marmorata          25     4        88.9
-    ##  8 25_2  Tricellaria inopinata    25     4        37.3
-    ##  9 18_1  Jassa marmorata          18     4        31.2
-    ## 10 26_3  Mytilus                  26     4        28.5
-    ## # … with 35 more rows
+    ##    id    plotting_name    area stage avg_density
+    ##    <chr> <chr>           <dbl> <dbl>       <dbl>
+    ##  1 26_2  Jassa marmorata    26     4       611. 
+    ##  2 26_1  Jassa marmorata    26     4       610. 
+    ##  3 18_2  Jassa marmorata    18     4       204. 
+    ##  4 26_2  Mytilus            26     4       142. 
+    ##  5 26_3  Jassa marmorata    26     4       132. 
+    ##  6 26_1  Mytilus            26     4       103. 
+    ##  7 25_2  Jassa marmorata    25     4        88.9
+    ##  8 25_2  Tricellaria sp.    25     4        37.3
+    ##  9 18_1  Jassa marmorata    18     4        31.2
+    ## 10 26_3  Mytilus            26     4        28.5
+    ## # ℹ 35 more rows
