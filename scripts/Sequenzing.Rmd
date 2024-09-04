@@ -1,0 +1,32 @@
+---
+title: "Sequenzing"
+author: "LenaBlum"
+date: "2024-02-22"
+output: github_document
+---
+
+output github nice on github
+output html nice on html
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(sangeranalyseR)
+```
+
+
+
+```{r cars}
+my_aligned_contigs <- SangerAlignment(ABIF_Directory      = "./data/",
+                                      REGEX_SuffixForward = "_[0-9]*_F.ab1$",
+                                      REGEX_SuffixReverse = "_[0-9]*_R.ab1$")
+launchApp(my_aligned_contigs)
+writeFasta(my_aligned_contigs, outputDir = "./outputs/")
+generateReport(my_aligned_contigs,
+               outputDir           = "./outputs/",
+               includeSangerRead   = TRUE,
+               includeSangerContig = TRUE)
+```
+
+
+
+
+
