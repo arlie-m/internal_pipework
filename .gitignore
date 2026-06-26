@@ -11,3 +11,5 @@ data/original_sequences/
 data/taxon_count_data_internal_pipework.csv
 data/taxon_count_data_internal_pipework.xlsx
 outputs/heat_dend_plot 2.png
+scripts/Sequenzing.Rmd
+scripts/2-JoshAnalysis.R
