@@ -1,0 +1,12 @@
+{
+  "title": "Ship Internal Pipework Data",
+  "upload_type": "dataset",
+  "description": "Data files for the project examining the internal seawater systems of a polar research vessel.",
+  "keywords": ["data", "project"],
+  "files": [
+    "data/community_matrix.csv",
+    "data/site_info.csv",
+    "data/taxon_count_data_internal_pipework.csv",
+    "data/renamedsequences/"
+  ]
+}
