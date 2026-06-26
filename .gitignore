@@ -7,7 +7,9 @@ internal_pipework.Rproj
 data/community_matrix.csv
 data/site_info.csv
 data/original_sequences/
+data/renamed_sequences/
 data/taxon_count_data_internal_pipework.csv
 data/taxon_count_data_internal_pipework.xlsx
 outputs/heat_dend_plot 2.png
 scripts/old_scripts
+outputs/renamed_sequences_fasta/

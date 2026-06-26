@@ -1,19 +1,11 @@
----
-title: "3-Barcoding"
-author: "Arlie McCarthy"
-date: '`r Sys.Date()`'
-output: github_document
----
-
-```{r setup, include=FALSE, , eval=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library(sangeranalyseR)
-library(tidyverse)
-```
+3-Barcoding
+================
+Arlie McCarthy
+2026-06-26
 
 ## Importing the sequence files
 
-```{r cars, eval=FALSE}
+``` r
 # Set the directory containing the sequence files
 dir <- here::here("data", "renamed_sequences")
 
@@ -49,8 +41,7 @@ sanger_reads <- lapply(files, function(file) {
 
 # Save processed and trimmed sequences
 
-```{r save_processed_sequences, eval=FALSE}
+``` r
 lapply(sanger_reads, qualityBasePlot)
 lapply(sanger_reads, writeFastaSR, outputDir = here::here("outputs", "renamed_sequences_fasta"))
 ```
-

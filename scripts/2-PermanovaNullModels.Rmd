@@ -2,7 +2,7 @@
 title: "2-PermanovaNullModels"
 author: "Arlie McCarthy"
 date: "25/06/2021"
-output: html_document
+output: github_document
 ---
 
 # Statistical analysis using PERMANOVA and Null Models
